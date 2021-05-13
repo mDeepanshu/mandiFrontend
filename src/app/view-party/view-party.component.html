@@ -1,1 +1,109 @@
-<p>view-party works!</p>
+<div class="container">
+  <div class="firstDiv">
+    <div class="row">
+      <div class="col-9">
+        <div class="row">
+          <div class="col">
+            <div class="form-floating mb-3">
+              <input
+                type="email"
+                class="form-control"
+                id="floatingInput"
+                placeholder="name@example.com"
+              />
+              <label for="floatingInput">Party Name</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-floating mb-3">
+              <input
+                type="email"
+                class="form-control"
+                id="floatingInput"
+                placeholder="name@example.com"
+              />
+              <label for="floatingInput">Curr</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="form-floating mb-3">
+              <input
+                type="email"
+                class="form-control"
+                id="floatingInput"
+                placeholder="name@example.com"
+              />
+              <label for="floatingInput">Mobile Number</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-floating mb-3">
+              <input
+                type="email"
+                class="form-control"
+                id="floatingInput"
+                placeholder="name@example.com"
+              />
+              <label for="floatingInput">Address</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="row">
+          <div class="col">
+            <button type="button" class="btn btn-primary topButton">
+              Find
+            </button>
+          </div>
+          <div class="col">
+            <button type="button" class="btn btn-primary topButton">
+              Save
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <button type="button" class="btn btn-primary topButton">
+              History
+            </button>
+          </div>
+          <div class="col">
+            <button type="button" class="btn btn-primary topButton">
+              Print
+            </button>
+          </div>
+        </div>
+        <div class="row bottomButton">
+          <button type="button" class="btn btn-primary">Delete</button>
+        </div>
+        <div class="row bottomButton">
+          <button
+            type="button"
+            class="btn btn-primary"
+            printSectionId="toP"
+            ngxPrint
+          >
+            New
+          </button>
+        </div>
+        <div class="row bottomButton">
+          <button type="button" class="btn btn-primary">Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="toP" hidden>
+  <h1 style="text-align: center">Dukan ka naam</h1>
+  <hr />
+  <div class="container">
+    <div class="row">
+      <div class="col"><h3>Party Name</h3></div>
+      <div class="col"><h3>Opening</h3></div>
+    </div>
+    <hr />
+  </div>
+</div>

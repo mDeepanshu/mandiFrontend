@@ -13,6 +13,8 @@ import { LoginComponent } from './login/login.component';
 import { CrateComponent } from './crate/crate.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PartyCollectionComponent } from './party-collection/party-collection.component';
+import { NgxPrintModule } from 'ngx-print';
+
 const routes: Routes = [
   { path: '', component: PurchaseComponent },
   { path: 'partyCollection-component', component: PartyCollectionComponent },
@@ -40,6 +42,7 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
+    NgxPrintModule,
     HttpClientModule,
     AppRoutingModule,
     RouterModule.forRoot(routes),
