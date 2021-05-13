@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MainServiceService {
+  constructor(private http: HttpClient) {}
 
-  constructor() { }
+  // addParty(){
+  //   return this.http.get();
+  // }
 }

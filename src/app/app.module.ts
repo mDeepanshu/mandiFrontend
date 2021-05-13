@@ -11,7 +11,8 @@ import { AddPartyComponent } from './add-party/add-party.component';
 import { ViewPartyComponent } from './view-party/view-party.component';
 import { LoginComponent } from './login/login.component';
 import { CrateComponent } from './crate/crate.component';
-
+import { HttpClientModule } from '@angular/common/http';
+import { PartyCollectionComponent } from './party-collection/party-collection.component';
 const routes: Routes = [
   { path: '', component: PurchaseComponent },
   { path: 'mainMenu-component', component: MainMenuComponent },
@@ -33,8 +34,14 @@ const routes: Routes = [
     ViewPartyComponent,
     LoginComponent,
     CrateComponent,
+    PartyCollectionComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, RouterModule.forRoot(routes)],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    RouterModule.forRoot(routes),
+  ],
   exports: [RouterModule],
   providers: [],
   bootstrap: [AppComponent],
