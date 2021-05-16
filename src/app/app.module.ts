@@ -14,6 +14,7 @@ import { CrateComponent } from './crate/crate.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PartyCollectionComponent } from './party-collection/party-collection.component';
 import { NgxPrintModule } from 'ngx-print';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: PurchaseComponent },
@@ -42,6 +43,7 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     NgxPrintModule,
     HttpClientModule,
     AppRoutingModule,

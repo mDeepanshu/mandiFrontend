@@ -3,13 +3,12 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-view-purchase',
   templateUrl: './view-purchase.component.html',
-  styleUrls: ['./view-purchase.component.css']
+  styleUrls: ['./view-purchase.component.css'],
 })
 export class ViewPurchaseComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
+  public type: boolean = false;
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

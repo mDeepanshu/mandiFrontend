@@ -1,5 +1,5 @@
 <div class="firstDiv">
-  <form class="mainForm">
+  <form class="mainForm" [formGroup]="projectForm" (ngSubmit)="onSaveForm()">
     <div>
       <!-- UID -->
       <label class="form-label">UID</label>
@@ -58,6 +58,7 @@
         <input
           type="text"
           class="form-control"
+          formControlName="name"
           aria-label="Sizing example input"
           aria-describedby="inputGroup-sizing-sm"
         />
@@ -67,6 +68,7 @@
         <input
           type="text"
           class="form-control"
+          formControlName="address"
           aria-label="Sizing example input"
           aria-describedby="inputGroup-sizing-sm"
         />
@@ -78,6 +80,7 @@
         <input
           type="text"
           class="form-control"
+          formControlName="commission"
           aria-label="Sizing example input"
           aria-describedby="inputGroup-sizing-sm"
         />
@@ -87,6 +90,7 @@
         <input
           type="text"
           class="form-control"
+          formControlName="phone"
           aria-label="Sizing example input"
           aria-describedby="inputGroup-sizing-sm"
         />
@@ -96,6 +100,7 @@
         <input
           type="text"
           class="form-control"
+          formControlName="balance"
           aria-label="Sizing example input"
           aria-describedby="inputGroup-sizing-sm"
         />
@@ -103,7 +108,7 @@
     </div>
     <!-- buttons -->
     <button type="button" class="btn btn-primary">New</button>
-    <button type="button" class="btn btn-primary" style="margin-left: 3cm">
+    <button type="submit" class="btn btn-primary" style="margin-left: 3cm">
       Save
     </button>
   </form>
