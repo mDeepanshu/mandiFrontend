@@ -18,10 +18,11 @@ export class AddPartyComponent implements OnInit {
       commission: new FormControl(),
       phone: new FormControl(),
       balance: new FormControl(),
+      radioOption: new FormControl(),
     });
   }
   onSaveForm() {
     console.log(this.projectForm.value);
-    this.mainService.addParty(this.projectForm.value);
+    // this.mainService.addParty(this.projectForm.value);
   }
 }

@@ -2,10 +2,191 @@
   <div class="row justify-content-between">
     <div class="col-10">
       <div class="firstDiv">
-        <div class="row">
-          <div class="col"><label class="form-label">PART NAME</label></div>
-          <div class="col">
-            <div class="input-group mb-3">
+        <div class="mainForm">
+          <div class="row">
+            <div class="col"><label class="form-label">PARTY NAME</label></div>
+            <div class="col">
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  #username
+                  (input)="partyName(username.value)"
+                  class="form-control"
+                  placeholder="Username"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- 11 input group -->
+          <hr />
+          <div class="row">
+            <div class="col"><label class="form-label">Bill Number</label></div>
+            <div class="col"><label class="form-label">Date</label></div>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label for="floatingInput">Bhada</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label for="floatingInput">Hammali</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label for="floatingInput">Cash</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label for="floatingInput">Commission Rate</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label for="floatingInput">Bhada Rate</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label for="floatingInput">Commision</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label for="floatingInput">Tax</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label for="floatingInput">Station Charge</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label for="floatingInput">Driver</label>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">ITEM</th>
+                  <th scope="col">BAG</th>
+                  <th scope="col">QUANTITY</th>
+                  <th scope="col">RATE</th>
+                  <th scope="col">AMOUNT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td colspan="2">Larry the Bird</td>
+                  <td>@twitter</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <th scope="row">4</th>
+                  <td colspan="2">Larry the Bird</td>
+                  <td>@twitter</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <th scope="row">5</th>
+                  <td colspan="2">Larry the Bird</td>
+                  <td>@twitter</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="row" style="margin-top: 30mm">
+            <div class="col">
+              <label class="form-label">Total Expense</label>
               <input
                 type="text"
                 class="form-control"
@@ -14,203 +195,26 @@
                 aria-describedby="basic-addon1"
               />
             </div>
-          </div>
-        </div>
-        <!-- 11 input group -->
-        <hr />
-        <div class="row">
-          <div class="col"><label class="form-label">Bill Number</label></div>
-          <div class="col"><label class="form-label">Date</label></div>
-          <div class="col">
-            <div class="form-floating mb-3">
+            <div class="col">
+              <label class="form-label">Bill Total</label>
               <input
-                type="email"
+                type="text"
                 class="form-control"
-                id="floatingInput"
-                placeholder="name@example.com"
+                placeholder="Username"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
               />
-              <label for="floatingInput">Bhada</label>
             </div>
-          </div>
-          <div class="col">
-            <div class="form-floating mb-3">
+            <div class="col">
+              <label class="form-label">Net Amount</label>
               <input
-                type="email"
+                type="text"
                 class="form-control"
-                id="floatingInput"
-                placeholder="name@example.com"
+                placeholder="Username"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
               />
-              <label for="floatingInput">Hammali</label>
             </div>
-          </div>
-          <div class="col">
-            <div class="form-floating mb-3">
-              <input
-                type="email"
-                class="form-control"
-                id="floatingInput"
-                placeholder="name@example.com"
-              />
-              <label for="floatingInput">Cash</label>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="form-floating mb-3">
-              <input
-                type="email"
-                class="form-control"
-                id="floatingInput"
-                placeholder="name@example.com"
-              />
-              <label for="floatingInput">Commission Rate</label>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-floating mb-3">
-              <input
-                type="email"
-                class="form-control"
-                id="floatingInput"
-                placeholder="name@example.com"
-              />
-              <label for="floatingInput">Bhada Rate</label>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-floating mb-3">
-              <input
-                type="email"
-                class="form-control"
-                id="floatingInput"
-                placeholder="name@example.com"
-              />
-              <label for="floatingInput">Commision</label>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="form-floating mb-3">
-              <input
-                type="email"
-                class="form-control"
-                id="floatingInput"
-                placeholder="name@example.com"
-              />
-              <label for="floatingInput">Tax</label>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-floating mb-3">
-              <input
-                type="email"
-                class="form-control"
-                id="floatingInput"
-                placeholder="name@example.com"
-              />
-              <label for="floatingInput">Station Charge</label>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-floating mb-3">
-              <input
-                type="email"
-                class="form-control"
-                id="floatingInput"
-                placeholder="name@example.com"
-              />
-              <label for="floatingInput">Driver</label>
-            </div>
-          </div>
-        </div>
-        <hr />
-        <div class="row"></div>
-        <div class="row"></div>
-        <div class="row">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">ITEM</th>
-                <th scope="col">BAG</th>
-                <th scope="col">QUANTITY</th>
-                <th scope="col">RATE</th>
-                <th scope="col">AMOUNT</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="row" style="margin-top: 30mm">
-          <div class="col">
-            <label class="form-label">Total Expense</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Username"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
-            />
-          </div>
-          <div class="col">
-            <label class="form-label">Bill Total</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Username"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
-            />
-          </div>
-          <div class="col">
-            <label class="form-label">Net Amount</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Username"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
-            />
           </div>
         </div>
       </div>
