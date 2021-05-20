@@ -1,10 +1,13 @@
 <div class="container">
-  <div class="row justify-content-between">
-    <div class="col-10">
-      <div class="firstDiv">
+  <form [formGroup]="purchaseForm" (ngSubmit)="onSubmit()">
+    <div class="row justify-content-between">
+      <!-- <div class="col-10"> -->
+      <div class="col-10 firstDiv">
         <div class="mainForm">
           <div class="row">
-            <div class="col"><label class="form-label">PARTY NAME</label></div>
+            <div class="col">
+              <label class="form-label">PARTY NAME</label>
+            </div>
             <div class="col">
               <div class="input-group mb-3">
                 <input
@@ -13,124 +16,170 @@
                   (input)="partyName(username.value)"
                   class="form-control"
                   placeholder="Username"
-                  aria-label="Username"
-                  aria-describedby="basic-addon1"
                 />
               </div>
             </div>
           </div>
           <!-- 11 input group -->
           <hr />
-          <div class="row">
-            <div class="col"><label class="form-label">Bill Number</label></div>
-            <div class="col"><label class="form-label">Date</label></div>
-            <div class="col">
-              <div class="form-floating mb-3">
-                <input
-                  type="email"
-                  class="form-control"
-                  id="floatingInput"
-                  placeholder="name@example.com"
-                />
-                <label for="floatingInput">Bhada</label>
+          <div formGroupName="setOne">
+            <div class="row">
+              <div class="col">
+                <label class="form-label">Bill Number</label>
+              </div>
+              <div class="col"><label class="form-label">Date</label></div>
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input
+                    class="form-control"
+                    formControlName="bhada"
+                    id="floatingInput"
+                    placeholder=""
+                  />
+                  <label for="floatingInput">Bhada</label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input
+                    class="form-control"
+                    id="floatingInput"
+                    formControlName="hammali"
+                    placeholder=""
+                  />
+                  <label for="floatingInput">Hammali</label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input
+                    class="form-control"
+                    id="floatingInput"
+                    formControlName="cash"
+                    placeholder=""
+                  />
+                  <label for="floatingInput">Cash</label>
+                </div>
               </div>
             </div>
-            <div class="col">
-              <div class="form-floating mb-3">
-                <input
-                  type="email"
-                  class="form-control"
-                  id="floatingInput"
-                  placeholder="name@example.com"
-                />
-                <label for="floatingInput">Hammali</label>
+            <div class="row">
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input
+                    class="form-control"
+                    id="floatingInput"
+                    formControlName="commRate"
+                    placeholder=""
+                  />
+                  <label for="floatingInput">Commission Rate</label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input
+                    class="form-control"
+                    id="floatingInput"
+                    formControlName="bhadaRate"
+                    placeholder=""
+                  />
+                  <label for="floatingInput">Bhada Rate</label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input
+                    class="form-control"
+                    id="floatingInput"
+                    formControlName="comm"
+                    placeholder=""
+                  />
+                  <label for="floatingInput">Commision</label>
+                </div>
               </div>
             </div>
-            <div class="col">
-              <div class="form-floating mb-3">
-                <input
-                  type="email"
-                  class="form-control"
-                  id="floatingInput"
-                  placeholder="name@example.com"
-                />
-                <label for="floatingInput">Cash</label>
+            <div class="row">
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input
+                    class="form-control"
+                    id="floatingInput"
+                    formControlName="tax"
+                    placeholder=""
+                  />
+                  <label for="floatingInput">Tax</label>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-floating mb-3">
-                <input
-                  type="email"
-                  class="form-control"
-                  id="floatingInput"
-                  placeholder="name@example.com"
-                />
-                <label for="floatingInput">Commission Rate</label>
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input
+                    class="form-control"
+                    id="floatingInput"
+                    formControlName="stationCharge"
+                    placeholder=""
+                  />
+                  <label for="floatingInput">Station Charge</label>
+                </div>
               </div>
-            </div>
-            <div class="col">
-              <div class="form-floating mb-3">
-                <input
-                  type="email"
-                  class="form-control"
-                  id="floatingInput"
-                  placeholder="name@example.com"
-                />
-                <label for="floatingInput">Bhada Rate</label>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-floating mb-3">
-                <input
-                  type="email"
-                  class="form-control"
-                  id="floatingInput"
-                  placeholder="name@example.com"
-                />
-                <label for="floatingInput">Commision</label>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-floating mb-3">
-                <input
-                  type="email"
-                  class="form-control"
-                  id="floatingInput"
-                  placeholder="name@example.com"
-                />
-                <label for="floatingInput">Tax</label>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-floating mb-3">
-                <input
-                  type="email"
-                  class="form-control"
-                  id="floatingInput"
-                  placeholder="name@example.com"
-                />
-                <label for="floatingInput">Station Charge</label>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-floating mb-3">
-                <input
-                  type="email"
-                  class="form-control"
-                  id="floatingInput"
-                  placeholder="name@example.com"
-                />
-                <label for="floatingInput">Driver</label>
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input
+                    class="form-control"
+                    id="floatingInput"
+                    formControlName="driver"
+                    placeholder=""
+                  />
+                  <label for="floatingInput">Driver</label>
+                </div>
               </div>
             </div>
           </div>
           <hr />
-          <div class="row"></div>
-          <div class="row"></div>
+          <div class="row" formGroupName="setTwo">
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input class="form-control" formControlName="item" id="Item" />
+                <label for="floatingInput">Item</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input class="form-control" formControlName="bag" id="Bag" />
+                <label for="floatingInput">Bag</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  formControlName="quantity"
+                  id="Quantity"
+                />
+                <label for="floatingInput">Quantity</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input class="form-control" formControlName="rate" id="Rate" />
+                <label for="floatingInput">Rate</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  formControlName="amount"
+                  id="Amount"
+                />
+                <label for="floatingInput">Amount</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <button type="button" (click)="addNew()" class="btn btn-warning">
+              Add
+            </button>
+          </div>
+          <hr />
           <div class="row">
             <table class="table">
               <thead>
@@ -144,42 +193,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td colspan="2">Larry the Bird</td>
-                  <td>@twitter</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">4</th>
-                  <td colspan="2">Larry the Bird</td>
-                  <td>@twitter</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">5</th>
-                  <td colspan="2">Larry the Bird</td>
-                  <td>@twitter</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
+                <tr *ngFor="let item of tableArr; index as i">
+                  <th scope="row">{{ i + 1 }}</th>
+                  <td>{{ item.item }}</td>
+                  <td>{{ item.bag }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>{{ item.rate }}</td>
+                  <td>{{ item.amount }}</td>
                 </tr>
               </tbody>
             </table>
@@ -187,62 +207,48 @@
           <div class="row" style="margin-top: 30mm">
             <div class="col">
               <label class="form-label">Total Expense</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Username"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-              />
+              <input type="text" class="form-control" />
             </div>
             <div class="col">
               <label class="form-label">Bill Total</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Username"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-              />
+              <input type="text" class="form-control" />
             </div>
             <div class="col">
               <label class="form-label">Net Amount</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Username"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-              />
+              <input type="text" class="form-control" />
             </div>
           </div>
         </div>
       </div>
+      <!-- </div> -->
+      <div class="col-2">
+        <div class="row" class="sideButtons">
+          <button type="button" class="btn btn-primary" style="width: 50mm">
+            View
+          </button>
+        </div>
+        <div
+          class="row"
+          style="margin-top: 80mm; margin-left: 3px; width: 49mm"
+        >
+          <button type="button" class="btn btn-primary">Calculate</button>
+        </div>
+        <div class="row" class="sideButtons">
+          <button type="submit" class="btn btn-primary" style="width: 50mm">
+            Save and Print
+          </button>
+        </div>
+        <div class="row" class="sideButtons">
+          <button type="button" class="btn btn-primary" style="width: 50mm">
+            Discard\New
+          </button>
+        </div>
+        <div class="row" class="sideButtons">
+          <button type="button" class="btn btn-primary" style="width: 50mm">
+            Back
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="col-2">
-      <div class="row" class="sideButtons">
-        <button type="button" class="btn btn-primary" style="width: 50mm">
-          View
-        </button>
-      </div>
-      <div class="row" style="margin-top: 80mm; margin-left: 3px; width: 49mm">
-        <button type="button" class="btn btn-primary">Calculate</button>
-      </div>
-      <div class="row" class="sideButtons">
-        <button type="button" class="btn btn-primary" style="width: 50mm">
-          Save and Print
-        </button>
-      </div>
-      <div class="row" class="sideButtons">
-        <button type="button" class="btn btn-primary" style="width: 50mm">
-          Discard\New
-        </button>
-      </div>
-      <div class="row" class="sideButtons">
-        <button type="button" class="btn btn-primary" style="width: 50mm">
-          Back
-        </button>
-      </div>
-    </div>
-  </div>
+  </form>
 </div>
