@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PartyCollectionComponent } from './party-collection/party-collection.component';
 import { NgxPrintModule } from 'ngx-print';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SellComponent } from './sell/sell.component';
 
 const routes: Routes = [
   { path: '', component: PurchaseComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'login-component', component: LoginComponent },
   { path: 'crate-component', component: CrateComponent },
   { path: 'addParty-component', component: AddPartyComponent },
+  { path: 'sell-component', component: SellComponent },
 ];
 
 @NgModule({
@@ -40,6 +42,7 @@ const routes: Routes = [
     LoginComponent,
     CrateComponent,
     PartyCollectionComponent,
+    SellComponent,
   ],
   imports: [
     BrowserModule,

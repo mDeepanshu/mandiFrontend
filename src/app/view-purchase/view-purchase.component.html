@@ -12,6 +12,7 @@
                 name="inlineRadioOptions"
                 id="inlineRadio1"
                 value="option1"
+                (change)="typeChange('one')"
               />
               <label class="form-check-label" for="inlineRadio1">Party</label>
             </div>
@@ -23,6 +24,7 @@
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio2"
+                (change)="typeChange('two')"
                 value="option2"
               />
               <label class="form-check-label" for="inlineRadio2">Date</label>
@@ -35,6 +37,7 @@
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio3"
+                (change)="typeChange('three')"
                 value="option3"
               />
               <label class="form-check-label" for="inlineRadio3">Bill</label>
@@ -48,7 +51,7 @@
               <input
                 type="text"
                 class="form-control"
-                placeholder="Username"
+                [placeholder]="placeholder"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
               />
