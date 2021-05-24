@@ -9,7 +9,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class PurchaseComponent implements OnInit {
   constructor(private mainService: MainServiceService) {}
-
   purchaseForm: FormGroup;
   public tableArr: Array<any> = [];
   ngOnInit() {
@@ -35,12 +34,13 @@ export class PurchaseComponent implements OnInit {
     });
   }
   public timer;
+  //
 
   partyName(val) {
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
       console.log(val);
-      this.mainService.autoCompleteName(val, '', '');
+      this.mainService.findParty(val);
     }, 1000);
   }
   addNew() {

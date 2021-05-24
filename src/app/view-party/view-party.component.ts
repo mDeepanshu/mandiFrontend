@@ -9,6 +9,7 @@ export class ViewPartyComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+  public tableArr: Array<any> = [];
 
   print() {
     const printContent = document.getElementById('toP');

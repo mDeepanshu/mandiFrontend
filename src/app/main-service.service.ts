@@ -4,12 +4,12 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class MainServiceService {
-  public url: string = '192.168.1.8:3000';
+  public url: string = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}
 
   addParty(body) {
-    this.http.post(`${this.url}/party/addparty`, body).subscribe((res) => {
+    this.http.post(`${this.url}/party/add_new`, body).subscribe((res) => {
       console.log(res);
     });
   }
@@ -26,12 +26,14 @@ export class MainServiceService {
       });
   }
   autoCompleteName(keyword, limit, type) {
+    console.log('one');
+
     this.http
       .get(
-        `${this.url}/party/autocomplete_name?keyword=${keyword}&limit=${limit}&types=${type}`
+        `${this.url}/party/autocomplete_name?keyword=${keyword}&limit=10&types=0&types=1&types=2&types=3`
       )
       .subscribe((res) => {
-        console.log(res);
+        console.log('res');
       });
   }
   addPurchase(body) {

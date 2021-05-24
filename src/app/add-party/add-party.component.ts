@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MainServiceService } from '../main-service.service';
+import { Party } from '../models/party.model';
+
 @Component({
   selector: 'app-add-party',
   templateUrl: './add-party.component.html',
@@ -8,7 +10,7 @@ import { MainServiceService } from '../main-service.service';
 })
 export class AddPartyComponent implements OnInit {
   projectForm: FormGroup;
-
+  Party: Party;
   constructor(private mainService: MainServiceService) {}
 
   ngOnInit() {
@@ -17,12 +19,13 @@ export class AddPartyComponent implements OnInit {
       address: new FormControl(),
       commission: new FormControl(),
       phone: new FormControl(),
-      balance: new FormControl(),
-      radioOption: new FormControl(),
+      starting: new FormControl(),
+      type: new FormControl(),
     });
   }
   onSaveForm() {
-    console.log(this.projectForm.value);
-    // this.mainService.addParty(this.projectForm.value);
+    this.Party = this.projectForm.value;
+    console.log(this.Party);
+    this.mainService.addParty(this.Party);
   }
 }
