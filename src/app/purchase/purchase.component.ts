@@ -60,12 +60,5 @@ export class PurchaseComponent implements OnInit {
     console.log(this.purchaseForm.value);
   }
   //
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.options.filter((option) =>
-      option.toLowerCase().includes(filterValue)
-    );
-  }
   //
 }

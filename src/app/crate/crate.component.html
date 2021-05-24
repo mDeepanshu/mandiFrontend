@@ -42,7 +42,14 @@
               class="form-control"
               id="floatingInput"
               placeholder="Party Name"
+              matInput
+              [matAutocomplete]="auto"
             />
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of options" [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-autocomplete>
             <label for="floatingInput">Party Name</label>
           </div>
         </div>
@@ -113,7 +120,14 @@
                     class="form-control"
                     id="floatingInput"
                     placeholder=""
+                    matInput
+                    [matAutocomplete]="auto"
                   />
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of options" [value]="option">
+                      {{ option }}
+                    </mat-option>
+                  </mat-autocomplete>
                   <label for="floatingInput">Party Name</label>
                 </div>
               </div>

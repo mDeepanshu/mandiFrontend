@@ -12,6 +12,7 @@ export class SellComponent implements OnInit {
   public tableArr: Array<any> = [];
   sellForm: FormGroup;
   public timer;
+  options: string[] = ['One', 'Two', 'Three'];
 
   ngOnInit() {
     this.sellForm = new FormGroup({
