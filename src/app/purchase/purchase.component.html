@@ -6,17 +6,30 @@
         <div class="mainForm">
           <div class="row">
             <div class="col">
-              <label class="form-label">PARTY NAME</label>
-            </div>
-            <div class="col">
               <div class="input-group mb-3">
-                <input
+                <!-- <input
                   type="text"
                   #username
                   (input)="partyName(username.value)"
                   class="form-control"
                   placeholder="Party Name"
-                />
+                /> -->
+                <mat-form-field>
+                  <input
+                    type="text"
+                    placeholder="PARTY NAME"
+                    #username
+                    (input)="partyName(username.value)"
+                    matInput
+                    [matAutocomplete]="auto"
+                    style="width: 6cm"
+                  />
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of options" [value]="option">
+                      {{ option }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
               </div>
             </div>
           </div>
@@ -252,3 +265,4 @@
     </div>
   </form>
 </div>
+<form></form>

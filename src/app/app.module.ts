@@ -16,6 +16,10 @@ import { PartyCollectionComponent } from './party-collection/party-collection.co
 import { NgxPrintModule } from 'ngx-print';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SellComponent } from './sell/sell.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 const routes: Routes = [
   { path: '', component: PurchaseComponent },
@@ -48,10 +52,14 @@ const routes: Routes = [
     BrowserModule,
     ReactiveFormsModule,
     NgxPrintModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
     HttpClientModule,
     AppRoutingModule,
     RouterModule.forRoot(routes),
     FormsModule,
+    BrowserAnimationsModule,
   ],
   exports: [RouterModule],
   providers: [],

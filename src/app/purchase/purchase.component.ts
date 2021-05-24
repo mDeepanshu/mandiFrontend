@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MainServiceService } from '../main-service.service';
 import { FormControl, FormGroup } from '@angular/forms';
-
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 @Component({
   selector: 'app-purchase',
   templateUrl: './purchase.component.html',
@@ -11,6 +12,11 @@ export class PurchaseComponent implements OnInit {
   constructor(private mainService: MainServiceService) {}
   purchaseForm: FormGroup;
   public tableArr: Array<any> = [];
+  //
+  options: string[] = ['One', 'Two', 'Three'];
+  filteredOptions: Observable<string[]>;
+
+  //
   ngOnInit() {
     this.purchaseForm = new FormGroup({
       setOne: new FormGroup({
@@ -32,6 +38,9 @@ export class PurchaseComponent implements OnInit {
         amount: new FormControl(null),
       }),
     });
+    //
+
+    //
   }
   public timer;
   //
@@ -50,4 +59,13 @@ export class PurchaseComponent implements OnInit {
   onSubmit() {
     console.log(this.purchaseForm.value);
   }
+  //
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter((option) =>
+      option.toLowerCase().includes(filterValue)
+    );
+  }
+  //
 }
