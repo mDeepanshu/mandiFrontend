@@ -13,6 +13,12 @@ export class SellComponent implements OnInit {
   sellForm: FormGroup;
   public timer;
   options: string[] = ['One', 'Two', 'Three'];
+  public date =
+    new Date().getDate() +
+    '/' +
+    new Date().getMonth() +
+    '/' +
+    new Date().getFullYear();
 
   ngOnInit() {
     this.sellForm = new FormGroup({

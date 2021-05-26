@@ -37,20 +37,20 @@
       <div class="container">
         <div class="row" style="margin-top: 30px">
           <div class="form-floating mb-3">
-            <input
-              type="email"
-              class="form-control"
-              id="floatingInput"
-              placeholder="Party Name"
-              matInput
-              [matAutocomplete]="auto"
-            />
-            <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let option of options" [value]="option">
-                {{ option }}
-              </mat-option>
-            </mat-autocomplete>
-            <label for="floatingInput">Party Name</label>
+            <mat-form-field style="width: 100%">
+              <input
+                type="email"
+                id="floatingInput"
+                placeholder="Party Name"
+                matInput
+                [matAutocomplete]="auto"
+              />
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of options" [value]="option">
+                  {{ option }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
           </div>
         </div>
         <div class="row" style="margin-top: 30px">
@@ -115,20 +115,23 @@
             <div class="col-10">
               <div class="row">
                 <div class="form-floating mb-3">
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="floatingInput"
-                    placeholder=""
-                    matInput
-                    [matAutocomplete]="auto"
-                  />
-                  <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of options" [value]="option">
-                      {{ option }}
-                    </mat-option>
-                  </mat-autocomplete>
-                  <label for="floatingInput">Party Name</label>
+                  <mat-form-field style="width: 100%">
+                    <input
+                      type="email"
+                      id="floatingInput"
+                      placeholder="Party Name"
+                      matInput
+                      [matAutocomplete]="auto"
+                    />
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option
+                        *ngFor="let option of options"
+                        [value]="option"
+                      >
+                        {{ option }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
                 </div>
               </div>
               <div class="row">

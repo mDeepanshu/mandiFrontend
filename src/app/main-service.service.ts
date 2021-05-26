@@ -25,16 +25,17 @@ export class MainServiceService {
         console.log(res);
       });
   }
-  autoCompleteName(keyword, limit, type) {
-    console.log('one');
-
-    this.http
-      .get(
-        `${this.url}/party/autocomplete_name?keyword=${keyword}&limit=10&types=0&types=1&types=2&types=3`
-      )
-      .subscribe((res) => {
-        console.log('res');
-      });
+  async autoCompleteName(keyword, type) {
+    let p = new Promise((response, rej) => {
+      this.http
+        .get(
+          `${this.url}/party/autocomplete_name?keyword=${keyword}&limit=5&types=${type}`
+        )
+        .subscribe((res: { status; message; title }) => {
+          response(res.message);
+        });
+    });
+    return p;
   }
   addPurchase(body) {
     this.http.post(`${this.url}/purchase/add_new`, body).subscribe((res) => {

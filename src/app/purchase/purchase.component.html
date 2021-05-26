@@ -14,7 +14,7 @@
                   class="form-control"
                   placeholder="Party Name"
                 /> -->
-                <mat-form-field>
+                <mat-form-field style="width: 100%">
                   <input
                     type="text"
                     placeholder="PARTY NAME"
@@ -22,11 +22,10 @@
                     (input)="partyName(username.value)"
                     matInput
                     [matAutocomplete]="auto"
-                    style="width: 6cm"
                   />
                   <mat-autocomplete #auto="matAutocomplete">
                     <mat-option *ngFor="let option of options" [value]="option">
-                      {{ option }}
+                      {{ option.name }}
                     </mat-option>
                   </mat-autocomplete>
                 </mat-form-field>
@@ -40,7 +39,9 @@
               <div class="col">
                 <label class="form-label">Bill Number</label>
               </div>
-              <div class="col"><label class="form-label">Date</label></div>
+              <div class="col">
+                <label class="form-label">DATE - {{ date }}</label>
+              </div>
               <div class="col">
                 <div class="form-floating mb-3">
                   <input

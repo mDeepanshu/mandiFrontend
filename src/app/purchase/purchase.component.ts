@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MainServiceService } from '../main-service.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 @Component({
   selector: 'app-purchase',
   templateUrl: './purchase.component.html',
@@ -13,7 +12,14 @@ export class PurchaseComponent implements OnInit {
   purchaseForm: FormGroup;
   public tableArr: Array<any> = [];
   //
-  options: string[] = ['One', 'Two', 'Three'];
+  public date =
+    new Date().getDate() +
+    '/' +
+    new Date().getMonth() +
+    '/' +
+    new Date().getFullYear();
+  //
+  options;
   filteredOptions: Observable<string[]>;
 
   //
@@ -49,7 +55,10 @@ export class PurchaseComponent implements OnInit {
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
       console.log(val);
-      this.mainService.findParty(val);
+      this.mainService.autoCompleteName(val, 0).then((arr) => {
+        console.log(arr);
+        this.options = arr;
+      });
     }, 1000);
   }
   addNew() {
