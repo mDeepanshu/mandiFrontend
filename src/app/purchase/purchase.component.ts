@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MainServiceService } from '../main-service.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { Purchase } from '../models/purchase.model';
+import { PurchaseTable } from '../models/purchaseTable.model';
+
 @Component({
   selector: 'app-purchase',
   templateUrl: './purchase.component.html',
@@ -10,7 +13,8 @@ import { Observable } from 'rxjs';
 export class PurchaseComponent implements OnInit {
   constructor(private mainService: MainServiceService) {}
   purchaseForm: FormGroup;
-  public tableArr: Array<any> = [];
+  tableArr: PurchaseTable[] = [];
+  public purchaseDetail: Purchase;
   //
   public date =
     new Date().getDate() +
@@ -26,15 +30,15 @@ export class PurchaseComponent implements OnInit {
   ngOnInit() {
     this.purchaseForm = new FormGroup({
       setOne: new FormGroup({
-        bhada: new FormControl(null),
-        hammali: new FormControl(null),
-        cash: new FormControl(null),
-        commRate: new FormControl(null),
-        bhadaRate: new FormControl(null),
-        comm: new FormControl(null),
-        tax: new FormControl(null),
-        stationCharge: new FormControl(null),
-        driver: new FormControl(null),
+        bhada: new FormControl(1),
+        hammali: new FormControl(3),
+        cash: new FormControl(1),
+        commRate: new FormControl(2),
+        bhadaRate: new FormControl(4),
+        comm: new FormControl(6),
+        tax: new FormControl(7),
+        stationCharge: new FormControl(8),
+        driver: new FormControl(4),
       }),
       setTwo: new FormGroup({
         item: new FormControl(null),
@@ -42,6 +46,11 @@ export class PurchaseComponent implements OnInit {
         quantity: new FormControl(null),
         rate: new FormControl(null),
         amount: new FormControl(null),
+      }),
+      setThree: new FormGroup({
+        totalExpense: new FormControl(null),
+        billTotal: new FormControl(null),
+        netAmount: new FormControl(null),
       }),
     });
     //
@@ -62,11 +71,31 @@ export class PurchaseComponent implements OnInit {
     }, 1000);
   }
   addNew() {
-    console.log(this.purchaseForm.value.setTwo);
     this.tableArr.push(this.purchaseForm.value.setTwo);
+    console.log(
+      Number(this.purchaseForm.value.setThree.billTotal),
+      Number(this.purchaseForm.value.setTwo.amount)
+    );
+
+    let bag = Number(this.purchaseForm.value.setTwo.bag);
+    this.purchaseForm.patchValue({
+      setOne: {
+        hammali: bag * Number(this.purchaseForm.value.setOne.hammali),
+        bhada: bag * Number(this.purchaseForm.value.setOne.bhada),
+        tax: bag * Number(this.purchaseForm.value.setOne.tax),
+      },
+      setThree: {
+        billTotal:
+          Number(this.purchaseForm.value.setThree.billTotal) +
+          Number(this.purchaseForm.value.setTwo.amount),
+      },
+    });
   }
   onSubmit() {
-    console.log(this.purchaseForm.value);
+    this.purchaseDetail = this.purchaseForm.value.setOne;
+
+    this.purchaseDetail.items = this.tableArr;
+    console.log(this.purchaseDetail);
   }
   //
   //

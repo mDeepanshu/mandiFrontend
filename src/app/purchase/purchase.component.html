@@ -218,18 +218,33 @@
               </tbody>
             </table>
           </div>
-          <div class="row" style="margin-top: 30mm">
+          <div class="row" style="margin-top: 30mm" formGroupName="setThree">
             <div class="col">
               <label class="form-label">Total Expense</label>
-              <input type="text" class="form-control" />
+              <input
+                type="text"
+                formControlName="totalExpense"
+                class="form-control"
+                disabled
+              />
             </div>
             <div class="col">
               <label class="form-label">Bill Total</label>
-              <input type="text" class="form-control" />
+              <input
+                type="text"
+                formControlName="billTotal"
+                class="form-control"
+                disabled
+              />
             </div>
             <div class="col">
               <label class="form-label">Net Amount</label>
-              <input type="text" class="form-control" />
+              <input
+                type="text"
+                formControlName="netAmount"
+                class="form-control"
+                disabled
+              />
             </div>
           </div>
         </div>
@@ -266,4 +281,3 @@
     </div>
   </form>
 </div>
-<form></form>

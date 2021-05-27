@@ -84,4 +84,36 @@ export class MainServiceService {
         console.log(res);
       });
   }
+  // crate party connector
+  newCrateTransaction(body) {
+    this.http
+      .post(`${this.url}/crate_transaction/add_new`, body)
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
+  cratePartnameAvail(val) {
+    this.http
+      .get(`${this.url}/crate_party/check_availability?name=${val}`)
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
+  async crateAutoCompleteName(keyword, type) {
+    let p = new Promise((response, rej) => {
+      this.http
+        .get(
+          `${this.url}/crate_party/autocomplete_name?keyword=${keyword}&limit=5&types=${type}`
+        )
+        .subscribe((res: { status; message; title }) => {
+          response(res.message);
+        });
+    });
+    return p;
+  }
+  addCrateParty(body) {
+    this.http.post(`${this.url}/crate_party/add_new`, body).subscribe((res) => {
+      console.log(res);
+    });
+  }
 }

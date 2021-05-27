@@ -43,6 +43,8 @@
                 id="floatingInput"
                 placeholder="Party Name"
                 matInput
+                #username
+                (input)="partyName(username.value)"
                 [matAutocomplete]="auto"
               />
               <mat-autocomplete #auto="matAutocomplete">
