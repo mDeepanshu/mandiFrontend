@@ -13,11 +13,6 @@ export class MainServiceService {
       console.log(res);
     });
   }
-  findParty(arg) {
-    this.http.get(`${this.url}/party/find?name=${arg}`).subscribe((res) => {
-      console.log(res);
-    });
-  }
   nameAvailability(arg) {
     this.http
       .get(`${this.url}/party/check_availability?name=${arg}`)
@@ -115,5 +110,37 @@ export class MainServiceService {
     this.http.post(`${this.url}/crate_party/add_new`, body).subscribe((res) => {
       console.log(res);
     });
+  }
+
+  async getLedger(d, m, y) {
+    let p = new Promise((response, rej) => {
+      this.http
+        .get(`${this.url}/transaction/ledger?dd=${d}&mm=${m}&yyyy=${y}`)
+        .subscribe((arr: { status; message; title }) => {
+          response(arr.message);
+        });
+    });
+    return p;
+  }
+  async getConstants() {
+    let p = new Promise((response, rej) => {
+      this.http
+        .get(`${this.url}/constant`)
+        .subscribe((arr: { status; message; title }) => {
+          response(arr.message);
+        });
+    });
+    return p;
+  }
+
+  async findParty(name) {
+    let p = new Promise((response, rej) => {
+      this.http
+        .get(`${this.url}/party/find?name=${name}`)
+        .subscribe((arr: { status; message; title }) => {
+          response(arr.message);
+        });
+    });
+    return p;
   }
 }

@@ -24,7 +24,11 @@
                     [matAutocomplete]="auto"
                   />
                   <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of options" [value]="option">
+                    <mat-option
+                      *ngFor="let option of options"
+                      (onSelectionChange)="onPartySelect($event)"
+                      [value]="option.name"
+                    >
                       {{ option.name }}
                     </mat-option>
                   </mat-autocomplete>
@@ -177,7 +181,7 @@
                 <label for="floatingInput">Rate</label>
               </div>
             </div>
-            <div class="col">
+            <!-- <div class="col">
               <div class="form-floating mb-3">
                 <input
                   class="form-control"
@@ -186,7 +190,7 @@
                 />
                 <label for="floatingInput">Amount</label>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="row">
             <button type="button" (click)="addNew()" class="btn btn-warning">
@@ -213,7 +217,7 @@
                   <td>{{ item.bag }}</td>
                   <td>{{ item.quantity }}</td>
                   <td>{{ item.rate }}</td>
-                  <td>{{ item.amount }}</td>
+                  <td>{{ item.quantity * item.rate }}</td>
                 </tr>
               </tbody>
             </table>

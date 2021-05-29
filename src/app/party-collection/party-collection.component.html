@@ -20,16 +20,22 @@
       <input
         type="text"
         class="form-control"
-        placeholder="Username"
-        aria-label="Username"
+        placeholder="Party Name"
+        #username
+        (input)="partyName(username.value)"
+        [matAutocomplete]="auto"
       />
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let option of options"
+          (onSelectionChange)="onPartySelect($event)"
+          [value]="option.name"
+        >
+          {{ option.name }}
+        </mat-option>
+      </mat-autocomplete>
       <span class="input-group-text">OF Rs</span>
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Server"
-        aria-label="Server"
-      />
+      <input type="text" class="form-control" #amount placeholder="Amount" />
     </div>
     <hr />
     <!-- buttons -->
@@ -38,7 +44,13 @@
         <button type="button" class="btn btn-primary">View Remaining</button>
       </div>
       <div class="col">
-        <button type="button" class="btn btn-primary">Save</button>
+        <button
+          type="button"
+          (click)="onSubmit(amount.value)"
+          class="btn btn-primary"
+        >
+          Save
+        </button>
       </div>
       <div class="col">
         <button type="button" class="btn btn-primary">New</button>
@@ -46,7 +58,7 @@
     </div>
     <!-- Remaining -->
     <div class="row" style="margin-top: 30px">
-      <h3>Remaining</h3>
+      <h3>Remaining {{ remaining }}</h3>
       <h3></h3>
     </div>
   </form>

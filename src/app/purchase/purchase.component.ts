@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Purchase } from '../models/purchase.model';
 import { PurchaseTable } from '../models/purchaseTable.model';
+import { Party } from '../models/party.model';
 
 @Component({
   selector: 'app-purchase',
@@ -30,22 +31,21 @@ export class PurchaseComponent implements OnInit {
   ngOnInit() {
     this.purchaseForm = new FormGroup({
       setOne: new FormGroup({
-        bhada: new FormControl(1),
-        hammali: new FormControl(3),
-        cash: new FormControl(1),
-        commRate: new FormControl(2),
-        bhadaRate: new FormControl(4),
-        comm: new FormControl(6),
-        tax: new FormControl(7),
-        stationCharge: new FormControl(8),
-        driver: new FormControl(4),
+        bhada: new FormControl(null),
+        hammali: new FormControl(null),
+        cash: new FormControl(null),
+        commRate: new FormControl(null),
+        bhadaRate: new FormControl(null),
+        comm: new FormControl(null),
+        tax: new FormControl(null),
+        stationCharge: new FormControl(null),
+        driver: new FormControl(null),
       }),
       setTwo: new FormGroup({
         item: new FormControl(null),
         bag: new FormControl(null),
         quantity: new FormControl(null),
         rate: new FormControl(null),
-        amount: new FormControl(null),
       }),
       setThree: new FormGroup({
         totalExpense: new FormControl(null),
@@ -55,6 +55,18 @@ export class PurchaseComponent implements OnInit {
     });
     //
 
+    //
+    this.mainService
+      .getConstants()
+      .then((data: { hammali_rate; bhada_rate; tax_rate }) => {
+        this.purchaseForm.patchValue({
+          setOne: {
+            hammali: data.hammali_rate,
+            bhada: data.bhada_rate,
+            tax: data.tax_rate,
+          },
+        });
+      });
     //
   }
   public timer;
@@ -87,7 +99,8 @@ export class PurchaseComponent implements OnInit {
       setThree: {
         billTotal:
           Number(this.purchaseForm.value.setThree.billTotal) +
-          Number(this.purchaseForm.value.setTwo.amount),
+          Number(this.purchaseForm.value.setTwo.quantity) *
+            Number(this.purchaseForm.value.setTwo.rate),
       },
     });
   }
@@ -97,6 +110,20 @@ export class PurchaseComponent implements OnInit {
     this.purchaseDetail.items = this.tableArr;
     console.log(this.purchaseDetail);
   }
+  onPartySelect(name) {
+    console.log(name.source.value);
+
+    this.mainService.findParty(name.source.value).then((data: Party) => {
+      console.log(data.commission);
+
+      this.purchaseForm.patchValue({
+        setOne: {
+          commRate: data.commission,
+        },
+      });
+    });
+  }
+
   //
   //
 }
