@@ -2,62 +2,125 @@
   <div class="firstDiv">
     <div class="row">
       <div class="col-9" style="margin-top: 30px">
-        <div class="row">
-          <div class="col">
-            <div class="form-floating mb-3">
-              <mat-form-field style="width: 100%">
+        <form [formGroup]="mainForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col">
+              <div class="form-floating mb-3">
+                <mat-form-field style="width: 100%">
+                  <input
+                    type="text"
+                    id="floatingInput"
+                    placeholder="PARTY NAME"
+                    formControlName="name"
+                    matInput
+                    #username
+                    (input)="partyName(username.value)"
+                    [matAutocomplete]="auto"
+                  />
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option
+                      *ngFor="let option of options"
+                      (onSelectionChange)="onPartySelect($event)"
+                      [value]="option.name"
+                    >
+                      {{ option.name }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                <!-- <label for="floatingInput">Party Name</label> -->
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-floating mb-3">
                 <input
                   type="text"
+                  class="form-control"
                   id="floatingInput"
-                  placeholder="PARTY NAME"
-                  matInput
-                  [matAutocomplete]="auto"
+                  formControlName="curr"
+                  placeholder="name@example.com"
+                  disabled
                 />
-                <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option *ngFor="let option of options" [value]="option">
-                    {{ option }}
-                  </mat-option>
-                </mat-autocomplete>
-              </mat-form-field>
-              <!-- <label for="floatingInput">Party Name</label> -->
+                <label for="floatingInput">Curr</label>
+              </div>
             </div>
           </div>
-          <div class="col">
-            <div class="form-floating mb-3">
-              <input
-                type="text"
-                class="form-control"
-                id="floatingInput"
-                placeholder="name@example.com"
-              />
-              <label for="floatingInput">Curr</label>
+          <div class="row">
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="floatingInput"
+                  formControlName="phone"
+                  placeholder="name@example.com"
+                />
+                <label for="floatingInput">Mobile Number</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                  formControlName="address"
+                />
+                <label for="floatingInput">Address</label>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="form-floating mb-3">
-              <input
-                type="text"
-                class="form-control"
-                id="floatingInput"
-                placeholder="name@example.com"
-              />
-              <label for="floatingInput">Mobile Number</label>
+          <div class="row">
+            <!-- <div class="col">
+              <div class="form-floating mb-3">
+                <input
+                  type="date"
+                  class="form-control"
+                  #from
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label for="floatingInput">From</label>
+              </div>
             </div>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input
+                  type="date"
+                  class="form-control"
+                  #till
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label for="floatingInput">Till</label>
+              </div>
+            </div> -->
+            <mat-form-field class="example-form-field" appearance="fill">
+              <mat-label>First campaign</mat-label>
+              <mat-date-range-input
+                [formGroup]="mainForm"
+                [rangePicker]="campaignOnePicker"
+              >
+                <input
+                  matStartDate
+                  placeholder="Start date"
+                  formControlName="start"
+                />
+                <input
+                  matEndDate
+                  placeholder="End date"
+                  formControlName="end"
+                />
+              </mat-date-range-input>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="campaignOnePicker"
+              ></mat-datepicker-toggle>
+              <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
+            </mat-form-field>
           </div>
-          <div class="col">
-            <div class="form-floating mb-3">
-              <input
-                type="text"
-                class="form-control"
-                id="floatingInput"
-                placeholder="name@example.com"
-              />
-              <label for="floatingInput">Address</label>
-            </div>
-          </div>
-        </div>
+        </form>
+
         <div class="row" style="padding: 9px">
           <table class="table">
             <thead>
@@ -86,12 +149,20 @@
       <div class="col-3">
         <div class="row">
           <div class="col">
-            <button type="button" class="btn btn-primary topButton">
+            <button
+              type="button"
+              (click)="find()"
+              class="btn btn-primary topButton"
+            >
               Find
             </button>
           </div>
           <div class="col">
-            <button type="button" class="btn btn-primary topButton">
+            <button
+              type="button"
+              (click)="saveEdit()"
+              class="btn btn-primary topButton"
+            >
               Save
             </button>
           </div>
@@ -116,6 +187,7 @@
             type="button"
             class="btn btn-primary"
             printSectionId="toP"
+            (click)="resetForm()"
             ngxPrint
           >
             New

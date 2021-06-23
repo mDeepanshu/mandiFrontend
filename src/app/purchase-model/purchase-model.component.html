@@ -1,0 +1,151 @@
+<div class="container">
+  <form [formGroup]="purchaseForm">
+    <div class="row">
+      <div class="col">
+        <div class="form-floating mb-3">
+          <input class="form-control" formControlName="driver" type="number" />
+          <label for="floatingInput">Driver</label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-floating mb-3">
+          <input class="form-control" formControlName="cash" type="number" />
+          <label for="floatingInput">Cash</label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-floating mb-3">
+          <input
+            class="form-control"
+            formControlName="station_charge"
+            type="number"
+          />
+          <label for="floatingInput">Station Charge</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-floating mb-3">
+          <input class="form-control" formControlName="tax" type="number" />
+          <label for="floatingInput">Tax</label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-floating mb-3">
+          <input class="form-control" formControlName="bhada" type="number" />
+          <label for="floatingInput">Bhada</label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-floating mb-3">
+          <input
+            class="form-control"
+            formControlName="bhada_rate"
+            type="text"
+          />
+          <label for="floatingInput">Bhada Rate</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="commission"
+          />
+          <label for="floatingInputInvalid">Commission</label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-floating mb-3">
+          <input
+            class="form-control"
+            formControlName="commission_rate"
+            type="number"
+          />
+          <label for="floatingInput">Commission Rate</label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-floating mb-3">
+          <input class="form-control" formControlName="hammali" type="number" />
+          <label for="floatingInput">Hammali</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-floating mb-3">
+          <input
+            class="form-control"
+            formControlName="bill_total"
+            type="number"
+          />
+          <label for="floatingInput">Bill Total</label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-floating mb-3">
+          <input class="form-control" formControlName="to_exp" type="number" />
+          <label for="floatingInput">To Expense</label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-floating mb-3">
+          <input
+            class="form-control"
+            formControlName="net_amount"
+            type="number"
+          />
+          <label for="floatingInput">Net Amount</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <table #table class="table" style="width: 100%">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">ITEM</th>
+            <th scope="col">BAG</th>
+            <th scope="col">QUANTITY</th>
+            <th scope="col">RATE</th>
+            <th scope="col">AMOUNT</th>
+            <th scope="col">REMOVE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of data.items; index as i">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ item.item }}</td>
+            <td>{{ item.bag }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.rate }}</td>
+            <td>{{ item.quantity * item.rate }}</td>
+            <td>
+              <button
+                (click)="removeItem(i)"
+                mat-mini-fab
+                class="matButton"
+                color="primary"
+                type="button"
+              >
+                <mat-icon class="material-icons">delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <button class="btn btn-primary" (click)="calculate()">Calculate</button>
+    </div>
+    <hr />
+    <div class="row">
+      <button class="btn btn-primary" (click)="save()">Save the edit</button>
+    </div>
+  </form>
+</div>

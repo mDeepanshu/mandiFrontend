@@ -1,56 +1,51 @@
 <div class="firstDiv">
   <div class="row">
     <div class="col-10 mainForm">
-      <div class="row">
-        <div class="col">
-          <div class="input-group mb-3">
-            <!-- <span class="input-group-text" id="basic-addon1">Select Item</span> -->
-            <!-- <input
-              type="text"
-              class="form-control"
-              placeholder="ITEM NAME"
-              #itemname
-              (input)="itemName(itemname.value)"
-              aria-describedby="basic-addon1"
-              matInput
-              [matAutocomplete]="auto"
-            /> -->
-            <mat-form-field style="width: 100%">
-              <input
-                type="text"
-                placeholder="ITEM NAME"
-                #itemname
-                (input)="itemName(itemname.value)"
-                matInput
-                [matAutocomplete]="auto"
-              />
-              <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let option of options" [value]="option">
-                  {{ option }}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
+      <form [formGroup]="sellForm" (ngSubmit)="addNew()">
+        <div class="row" style="margin-bottom: 15px">
+          <div class="col">
+            <div class="col-md">
+              <div class="form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="floatingInputGrid"
+                  formControlName="item_name"
+                  placeholder="ITEM NAME"
+                />
+                <label for="floatingInputGrid">ITEM NAME</label>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <h5>DATE - {{ date }}</h5>
           </div>
         </div>
-        <div class="col">
-          <h5>DATE - {{ date }}</h5>
-        </div>
-        <div class="col"><h5>UID</h5></div>
-      </div>
-      <form [formGroup]="sellForm" (ngSubmit)="addNew()">
+
         <div class="row">
           <div class="col-10">
             <div class="row g-2">
               <div class="col-md">
-                <div class="form-floating">
-                  <input
-                    type="email"
-                    class="form-control"
-                    formControlName="partyName"
-                    id="floatingInputGrid"
-                    placeholder="Party Name"
-                  />
-                  <label for="floatingInputGrid">Party Name</label>
+                <div class="input-group mb-3">
+                  <mat-form-field style="width: 100%">
+                    <input
+                      type="text"
+                      placeholder="PARTY NAME"
+                      #username
+                      (input)="partyName(username.value)"
+                      matInput
+                      [matAutocomplete]="auto"
+                    />
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option
+                        *ngFor="let option of options"
+                        (onSelectionChange)="onPartySelect($event)"
+                        [value]="option"
+                      >
+                        {{ option }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
                 </div>
               </div>
               <div class="col-md">
@@ -80,12 +75,13 @@
       </form>
       <hr />
       <div class="row">
-        <table class="table">
+        <table #table class="table">
           <thead>
             <tr>
               <th scope="col">#</th>
               <th scope="col">Party</th>
               <th scope="col">Amount</th>
+              <th scope="col">REMOVE</th>
             </tr>
           </thead>
           <tbody>
@@ -93,14 +89,30 @@
               <th scope="row">{{ i + 1 }}</th>
               <td>{{ item.partyName }}</td>
               <td>{{ item.amount }}</td>
+              <td>
+                <button
+                  (click)="removeItem(i)"
+                  mat-mini-fab
+                  class="matButton"
+                  color="primary"
+                  type="button"
+                >
+                  <mat-icon class="material-icons">delete</mat-icon>
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-    <div class="col-2">
-      <button type="button" (click)="addNew()" class="btn btn-primary">
-        Add New
+    <div class="col-1">
+      <button type="button" (click)="save()" class="btn btn-primary">
+        Save
+      </button>
+    </div>
+    <div class="col-1">
+      <button type="button" (click)="resetForm()" class="btn btn-primary">
+        New
       </button>
     </div>
   </div>

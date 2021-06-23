@@ -7,13 +7,6 @@
           <div class="row">
             <div class="col">
               <div class="input-group mb-3">
-                <!-- <input
-                  type="text"
-                  #username
-                  (input)="partyName(username.value)"
-                  class="form-control"
-                  placeholder="Party Name"
-                /> -->
                 <mat-form-field style="width: 100%">
                   <input
                     type="text"
@@ -26,7 +19,7 @@
                   <mat-autocomplete #auto="matAutocomplete">
                     <mat-option
                       *ngFor="let option of options"
-                      (onSelectionChange)="onPartySelect($event)"
+                      (onSelectionChange)="onPartySelect($event, option._id)"
                       [value]="option.name"
                     >
                       {{ option.name }}
@@ -49,6 +42,7 @@
               <div class="col">
                 <div class="form-floating mb-3">
                   <input
+                    type="number"
                     class="form-control"
                     formControlName="bhada"
                     id="floatingInput"
@@ -62,6 +56,7 @@
                   <input
                     class="form-control"
                     id="floatingInput"
+                    type="number"
                     formControlName="hammali"
                     placeholder=""
                   />
@@ -73,6 +68,7 @@
                   <input
                     class="form-control"
                     id="floatingInput"
+                    type="number"
                     formControlName="cash"
                     placeholder=""
                   />
@@ -85,8 +81,9 @@
                 <div class="form-floating mb-3">
                   <input
                     class="form-control"
+                    type="number"
                     id="floatingInput"
-                    formControlName="commRate"
+                    formControlName="commission_rate"
                     placeholder=""
                   />
                   <label for="floatingInput">Commission Rate</label>
@@ -97,7 +94,8 @@
                   <input
                     class="form-control"
                     id="floatingInput"
-                    formControlName="bhadaRate"
+                    type="number"
+                    formControlName="bhada_rate"
                     placeholder=""
                   />
                   <label for="floatingInput">Bhada Rate</label>
@@ -108,7 +106,8 @@
                   <input
                     class="form-control"
                     id="floatingInput"
-                    formControlName="comm"
+                    type="number"
+                    formControlName="commission"
                     placeholder=""
                   />
                   <label for="floatingInput">Commision</label>
@@ -122,6 +121,7 @@
                     class="form-control"
                     id="floatingInput"
                     formControlName="tax"
+                    type="number"
                     placeholder=""
                   />
                   <label for="floatingInput">Tax</label>
@@ -132,7 +132,8 @@
                   <input
                     class="form-control"
                     id="floatingInput"
-                    formControlName="stationCharge"
+                    formControlName="station_charge"
+                    type="number"
                     placeholder=""
                   />
                   <label for="floatingInput">Station Charge</label>
@@ -143,6 +144,7 @@
                   <input
                     class="form-control"
                     id="floatingInput"
+                    type="number"
                     formControlName="driver"
                     placeholder=""
                   />
@@ -161,7 +163,12 @@
             </div>
             <div class="col">
               <div class="form-floating mb-3">
-                <input class="form-control" formControlName="bag" id="Bag" />
+                <input
+                  class="form-control"
+                  type="number"
+                  formControlName="bag"
+                  id="Bag"
+                />
                 <label for="floatingInput">Bag</label>
               </div>
             </div>
@@ -172,25 +179,20 @@
                   formControlName="quantity"
                   id="Quantity"
                 />
-                <label for="floatingInput">Quantity</label>
+                <label for="floatingInput" type="number">Quantity</label>
               </div>
             </div>
             <div class="col">
               <div class="form-floating mb-3">
-                <input class="form-control" formControlName="rate" id="Rate" />
+                <input
+                  class="form-control"
+                  type="number"
+                  formControlName="rate"
+                  id="Rate"
+                />
                 <label for="floatingInput">Rate</label>
               </div>
             </div>
-            <!-- <div class="col">
-              <div class="form-floating mb-3">
-                <input
-                  class="form-control"
-                  formControlName="amount"
-                  id="Amount"
-                />
-                <label for="floatingInput">Amount</label>
-              </div>
-            </div> -->
           </div>
           <div class="row">
             <button type="button" (click)="addNew()" class="btn btn-warning">
@@ -199,7 +201,7 @@
           </div>
           <hr />
           <div class="row">
-            <table class="table">
+            <table #table class="table">
               <thead>
                 <tr>
                   <th scope="col">#</th>
@@ -208,6 +210,7 @@
                   <th scope="col">QUANTITY</th>
                   <th scope="col">RATE</th>
                   <th scope="col">AMOUNT</th>
+                  <th scope="col">REMOVE</th>
                 </tr>
               </thead>
               <tbody>
@@ -218,6 +221,17 @@
                   <td>{{ item.quantity }}</td>
                   <td>{{ item.rate }}</td>
                   <td>{{ item.quantity * item.rate }}</td>
+                  <td>
+                    <button
+                      (click)="removeItem(i)"
+                      mat-mini-fab
+                      class="matButton"
+                      color="primary"
+                      type="button"
+                    >
+                      <mat-icon class="material-icons">delete</mat-icon>
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -227,7 +241,7 @@
               <label class="form-label">Total Expense</label>
               <input
                 type="text"
-                formControlName="totalExpense"
+                formControlName="to_exp"
                 class="form-control"
                 disabled
               />
@@ -236,7 +250,7 @@
               <label class="form-label">Bill Total</label>
               <input
                 type="text"
-                formControlName="billTotal"
+                formControlName="bill_total"
                 class="form-control"
                 disabled
               />
@@ -245,7 +259,7 @@
               <label class="form-label">Net Amount</label>
               <input
                 type="text"
-                formControlName="netAmount"
+                formControlName="net_amount"
                 class="form-control"
                 disabled
               />
@@ -255,16 +269,18 @@
       </div>
       <!-- </div> -->
       <div class="col-2">
-        <div class="row" class="sideButtons">
-          <button type="button" class="btn btn-primary" style="width: 50mm">
-            View
-          </button>
-        </div>
         <div
           class="row"
           style="margin-top: 80mm; margin-left: 3px; width: 49mm"
         >
-          <button type="button" class="btn btn-primary">Calculate</button>
+          <button
+            type="button"
+            (click)="calculate()"
+            class="btn btn-primary"
+            [disabled]="!purchaseForm.valid"
+          >
+            Calculate
+          </button>
         </div>
         <div class="row" class="sideButtons">
           <button type="submit" class="btn btn-primary" style="width: 50mm">
@@ -272,7 +288,12 @@
           </button>
         </div>
         <div class="row" class="sideButtons">
-          <button type="button" class="btn btn-primary" style="width: 50mm">
+          <button
+            type="button"
+            (click)="resetForm()"
+            class="btn btn-primary"
+            style="width: 50mm"
+          >
             Discard\New
           </button>
         </div>

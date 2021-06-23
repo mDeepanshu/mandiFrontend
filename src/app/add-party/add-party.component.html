@@ -11,7 +11,7 @@
             type="radio"
             id="inlineRadio1"
             formControlName="type"
-            value="option1"
+            value="1"
           />
           <label class="form-check-label" for="inlineRadio1">KISAAN </label>
         </div>
@@ -21,7 +21,7 @@
             type="radio"
             id="inlineRadio2"
             formControlName="type"
-            value="option2"
+            value="2"
           />
           <label class="form-check-label" for="inlineRadio2">VYAPARI</label>
         </div>
@@ -33,7 +33,7 @@
             type="radio"
             id="inlineRadio3"
             formControlName="type"
-            value="option3"
+            value="3"
           />
           <label class="form-check-label" for="inlineRadio3"
             >SPECIAL VYAPARI</label
@@ -45,7 +45,7 @@
             type="radio"
             id="inlineRadio3"
             formControlName="type"
-            value="option4"
+            value="4"
           />
           <label class="form-check-label" for="inlineRadio3">OTHERS</label>
         </div>
@@ -54,14 +54,31 @@
     <!-- inputs -->
     <div class="inputs">
       <div class="input-group input-group-sm mb-3">
-        <span class="input-group-text" id="inputGroup-sizing-sm">Name</span>
+        <!-- <span class="input-group-text" id="inputGroup-sizing-sm">Name</span>
         <input
           type="text"
           class="form-control"
           formControlName="name"
           aria-label="Sizing example input"
           aria-describedby="inputGroup-sizing-sm"
-        />
+        /> -->
+        <div class="input-group mb-3">
+          <mat-form-field style="width: 100%">
+            <input
+              type="text"
+              placeholder="PARTY NAME"
+              #username
+              (input)="partyName(username.value)"
+              matInput
+              [matAutocomplete]="auto"
+            />
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of options" [value]="option.name">
+                {{ option.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
       </div>
       <div class="input-group input-group-sm mb-3">
         <span class="input-group-text" id="inputGroup-sizing-sm">Address</span>
@@ -78,7 +95,7 @@
           >Commission</span
         >
         <input
-          type="text"
+          type="number"
           class="form-control"
           formControlName="commission"
           aria-label="Sizing example input"
@@ -98,7 +115,7 @@
       <div class="input-group input-group-sm mb-3">
         <span class="input-group-text" id="inputGroup-sizing-sm">Balance</span>
         <input
-          type="text"
+          type="number"
           class="form-control"
           formControlName="starting"
           aria-label="Sizing example input"
@@ -107,7 +124,9 @@
       </div>
     </div>
     <!-- buttons -->
-    <button type="button" class="btn btn-primary">New</button>
+    <button type="button" (click)="resetForm()" class="btn btn-primary">
+      New
+    </button>
     <button type="submit" class="btn btn-primary" style="margin-left: 3cm">
       Save
     </button>

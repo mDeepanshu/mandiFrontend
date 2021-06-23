@@ -1,21 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MainServiceService } from '../main-service.service';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Purchase } from '../models/purchase.model';
 import { PurchaseTable } from '../models/purchaseTable.model';
 import { Party } from '../models/party.model';
-
+import { MatDialog } from '@angular/material/dialog';
+import { ErrMsgModuleComponent } from '../err-msg-module/err-msg-module.component';
 @Component({
   selector: 'app-purchase',
   templateUrl: './purchase.component.html',
   styleUrls: ['./purchase.component.css'],
 })
 export class PurchaseComponent implements OnInit {
-  constructor(private mainService: MainServiceService) {}
+  constructor(
+    private mainService: MainServiceService,
+    public dialog: MatDialog
+  ) {}
   purchaseForm: FormGroup;
   tableArr: PurchaseTable[] = [];
   public purchaseDetail: Purchase;
+  public taxRate;
+  public hammaliRate;
+  public timer;
+  selectedId;
+  @ViewChild('table') from: ElementRef;
+
   //
   public date =
     new Date().getDate() +
@@ -25,32 +34,31 @@ export class PurchaseComponent implements OnInit {
     new Date().getFullYear();
   //
   options;
-  filteredOptions: Observable<string[]>;
 
   //
   ngOnInit() {
     this.purchaseForm = new FormGroup({
       setOne: new FormGroup({
-        bhada: new FormControl(null),
-        hammali: new FormControl(null),
-        cash: new FormControl(null),
-        commRate: new FormControl(null),
-        bhadaRate: new FormControl(null),
-        comm: new FormControl(null),
-        tax: new FormControl(null),
-        stationCharge: new FormControl(null),
-        driver: new FormControl(null),
+        bhada: new FormControl(0, Validators.required),
+        hammali: new FormControl(0, Validators.required),
+        cash: new FormControl(null, Validators.required),
+        commission_rate: new FormControl(null, Validators.required),
+        bhada_rate: new FormControl(null, Validators.required),
+        commission: new FormControl(0, Validators.required),
+        tax: new FormControl(null, Validators.required),
+        station_charge: new FormControl(null, Validators.required),
+        driver: new FormControl(null, Validators.required),
       }),
       setTwo: new FormGroup({
         item: new FormControl(null),
-        bag: new FormControl(null),
-        quantity: new FormControl(null),
-        rate: new FormControl(null),
+        bag: new FormControl(2),
+        quantity: new FormControl(2),
+        rate: new FormControl(2),
       }),
       setThree: new FormGroup({
-        totalExpense: new FormControl(null),
-        billTotal: new FormControl(null),
-        netAmount: new FormControl(null),
+        to_exp: new FormControl(null),
+        bill_total: new FormControl(null),
+        net_amount: new FormControl(null),
       }),
     });
     //
@@ -59,71 +67,106 @@ export class PurchaseComponent implements OnInit {
     this.mainService
       .getConstants()
       .then((data: { hammali_rate; bhada_rate; tax_rate }) => {
+        this.taxRate = data.tax_rate;
+        this.hammaliRate = data.hammali_rate;
+
         this.purchaseForm.patchValue({
           setOne: {
-            hammali: data.hammali_rate,
-            bhada: data.bhada_rate,
-            tax: data.tax_rate,
+            bhada_rate: data.bhada_rate,
           },
         });
       });
     //
   }
-  public timer;
   //
 
   partyName(val) {
     clearTimeout(this.timer);
+    this.options = [];
     this.timer = setTimeout(() => {
       console.log(val);
-      this.mainService.autoCompleteName(val, 0).then((arr) => {
+      this.mainService.autoCompleteName(val, 'types=1').then((arr) => {
         console.log(arr);
         this.options = arr;
       });
-    }, 1000);
+    }, 500);
   }
-  addNew() {
-    this.tableArr.push(this.purchaseForm.value.setTwo);
-    console.log(
-      Number(this.purchaseForm.value.setThree.billTotal),
-      Number(this.purchaseForm.value.setTwo.amount)
-    );
+  calculate() {
+    let objOne = this.purchaseForm.value.setOne;
+    let billTotal = 0;
+    let totalBag = 0;
+    let total_exp =
+      objOne.bhada +
+      objOne.commission +
+      objOne.driver +
+      objOne.station_charge +
+      objOne.hammali +
+      objOne.tax +
+      objOne.cash;
+    this.tableArr.forEach((element) => {
+      billTotal =
+        Number(billTotal) + Number(element.quantity) * Number(element.rate);
+      totalBag = Number(totalBag) + Number(element.bag);
+    });
+    console.log(objOne.commission_rate, billTotal);
 
-    let bag = Number(this.purchaseForm.value.setTwo.bag);
     this.purchaseForm.patchValue({
       setOne: {
-        hammali: bag * Number(this.purchaseForm.value.setOne.hammali),
-        bhada: bag * Number(this.purchaseForm.value.setOne.bhada),
-        tax: bag * Number(this.purchaseForm.value.setOne.tax),
+        hammali: totalBag * this.hammaliRate,
+        bhada: totalBag * objOne.bhada_rate,
+        tax: totalBag * this.taxRate,
+        commission: (objOne.commission_rate / 100) * billTotal,
       },
       setThree: {
-        billTotal:
-          Number(this.purchaseForm.value.setThree.billTotal) +
-          Number(this.purchaseForm.value.setTwo.quantity) *
-            Number(this.purchaseForm.value.setTwo.rate),
+        bill_total: billTotal,
+        to_exp: total_exp,
+        net_amount: billTotal - total_exp,
       },
     });
   }
+  addNew() {
+    this.tableArr.push(this.purchaseForm.value.setTwo);
+  }
   onSubmit() {
     this.purchaseDetail = this.purchaseForm.value.setOne;
-
     this.purchaseDetail.items = this.tableArr;
-    console.log(this.purchaseDetail);
+    let obj = {
+      bill_no: '',
+      date: new Date(),
+      partyId: this.selectedId,
+    };
+    Object.assign(obj, this.purchaseDetail);
+    Object.assign(obj, this.purchaseForm.value.setThree);
+    obj.bill_no = Date.now().toString(36);
+    console.log(obj);
+    this.mainService.addPurchase(obj);
+    this.purchaseForm.reset();
+    this.dialog.open(ErrMsgModuleComponent, { data: 'Purchase Saved' });
   }
-  onPartySelect(name) {
+  onPartySelect(name, id) {
     console.log(name.source.value);
+    this.selectedId = id;
+    console.log(id);
 
     this.mainService.findParty(name.source.value).then((data: Party) => {
       console.log(data.commission);
 
       this.purchaseForm.patchValue({
         setOne: {
-          commRate: data.commission,
+          commission_rate: data.commission,
         },
       });
     });
   }
-
+  removeItem(i) {
+    console.log(i);
+    delete this.tableArr[i];
+    this.tableArr.splice(i, 1);
+  }
+  resetForm() {
+    // this.purchaseForm.markAsPristine();
+    this.purchaseForm.reset();
+  }
   //
   //
 }

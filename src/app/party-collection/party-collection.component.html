@@ -28,7 +28,7 @@
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option
           *ngFor="let option of options"
-          (onSelectionChange)="onPartySelect($event)"
+          (onSelectionChange)="onPartySelect($event, option._id)"
           [value]="option.name"
         >
           {{ option.name }}
@@ -41,19 +41,18 @@
     <!-- buttons -->
     <div class="row">
       <div class="col">
-        <button type="button" class="btn btn-primary">View Remaining</button>
-      </div>
-      <div class="col">
         <button
           type="button"
-          (click)="onSubmit(amount.value)"
+          (click)="onSave(amount.value)"
           class="btn btn-primary"
         >
           Save
         </button>
       </div>
       <div class="col">
-        <button type="button" class="btn btn-primary">New</button>
+        <button type="button" class="btn btn-primary" (click)="resetForm()">
+          New
+        </button>
       </div>
     </div>
     <!-- Remaining -->

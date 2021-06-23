@@ -9,41 +9,43 @@ import { Party } from '../models/party.model';
 })
 export class PartyCollectionComponent implements OnInit {
   constructor(private mainService: MainServiceService) {}
-  public date =
-    new Date().getDate() +
-    '/' +
-    new Date().getMonth() +
-    '/' +
-    new Date().getFullYear();
+  public date = new Date();
 
   ngOnInit() {}
   public timer;
   options;
   remaining;
+  selectedPartyId;
   partyName(val) {
     clearTimeout(this.timer);
+    this.options = [];
     this.timer = setTimeout(() => {
       console.log(val);
-      this.mainService.autoCompleteName(val, 0).then((arr) => {
-        console.log(arr);
-        this.options = arr;
-      });
+      this.mainService
+        .autoCompleteName(val, 'types=0&types=2&types=3')
+        .then((arr) => {
+          console.log(arr);
+          this.options = arr;
+        });
     }, 1000);
   }
   //
-  onSubmit(val) {
-    console.log(val);
 
-    // this.purchaseDetail = this.purchaseForm.value.setOne;
-    // this.purchaseDetail.items = this.tableArr;
-    // console.log(this.purchaseDetail);
-  }
-  onPartySelect(name) {
+  onPartySelect(name, id) {
     console.log(name.source.value);
+    this.selectedPartyId = id;
+    console.log(id);
 
     this.mainService.findParty(name.source.value).then((data: Party) => {
       // console.log(data.commission);
       this.remaining = data.current;
     });
+  }
+  onSave(amount) {
+    this.mainService.addVasuli(this.selectedPartyId, amount, this.date);
+  }
+  resetForm() {
+    // this.purchaseForm.markAsPristine();
+    // this.purchaseForm.reset();
   }
 }

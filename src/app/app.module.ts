@@ -20,6 +20,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { PurchaseModelComponent } from './purchase-model/purchase-model.component';
+import { ErrMsgModuleComponent } from './err-msg-module/err-msg-module.component';
+import { SaveDialogComponent } from './save-dialog/save-dialog.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const routes: Routes = [
   { path: '', component: PurchaseComponent },
@@ -47,14 +56,23 @@ const routes: Routes = [
     CrateComponent,
     PartyCollectionComponent,
     SellComponent,
+    PurchaseModelComponent,
+    ErrMsgModuleComponent,
+    SaveDialogComponent,
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     NgxPrintModule,
     MatInputModule,
+    MatButtonModule,
+    MatIconModule,
     MatAutocompleteModule,
+    MatDialogModule,
     MatFormFieldModule,
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     HttpClientModule,
     AppRoutingModule,
     RouterModule.forRoot(routes),
