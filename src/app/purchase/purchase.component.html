@@ -78,15 +78,28 @@
             </div>
             <div class="row">
               <div class="col">
-                <div class="form-floating mb-3">
-                  <input
-                    class="form-control"
-                    type="number"
-                    id="floatingInput"
-                    formControlName="commission_rate"
-                    placeholder=""
-                  />
-                  <label for="floatingInput">Commission Rate</label>
+                <div class="input-group mb-2">
+                  <div class="form-floating mb-3">
+                    <input
+                      class="form-control"
+                      type="number"
+                      id="floatingInput"
+                      formControlName="commission_rate"
+                      placeholder=""
+                      (change)="onCommRateChange()"
+                    />
+                    <label for="floatingInput">Commission Rate</label>
+                  </div>
+                  <div class="input-group-prepend">
+                    <div
+                      class="input-group-text"
+                      style="height: 59px; color: red"
+                      matTooltip="Commission rate is not the default value"
+                      [hidden]="commRateChange"
+                    >
+                      !
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="col">

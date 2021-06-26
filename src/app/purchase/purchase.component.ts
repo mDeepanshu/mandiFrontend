@@ -4,8 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Purchase } from '../models/purchase.model';
 import { PurchaseTable } from '../models/purchaseTable.model';
 import { Party } from '../models/party.model';
-import { MatDialog } from '@angular/material/dialog';
-import { ErrMsgModuleComponent } from '../err-msg-module/err-msg-module.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-purchase',
   templateUrl: './purchase.component.html',
@@ -14,7 +13,7 @@ import { ErrMsgModuleComponent } from '../err-msg-module/err-msg-module.componen
 export class PurchaseComponent implements OnInit {
   constructor(
     private mainService: MainServiceService,
-    public dialog: MatDialog
+    private _snackBar: MatSnackBar
   ) {}
   purchaseForm: FormGroup;
   tableArr: PurchaseTable[] = [];
@@ -22,6 +21,7 @@ export class PurchaseComponent implements OnInit {
   public taxRate;
   public hammaliRate;
   public timer;
+  public commRateChange = true;
   selectedId;
   @ViewChild('table') from: ElementRef;
 
@@ -139,9 +139,10 @@ export class PurchaseComponent implements OnInit {
     Object.assign(obj, this.purchaseForm.value.setThree);
     obj.bill_no = Date.now().toString(36);
     console.log(obj);
-    this.mainService.addPurchase(obj);
+    this.mainService.addPurchase(obj).then((data) => {
+      this._snackBar.open('Party Saves', 'Close');
+    });
     this.purchaseForm.reset();
-    this.dialog.open(ErrMsgModuleComponent, { data: 'Purchase Saved' });
   }
   onPartySelect(name, id) {
     console.log(name.source.value);
@@ -166,6 +167,15 @@ export class PurchaseComponent implements OnInit {
   resetForm() {
     // this.purchaseForm.markAsPristine();
     this.purchaseForm.reset();
+  }
+  onCommRateChange() {
+    if (this.purchaseForm.value.setOne.commission_rate != 0) {
+      this.commRateChange = false;
+      console.log(this.purchaseForm.value.setOne.commission_rate);
+    } else {
+      this.commRateChange = true;
+      console.log(this.purchaseForm.value.setOne.commission_rate);
+    }
   }
   //
   //

@@ -33,9 +33,9 @@ export class AddPartyComponent implements OnInit {
   onSaveForm() {
     this.Party = this.projectForm.value;
     console.log(this.Party);
-    let res = this.mainService.addParty(this.Party);
-    console.log(res);
-    this._snackBar.open('Party Saves', 'Close');
+    this.mainService.addParty(this.Party).then((data) => {
+      this._snackBar.open('Party Saves', 'Close');
+    });
   }
   resetForm() {
     // this.purchaseForm.markAsPristine();
@@ -47,7 +47,6 @@ export class AddPartyComponent implements OnInit {
     this.timer = setTimeout(() => {
       console.log(val);
       this.mainService.autoCompleteName(val, 'types=1').then((arr) => {
-        console.log(arr);
         this.options = arr;
       });
     }, 500);

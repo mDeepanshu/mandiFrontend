@@ -29,7 +29,7 @@ import { PurchaseModelComponent } from './purchase-model/purchase-model.componen
 import { ErrMsgModuleComponent } from './err-msg-module/err-msg-module.component';
 import { SaveDialogComponent } from './save-dialog/save-dialog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 const routes: Routes = [
   { path: '', component: PurchaseComponent },
   { path: 'partyCollection-component', component: PartyCollectionComponent },
@@ -71,6 +71,7 @@ const routes: Routes = [
     MatDialogModule,
     MatFormFieldModule,
     MatSnackBarModule,
+    MatTooltipModule,
     MatDatepickerModule,
     MatNativeDateModule,
     HttpClientModule,

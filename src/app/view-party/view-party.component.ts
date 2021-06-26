@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MainServiceService } from '../main-service.service';
 import { Party } from '../models/party.model';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-view-party',
@@ -9,7 +10,10 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./view-party.component.css'],
 })
 export class ViewPartyComponent implements OnInit {
-  constructor(private mainService: MainServiceService) {}
+  constructor(
+    private mainService: MainServiceService,
+    private _snackBar: MatSnackBar
+  ) {}
   selectedPartyId;
 
   ngOnInit() {
@@ -87,7 +91,11 @@ export class ViewPartyComponent implements OnInit {
   onSubmit() {}
   saveEdit() {
     console.log(this.mainForm.value);
-    this.mainService.editParty(this.selectedPartyId, this.mainForm.value);
+    this.mainService
+      .editParty(this.selectedPartyId, this.mainForm.value)
+      .then((data) => {
+        this._snackBar.open('Party Saves', 'Close');
+      });
   }
   resetForm() {
     // this.purchaseForm.markAsPristine();

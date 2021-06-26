@@ -3,7 +3,6 @@ import { MainServiceService } from '../main-service.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { PurchaseModelComponent } from '../purchase-model/purchase-model.component';
-import { ResponseType } from '../models/responseType';
 
 @Component({
   selector: 'app-view-purchase',
@@ -61,11 +60,10 @@ export class ViewPurchaseComponent implements OnInit {
             this.options = arr;
           });
       } else {
-        this.mainService
-          .autocompleteBillno(val)
-          .subscribe((arr: ResponseType) => {
-            console.log(arr.message);
-          });
+        this.mainService.autocompleteBillno(val).then((arr) => {
+          this.options = arr;
+          console.log(arr);
+        });
       }
     }, 1000);
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MainServiceService } from '../main-service.service';
 import { FormControl, FormGroup, NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-crate',
@@ -8,7 +9,10 @@ import { FormControl, FormGroup, NgForm } from '@angular/forms';
   styleUrls: ['./crate.component.css'],
 })
 export class CrateComponent implements OnInit {
-  constructor(private mainService: MainServiceService) {}
+  constructor(
+    private mainService: MainServiceService,
+    private _snackBar: MatSnackBar
+  ) {}
   options;
   public timer;
   projectForm: FormGroup;
@@ -39,7 +43,9 @@ export class CrateComponent implements OnInit {
       type2: form.value.typeTwo,
       type3: form.value.typeThree,
     };
-    this.mainService.addCrateParty(obj);
+    this.mainService.addCrateParty(obj).then((data) => {
+      this._snackBar.open('Crate Party Added', 'Close');
+    });
   }
   collect(form: NgForm) {
     let obj = form.value;
@@ -50,7 +56,9 @@ export class CrateComponent implements OnInit {
     }
     console.log(obj);
 
-    this.mainService.newCrateTransaction(obj);
+    this.mainService.newCrateTransaction(obj).then((data) => {
+      this._snackBar.open('Transaction Added', 'Close');
+    });
   }
   onTab(e) {
     this.selectedTab = e;

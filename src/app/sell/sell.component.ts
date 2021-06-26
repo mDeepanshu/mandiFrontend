@@ -3,13 +3,18 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MainServiceService } from '../main-service.service';
 import { Party } from '../models/party.model';
 import { SellTransaction } from '../models/sellTransaction.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-sell',
   templateUrl: './sell.component.html',
   styleUrls: ['./sell.component.css'],
 })
 export class SellComponent implements OnInit {
-  constructor(private mainService: MainServiceService) {}
+  constructor(
+    private mainService: MainServiceService,
+    private _snackBar: MatSnackBar
+  ) {}
   public tableArr: Array<{ id: string; amount: number }> = [];
   sellForm: FormGroup;
   public timer;
@@ -42,7 +47,6 @@ export class SellComponent implements OnInit {
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
       console.log(val);
-      // this.mainService.autoCompleteName(val, '', '');
     }, 1000);
   }
   //
@@ -88,6 +92,7 @@ export class SellComponent implements OnInit {
     obj.date = new Date();
 
     this.mainService.sellTransaction(obj).then((data) => {
+      this._snackBar.open('Sell Transaction Saved', 'Close');
       console.log(data);
     });
   }

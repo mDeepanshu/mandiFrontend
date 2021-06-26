@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MainServiceService } from '../main-service.service';
 import { Party } from '../models/party.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-party-collection',
@@ -8,7 +9,10 @@ import { Party } from '../models/party.model';
   styleUrls: ['./party-collection.component.css'],
 })
 export class PartyCollectionComponent implements OnInit {
-  constructor(private mainService: MainServiceService) {}
+  constructor(
+    private mainService: MainServiceService,
+    private _snackBar: MatSnackBar
+  ) {}
   public date = new Date();
 
   ngOnInit() {}
@@ -42,7 +46,11 @@ export class PartyCollectionComponent implements OnInit {
     });
   }
   onSave(amount) {
-    this.mainService.addVasuli(this.selectedPartyId, amount, this.date);
+    this.mainService
+      .addVasuli(this.selectedPartyId, amount, this.date)
+      .then((data) => {
+        this._snackBar.open('Transaction Saved', 'Close');
+      });
   }
   resetForm() {
     // this.purchaseForm.markAsPristine();
