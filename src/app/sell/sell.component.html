@@ -32,9 +32,11 @@
                       type="text"
                       placeholder="PARTY NAME"
                       #username
+                      formControlName="name"
                       (input)="partyName(username.value)"
                       matInput
                       [matAutocomplete]="auto"
+                      style="height: 35px"
                     />
                     <mat-autocomplete #auto="matAutocomplete">
                       <mat-option

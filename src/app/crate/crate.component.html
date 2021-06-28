@@ -39,6 +39,18 @@
       >
         Add Crate Party
       </button>
+      <button
+        class="nav-link"
+        id="nav-profile-tab"
+        data-bs-toggle="tab"
+        data-bs-target="#nav-View"
+        type="button"
+        role="tab"
+        aria-controls="nav-profile"
+        aria-selected="false"
+      >
+        View Transactions
+      </button>
     </div>
   </nav>
   <div class="tab-content" id="nav-tabContent">
@@ -220,6 +232,93 @@
             </div>
           </div>
         </form>
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-View"
+      role="tabpanel"
+      aria-labelledby="nav-profile-tab"
+    >
+      <div>
+        <div class="container">
+          <div class="row" style="margin-top: 20px">
+            <div class="col">
+              <mat-form-field style="width: 100%">
+                <input
+                  type="text"
+                  placeholder="PARTY NAME"
+                  style="height: 34px"
+                  #username2
+                  (input)="partyName(username2.value)"
+                  formControlName="name"
+                  matInput
+                  [matAutocomplete]="auto"
+                />
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option
+                    *ngFor="let option of options"
+                    [value]="option.name"
+                  >
+                    {{ option.name }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" />
+                <mat-datepicker-toggle
+                  matSuffix
+                  #viewOfDate
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <button
+                class="btn btn-primary"
+                style="height: 64px"
+                (click)="find(viewOfDate)"
+              >
+                FIND
+              </button>
+            </div>
+          </div>
+          <div class="row" style="margin: 15px">
+            <div class="col">
+              <h4>Type 1: {{ dataCurrent.type1 }}</h4>
+            </div>
+            <div class="col">
+              <h4>Type 2: {{ dataCurrent.type2 }}</h4>
+            </div>
+            <div class="col">
+              <h4>Type 3: {{ dataCurrent.type3 }}</h4>
+            </div>
+          </div>
+          <div class="row">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">DATE</th>
+                  <th scope="col">TYPE</th>
+                  <th scope="col">COUNT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of tableArr; index as i">
+                  <th scope="row">{{ i + 1 }}</th>
+                  <td>{{ item.date }}</td>
+                  <td>{{ item.type }}</td>
+                  <td>{{ item.count }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>

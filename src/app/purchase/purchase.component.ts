@@ -140,7 +140,7 @@ export class PurchaseComponent implements OnInit {
     obj.bill_no = Date.now().toString(36);
     console.log(obj);
     this.mainService.addPurchase(obj).then((data) => {
-      this._snackBar.open('Party Saves', 'Close');
+      this._snackBar.open('Purchase Saved', 'Close');
     });
     this.purchaseForm.reset();
   }

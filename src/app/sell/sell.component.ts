@@ -15,7 +15,8 @@ export class SellComponent implements OnInit {
     private mainService: MainServiceService,
     private _snackBar: MatSnackBar
   ) {}
-  public tableArr: Array<{ id: string; amount: number }> = [];
+  public tableArr: Array<{ id: string; amount: number; partyName: string }> =
+    [];
   sellForm: FormGroup;
   public timer;
   public options: string[] = [];
@@ -33,6 +34,7 @@ export class SellComponent implements OnInit {
     this.sellForm = new FormGroup({
       item_name: new FormControl(null),
       amount: new FormControl(null),
+      name: new FormControl(null),
     });
   }
   addNew() {
@@ -40,6 +42,7 @@ export class SellComponent implements OnInit {
     this.tableArr.push({
       id: this.selectedId,
       amount: this.sellForm.value.amount,
+      partyName: this.sellForm.value.name,
     });
   }
 

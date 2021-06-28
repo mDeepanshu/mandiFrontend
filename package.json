@@ -1,13 +1,17 @@
 {
   "name": "mandi-fe",
   "version": "0.0.0",
+  "main": "electron-main.js",
+  "author": "Deepanshu",
+  "description": "Mandi App",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "electron .",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "electron-build": "ng build --prod"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +27,7 @@
     "@angular/router": "~11.2.13",
     "bootstrap": "^5.0.0",
     "debounce": "^1.2.1",
+    "electron": "^13.1.4",
     "jquery": "^3.6.0",
     "ngx-print": "^1.2.1",
     "popper.js": "^1.16.1",

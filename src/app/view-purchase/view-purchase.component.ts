@@ -23,7 +23,6 @@ export class ViewPurchaseComponent implements OnInit {
   campaignOne: FormGroup;
   options;
   tableArr;
-  animal: string;
   name: string;
 
   placeholder = ''; //this changes when radio values changes between party and bill
@@ -78,6 +77,7 @@ export class ViewPurchaseComponent implements OnInit {
         console.log(val);
         this.mainService.getBillbyParty(this.selectedId, 1).then((data) => {
           console.log(data);
+          this.tableArr = data;
         });
         break;
       case 'two':

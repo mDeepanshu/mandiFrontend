@@ -369,6 +369,7 @@ export class MainServiceService {
     });
   }
   editParty(obj, id) {
+    console.log(obj, id);
     return new Promise((response, reject) => {
       this.http
         .post(`${this.url}/party/edit_party?partyId=${id}`, obj)
@@ -426,6 +427,28 @@ export class MainServiceService {
     return new Promise((response, reject) => {
       this.http
         .get(`${this.url}/purchase/autocomplete_bill_no?${keyword}=k&limit=4`)
+        .subscribe((responseData: ResponseType) => {
+          let isError = this.checkForErr(
+            responseData.status,
+            responseData.message
+          );
+          if (isError) {
+            reject('http request failed' + responseData.message);
+            this.isErr.next(responseData.message);
+          } else {
+            response(responseData.message);
+          }
+        });
+    });
+  }
+  getCrateTransaction(Id, d, m, y) {
+    console.log(d, m, y);
+    console.log(Id);
+    return new Promise((response, reject) => {
+      this.http
+        .get(
+          `${this.url}/crate_transaction/transactions?partyId=${Id}&dd=${d}&mm=${m}&yyyy=${y}`
+        )
         .subscribe((responseData: ResponseType) => {
           let isError = this.checkForErr(
             responseData.status,

@@ -18,6 +18,13 @@ export class CrateComponent implements OnInit {
   projectForm: FormGroup;
   selectedTab;
   selectedId;
+  tableArr;
+  dataCurrent: { type1: number; type2: number; type3: number } = {
+    type1: -1,
+    type2: -1,
+    type3: -1,
+  };
+
   date = new Date();
   ngOnInit() {
     this.projectForm = new FormGroup({
@@ -66,5 +73,24 @@ export class CrateComponent implements OnInit {
   onPartySelect(id) {
     this.selectedId = id;
     console.log(id);
+  }
+  find(val) {
+    let date = val.datepicker._model.selection;
+    this.mainService
+      .getCrateTransaction(
+        this.selectedId,
+        date.getDate(),
+        date.getMonth() + 1,
+        date.getFullYear()
+      )
+      .then(
+        (data: {
+          current: { type1: number; type2: number; type3: number };
+          transactions: [];
+        }) => {
+          this.tableArr = data.transactions;
+          this.dataCurrent = data.current;
+        }
+      );
   }
 }

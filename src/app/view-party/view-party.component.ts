@@ -27,7 +27,7 @@ export class ViewPartyComponent implements OnInit {
     });
   }
 
-  public tableArr: Array<any> = [];
+  public tableArr;
   options;
   public timer;
   mainForm: FormGroup;
@@ -50,10 +50,12 @@ export class ViewPartyComponent implements OnInit {
     this.options = [];
     this.timer = setTimeout(() => {
       console.log(val);
-      this.mainService.autoCompleteName(val, 'types=0&types=2').then((arr) => {
-        console.log(arr);
-        this.options = arr;
-      });
+      this.mainService
+        .autoCompleteName(val, 'types=0&types=2&types=3')
+        .then((arr) => {
+          console.log(arr);
+          this.options = arr;
+        });
     }, 1000);
   }
   find() {
@@ -72,6 +74,7 @@ export class ViewPartyComponent implements OnInit {
       )
       .then((data) => {
         console.log(data);
+        this.tableArr = data;
       });
   }
   onPartySelect(name) {
@@ -90,11 +93,11 @@ export class ViewPartyComponent implements OnInit {
   }
   onSubmit() {}
   saveEdit() {
-    console.log(this.mainForm.value);
     this.mainService
-      .editParty(this.selectedPartyId, this.mainForm.value)
+      .editParty(this.mainForm.value, this.selectedPartyId)
       .then((data) => {
-        this._snackBar.open('Party Saves', 'Close');
+        console.log(data);
+        this._snackBar.open('Party Edits Saved', 'Close');
       });
   }
   resetForm() {

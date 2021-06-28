@@ -46,9 +46,11 @@ export class AddPartyComponent implements OnInit {
     this.options = [];
     this.timer = setTimeout(() => {
       console.log(val);
-      this.mainService.autoCompleteName(val, 'types=1').then((arr) => {
-        this.options = arr;
-      });
+      this.mainService
+        .autoCompleteName(val, 'types=1&types=2&types=3&types=0')
+        .then((arr) => {
+          this.options = arr;
+        });
     }, 500);
   }
 }
