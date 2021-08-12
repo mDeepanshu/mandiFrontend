@@ -1,7 +1,7 @@
 // main.js
 
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 server = require("./mandiBackend/index");
 function createWindow() {
@@ -11,6 +11,8 @@ function createWindow() {
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
+      nativeWindowOpen: true, // add this
+      nodeIntegration: false,
     },
   });
 

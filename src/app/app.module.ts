@@ -30,6 +30,8 @@ import { ErrMsgModuleComponent } from './err-msg-module/err-msg-module.component
 import { SaveDialogComponent } from './save-dialog/save-dialog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { PurchasePrintComponent } from './purchase-print/purchase-print.component';
+
 const routes: Routes = [
   { path: '', component: PurchaseComponent },
   { path: 'partyCollection-component', component: PartyCollectionComponent },
@@ -59,6 +61,7 @@ const routes: Routes = [
     PurchaseModelComponent,
     ErrMsgModuleComponent,
     SaveDialogComponent,
+    PurchasePrintComponent,
   ],
   imports: [
     BrowserModule,

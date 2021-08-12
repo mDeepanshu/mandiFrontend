@@ -1,17 +1,12 @@
 <!-- <app-login></app-login> -->
 <!--  -->
-<div class="container">
+<div class="container-fluid">
   <div class="row justify-content-between">
-    <div class="col-1">
+    <div class="col-1" *ngIf="!isPrint">
       <app-main-menu></app-main-menu>
     </div>
-    <div class="col-11">
-      <!-- <app-add-party></app-add-party> -->
-      <!-- <app-party-collection></app-party-collection> -->
-      <!-- <app-purchase></app-purchase> -->
+    <div class="col-10" id="mainContent">
       <router-outlet></router-outlet>
     </div>
   </div>
 </div>
-<!-- <app-add-party></app-add-party> -->
-<!-- <router-outlet></router-outlet> -->

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MainServiceService } from '../main-service.service';
 import { Party } from '../models/party.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -22,12 +22,12 @@ export class AddPartyComponent implements OnInit {
 
   ngOnInit() {
     this.projectForm = new FormGroup({
-      name: new FormControl(),
-      address: new FormControl(),
-      commission: new FormControl(),
-      phone: new FormControl(),
-      starting: new FormControl(),
-      type: new FormControl(0),
+      name: new FormControl(null, Validators.required),
+      address: new FormControl(null, Validators.required),
+      commission: new FormControl(null, Validators.required),
+      phone: new FormControl(null, Validators.required),
+      starting: new FormControl(null, Validators.required),
+      type: new FormControl(0, Validators.required),
     });
   }
   onSaveForm() {
@@ -41,16 +41,15 @@ export class AddPartyComponent implements OnInit {
     // this.purchaseForm.markAsPristine();
     this.projectForm.reset();
   }
-  partyName(val) {
+  async partyName(val) {
     clearTimeout(this.timer);
     this.options = [];
-    this.timer = setTimeout(() => {
+    this.timer = setTimeout(async () => {
       console.log(val);
-      this.mainService
-        .autoCompleteName(val, 'types=1&types=2&types=3&types=0')
-        .then((arr) => {
-          this.options = arr;
-        });
+      this.options = await this.mainService.autoCompleteName(
+        val,
+        'types=1&types=2&types=3&types=0'
+      );
     }, 500);
   }
 }

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [hidden]="isPrinting">
   <form [formGroup]="purchaseForm" (ngSubmit)="onSubmit()">
     <div class="row justify-content-between">
       <!-- <div class="col-10"> -->
@@ -170,7 +170,11 @@
           <div class="row" formGroupName="setTwo">
             <div class="col">
               <div class="form-floating mb-3">
-                <input class="form-control" formControlName="item" id="Item" />
+                <input
+                  class="form-control"
+                  formControlName="item_name"
+                  id="Item"
+                />
                 <label for="floatingInput">Item</label>
               </div>
             </div>
@@ -318,4 +322,83 @@
       </div>
     </div>
   </form>
+</div>
+
+<!--  -->
+<!--  -->
+<div class="container-fluid" id="toP" [hidden]="!isPrinting">
+  <div class="row">
+    <div class="col" style="margin-left: 30mm">
+      <h4>PURCHASE BILL</h4>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col">BILL NO:{{ billNumber }}</div>
+    <div class="col">DATE:{{ date }}</div>
+    <div class="col">PARTY NAME: {{ username.value }}</div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col">BHADA:{{ this.purchaseForm.value.setOne.bhada }}</div>
+    <div class="col">
+      BHADA RATE:{{ this.purchaseForm.value.setOne.bhada_rate }}
+    </div>
+    <div class="col">CASH:{{ this.purchaseForm.value.setOne.cash }}</div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col">
+      COMMISION:{{ this.purchaseForm.value.setOne.commission }}
+    </div>
+    <div class="col">
+      COMMISION RATE:{{ this.purchaseForm.value.setOne.commission_rate }}
+    </div>
+    <div class="col">HAMMALI:{{ this.purchaseForm.value.setOne.hammali }}</div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col">TAX:{{ this.purchaseForm.value.setOne.tax }}</div>
+    <div class="col">
+      STATION CHARGE:{{ this.purchaseForm.value.setOne.station_charge }}
+    </div>
+    <div class="col">DRIVER:{{ this.purchaseForm.value.setOne.driver }}</div>
+  </div>
+  <hr />
+  <div class="row">
+    <table #table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">ITEM</th>
+          <th scope="col">BAG</th>
+          <th scope="col">QUANTITY</th>
+          <th scope="col">RATE</th>
+          <th scope="col">AMOUNT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of tableArr; index as i">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ item.item_name }}</td>
+          <td>{{ item.bag }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.rate }}</td>
+          <td>{{ item.quantity * item.rate }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col">
+      TOTAL EXPENSE:{{ this.purchaseForm.value.setThree.to_exp }}
+    </div>
+    <div class="col">
+      BILL TOTAL:{{ this.purchaseForm.value.setThree.bill_total }}
+    </div>
+    <div class="col">
+      NET AMOUNT:{{ this.purchaseForm.value.setThree.net_amount }}
+    </div>
+  </div>
 </div>

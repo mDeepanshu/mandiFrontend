@@ -120,11 +120,43 @@
         <tbody>
           <tr *ngFor="let item of data.items; index as i">
             <th scope="row">{{ i + 1 }}</th>
-            <td>{{ item.item }}</td>
-            <td>{{ item.bag }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>{{ item.rate }}</td>
-            <td>{{ item.quantity * item.rate }}</td>
+            <td>
+              <input
+                class="form-control"
+                value="{{ item.item_name }}"
+                (input)="arrayValChange('item', item.item, i)"
+              />
+            </td>
+            <td>
+              <input
+                class="form-control"
+                value="{{ item.bag }}"
+                (input)="arrayValChange('bag', item.bag, i)"
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                class="form-control"
+                value="{{ item.quantity }}"
+                (input)="arrayValChange('quantity', item.quantity, i)"
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                class="form-control"
+                value="{{ item.rate }}"
+                (input)="arrayValChange('rate', item.rate, i)"
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                class="form-control"
+                value="{{ item.quantity * item.rate }}"
+              />
+            </td>
             <td>
               <button
                 (click)="removeItem(i)"

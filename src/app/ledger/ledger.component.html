@@ -1,8 +1,8 @@
-<div class="container firstDiv">
+<div class="container-fluid firstDiv">
   <div class="row">
-    <div class="col-10">
-      <div class="mainForm">
-        <table class="table">
+    <div class="col">
+      <div>
+        <table class="table print">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -26,7 +26,7 @@
         </table>
       </div>
     </div>
-    <div class="col-2" style="margin-top: 100px">
+    <div class="col-2" style="margin-top: 100px" *ngIf="!isPrinting">
       <div class="row">
         <button type="button" class="btn btn-primary">Create</button>
       </div>
@@ -35,54 +35,11 @@
           type="button"
           class="btn btn-primary"
           style="margin-top: 50px"
-          printSectionId="toP"
-          ngxPrint
+          (click)="printIt()"
         >
           Print
         </button>
       </div>
     </div>
   </div>
-</div>
-<div id="toP" hidden>
-  <h1 style="text-align: center">Dukan ka naam</h1>
-  <hr />
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Back</th>
-        <th scope="col"></th>
-        <th scope="col">Today</th>
-        <th scope="col">Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry the Bird</td>
-        <td>@twitter</td>
-        <td>@twitter</td>
-        <td>@mdo</td>
-        <td>@fat</td>
-      </tr>
-    </tbody>
-  </table>
 </div>

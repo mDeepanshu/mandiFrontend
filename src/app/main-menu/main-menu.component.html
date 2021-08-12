@@ -7,7 +7,7 @@
         <i class="fa fa-home" aria-hidden="true"></i> Purchase
       </a>
     </li>
-    <li>
+    <li [hidden]="expired">
       <a routerLink="/ledger-component">
         <i class="fa fa-tachometer" aria-hidden="true"></i> Ledger
       </a>
@@ -23,17 +23,17 @@
         <i class="fa fa-cog" aria-hidden="true"></i> Crate
       </a>
     </li>
-    <li>
+    <li [hidden]="expired">
       <a routerLink="/partyCollection-component">
         <i class="fa fa-info-circle" aria-hidden="true"></i> Vyapari Vasuli
       </a>
     </li>
-    <li>
+    <li [hidden]="expired">
       <a routerLink="/viewParty-component">
         <i class="fa fa-info-circle" aria-hidden="true"></i>View Party
       </a>
     </li>
-    <li>
+    <li [hidden]="expired">
       <a routerLink="/viewPurchase-component">
         <i class="fa fa-info-circle" aria-hidden="true"></i>View Purchase
       </a>

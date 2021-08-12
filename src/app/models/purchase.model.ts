@@ -1,6 +1,6 @@
 import { PurchaseTable } from './purchaseTable.model';
 export interface Purchase {
-  date: Date;
+  date: any;
   bill_no: Number;
   partyId: String;
   bhada_rate: Number;
@@ -16,4 +16,5 @@ export interface Purchase {
   to_exp: Number;
   net_amount: Number;
   items: PurchaseTable[];
+  strDate: String;
 }

@@ -72,8 +72,13 @@ export class ViewPartyComponent implements OnInit {
         Number(till.getMonth()) + 1,
         till.getFullYear()
       )
-      .then((data) => {
-        console.log(data);
+      .then((data: []) => {
+        data.forEach((element: { date }) => {
+          let date = new Date(element.date);
+          element.date = `${date.getDate()}/${
+            date.getMonth() + 1
+          }/${date.getFullYear()}`;
+        });
         this.tableArr = data;
       });
   }

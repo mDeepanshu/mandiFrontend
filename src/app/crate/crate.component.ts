@@ -18,6 +18,7 @@ export class CrateComponent implements OnInit {
   projectForm: FormGroup;
   selectedTab;
   selectedId;
+  collectOrLend = 'COLLECT';
   tableArr;
   dataCurrent: { type1: number; type2: number; type3: number } = {
     type1: -1,
@@ -58,7 +59,7 @@ export class CrateComponent implements OnInit {
     let obj = form.value;
     obj.partyId = this.selectedId;
     obj.date = this.date;
-    if (this.selectedTab === 'lend') {
+    if (this.selectedTab === 'LEND') {
       obj.count = -1 * obj.count;
     }
     console.log(obj);
@@ -69,6 +70,7 @@ export class CrateComponent implements OnInit {
   }
   onTab(e) {
     this.selectedTab = e;
+    this.collectOrLend = e;
   }
   onPartySelect(id) {
     this.selectedId = id;

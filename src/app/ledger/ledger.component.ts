@@ -15,9 +15,22 @@ export class LedgerComponent implements OnInit {
   m = new Date().getMonth();
   y = new Date().getFullYear();
   public date = this.d + '/' + this.m + '/' + this.y;
+  isPrinting = false;
+
   ngOnInit() {
     this.mainService.getLedger(this.d, this.m, this.y).then((data: Ledger) => {
       this.tableArr = data;
     });
+  }
+  printIt() {
+    this.mainService.purchasePrint.next(true);
+    this.isPrinting = true;
+    setTimeout(() => {
+      window.print();
+    }, 0);
+    setTimeout(() => {
+      this.mainService.purchasePrint.next(false);
+      this.isPrinting = false;
+    }, 0);
   }
 }

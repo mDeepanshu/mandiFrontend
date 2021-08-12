@@ -3,7 +3,7 @@ import { MainServiceService } from '../main-service.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { PurchaseModelComponent } from '../purchase-model/purchase-model.component';
-
+import { Purchase } from '../models/purchase.model';
 @Component({
   selector: 'app-view-purchase',
   templateUrl: './view-purchase.component.html',
@@ -75,8 +75,13 @@ export class ViewPurchaseComponent implements OnInit {
       case 'one':
         val = this.myNameElem.nativeElement.value;
         console.log(val);
-        this.mainService.getBillbyParty(this.selectedId, 1).then((data) => {
-          console.log(data);
+        this.mainService.getBillbyParty(this.selectedId, 1).then((data: []) => {
+          data.forEach((element: Purchase) => {
+            let date = new Date(element.date);
+            element.date = `${date.getDate()}/${
+              date.getMonth() + 1
+            }/${date.getFullYear()}`;
+          });
           this.tableArr = data;
         });
         break;
@@ -92,16 +97,26 @@ export class ViewPurchaseComponent implements OnInit {
             Number(till.getMonth()) + 1,
             till.getFullYear()
           )
-          .then((data) => {
+          .then((data: []) => {
             console.log(data);
+            data.forEach((element: Purchase) => {
+              let date = new Date(element.date);
+              element.date = `${date.getDate()}/${
+                date.getMonth() + 1
+              }/${date.getFullYear()}`;
+            });
             this.tableArr = data;
           });
         break;
       case 'three':
         val = this.myNameElem.nativeElement.value;
-        this.mainService.getBillbyNum(val);
-        console.log(val);
-
+        this.mainService.getBillbyNum(val).then((obj: Purchase) => {
+          let date = new Date(obj.date);
+          obj.date = `${date.getDate()}/${
+            date.getMonth() + 1
+          }/${date.getFullYear()}`;
+          this.tableArr = [obj];
+        });
         break;
     }
   }

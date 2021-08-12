@@ -10,7 +10,7 @@
         role="tab"
         aria-controls="nav-home"
         aria-selected="true"
-        (click)="onTab('collect')"
+        (click)="onTab('COLLECT')"
       >
         Collect
       </button>
@@ -23,7 +23,7 @@
         role="tab"
         aria-controls="nav-profile"
         aria-selected="false"
-        (click)="onTab('lend')"
+        (click)="onTab('LEND')"
       >
         Lend
       </button>
@@ -142,7 +142,9 @@
               <input type="number" name="count" ngModel class="form-control" />
             </div>
             <div class="col">
-              <button type="submit" class="btn btn-primary">Collect</button>
+              <button type="submit" class="btn btn-primary">
+                {{ collectOrLend }}
+              </button>
             </div>
           </div>
         </form>

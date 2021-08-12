@@ -5,6 +5,7 @@ import { Purchase } from '../models/purchase.model';
 import { PurchaseTable } from '../models/purchaseTable.model';
 import { Party } from '../models/party.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+// Importing BrowserWindow from Main
 @Component({
   selector: 'app-purchase',
   templateUrl: './purchase.component.html',
@@ -23,6 +24,8 @@ export class PurchaseComponent implements OnInit {
   public timer;
   public commRateChange = true;
   selectedId;
+  isPrinting = false;
+  billNumber;
   @ViewChild('table') from: ElementRef;
 
   //
@@ -50,7 +53,7 @@ export class PurchaseComponent implements OnInit {
         driver: new FormControl(null, Validators.required),
       }),
       setTwo: new FormGroup({
-        item: new FormControl(null),
+        item_name: new FormControl(),
         bag: new FormControl(2),
         quantity: new FormControl(2),
         rate: new FormControl(2),
@@ -95,28 +98,31 @@ export class PurchaseComponent implements OnInit {
     let objOne = this.purchaseForm.value.setOne;
     let billTotal = 0;
     let totalBag = 0;
-    let total_exp =
-      objOne.bhada +
-      objOne.commission +
-      objOne.driver +
-      objOne.station_charge +
-      objOne.hammali +
-      objOne.tax +
-      objOne.cash;
+
     this.tableArr.forEach((element) => {
       billTotal =
-        Number(billTotal) + Number(element.quantity) * Number(element.rate);
+        Number(billTotal) +
+        Math.round(Number(element.quantity) * Number(element.rate));
       totalBag = Number(totalBag) + Number(element.bag);
     });
     console.log(objOne.commission_rate, billTotal);
-
     this.purchaseForm.patchValue({
       setOne: {
-        hammali: totalBag * this.hammaliRate,
-        bhada: totalBag * objOne.bhada_rate,
-        tax: totalBag * this.taxRate,
-        commission: (objOne.commission_rate / 100) * billTotal,
+        hammali: Math.round(totalBag * this.hammaliRate),
+        bhada: Math.round(totalBag * objOne.bhada_rate),
+        tax: Math.round(totalBag * this.taxRate),
+        commission: Math.round((objOne.commission_rate / 100) * billTotal),
       },
+    });
+    let total_exp =
+      Math.round(totalBag * objOne.bhada_rate) +
+      Math.round((objOne.commission_rate / 100) * billTotal) +
+      objOne.driver +
+      objOne.station_charge +
+      Math.round(totalBag * this.hammaliRate) +
+      Math.round(totalBag * this.taxRate) +
+      objOne.cash;
+    this.purchaseForm.patchValue({
       setThree: {
         bill_total: billTotal,
         to_exp: total_exp,
@@ -142,7 +148,18 @@ export class PurchaseComponent implements OnInit {
     this.mainService.addPurchase(obj).then((data) => {
       this._snackBar.open('Purchase Saved', 'Close');
     });
-    this.purchaseForm.reset();
+    //
+    // const printContent = document.getElementById('toP');
+    // const WindowPrt = window.open(
+    //   '',
+    //   '',
+    //   'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0'
+    // );
+    // WindowPrt.document.write(printContent.innerHTML);
+    // WindowPrt.document.close();
+    // WindowPrt.focus();
+    // WindowPrt.print();
+    this.printIt();
   }
   onPartySelect(name, id) {
     console.log(name.source.value);
@@ -176,6 +193,17 @@ export class PurchaseComponent implements OnInit {
       this.commRateChange = true;
       console.log(this.purchaseForm.value.setOne.commission_rate);
     }
+  }
+  printIt() {
+    this.mainService.purchasePrint.next(true);
+    this.isPrinting = true;
+    setTimeout(() => {
+      window.print();
+    }, 0);
+    setTimeout(() => {
+      this.mainService.purchasePrint.next(false);
+      this.isPrinting = false;
+    }, 0);
   }
   //
   //

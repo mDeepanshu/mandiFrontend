@@ -3,11 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { ResponseType } from './models/responseType';
 import { ErrMsgModuleComponent } from './err-msg-module/err-msg-module.component';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
+import { map } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
 @Injectable({
   providedIn: 'root',
 })
@@ -16,7 +13,7 @@ export class MainServiceService {
   public url: string = 'http://localhost:3000';
 
   constructor(private http: HttpClient, public dialog: MatDialog) {}
-  isErr = new Subject<string>();
+  purchasePrint = new Subject<boolean>();
 
   addParty(body) {
     return new Promise((response, reject) => {
@@ -29,7 +26,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -54,7 +50,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -73,7 +68,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -91,7 +85,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -110,7 +103,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -128,7 +120,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -140,6 +131,17 @@ export class MainServiceService {
     return new Promise((response, reject) => {
       this.http
         .get(`${this.url}/purchase/by_bill_no?bill_no=${val}`)
+        // .pipe(
+        //   map((resData: ResponseType) => {
+        //     console.log('resData.message', resData.message);
+
+        //       let date = new Date(resData.message.date);
+        //       resData.message.date = `${date.getDate()}/${
+        //         date.getMonth() + 1
+        //       }/${date.getFullYear()}`;
+        //     return resData;
+        //   })
+        // )
         .subscribe((responseData: ResponseType) => {
           let isError = this.checkForErr(
             responseData.status,
@@ -147,7 +149,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -169,7 +170,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -189,7 +189,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -208,7 +207,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -226,7 +224,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -246,7 +243,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -264,7 +260,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -283,7 +278,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -301,7 +295,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -320,7 +313,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -340,7 +332,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -361,7 +352,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -380,7 +370,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -388,6 +377,7 @@ export class MainServiceService {
     });
   }
   editPurchase(obj, id) {
+    console.log(obj);
     return new Promise((response, reject) => {
       this.http
         .post(`${this.url}/purchase/edit?id=${id}`, obj)
@@ -398,7 +388,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -416,7 +405,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -434,7 +422,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -456,7 +443,6 @@ export class MainServiceService {
           );
           if (isError) {
             reject('http request failed' + responseData.message);
-            this.isErr.next(responseData.message);
           } else {
             response(responseData.message);
           }
@@ -471,4 +457,23 @@ export class MainServiceService {
       return false;
     }
   }
+  // async abcd(keyword, type) {
+  //   let data = await this.http.get(
+  //     `${this.url}/party/autocomplete_name?keyword=${keyword}&limit=5&${type}`
+  //   );
+  //   console.log(data);
+  //   // let json = await data.
+  // }
+  // async CompleteName(keyword, type) {
+  //   let val;
+  //   let data = await this.http.get(
+  //     `${this.url}/party/autocomplete_name?keyword=${keyword}&limit=5&${type}`
+  //   );
+
+  //  data.subscribe((result) => (val = result));
+  //   return val;
+  // }
 }
+// 24 functions
+
+//  trying

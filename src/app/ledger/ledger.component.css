@@ -1,0 +1,12 @@
+@media screen {
+  .print {
+    width: 100%;
+  }
+}
+
+@media print {
+  .print {
+    width: 15cm;
+    margin-left: 0;
+  }
+}

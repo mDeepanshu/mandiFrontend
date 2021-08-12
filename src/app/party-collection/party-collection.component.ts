@@ -14,7 +14,8 @@ export class PartyCollectionComponent implements OnInit {
     private _snackBar: MatSnackBar
   ) {}
   public date = new Date();
-
+  isPrinting = false;
+  dateToShow = Date().toString().substring(0, 15);
   ngOnInit() {}
   public timer;
   options;
@@ -55,5 +56,16 @@ export class PartyCollectionComponent implements OnInit {
   resetForm() {
     // this.purchaseForm.markAsPristine();
     // this.purchaseForm.reset();
+  }
+  printIt() {
+    this.mainService.purchasePrint.next(true);
+    this.isPrinting = true;
+    setTimeout(() => {
+      window.print();
+    }, 0);
+    setTimeout(() => {
+      this.mainService.purchasePrint.next(false);
+      this.isPrinting = false;
+    }, 0);
   }
 }
