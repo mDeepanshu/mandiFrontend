@@ -13,9 +13,9 @@ export class MainMenuComponent implements OnInit {
 
   ngOnInit() {
     const d = new Date();
-    d.setMonth(8);
-    d.setDate(20);
-    if (d.getTime() - this.date.getTime() == 0) {
+    d.setMonth(9);
+    d.setDate(30);
+    if (d.getTime() - this.date.getTime() <= 0) {
       this.expired = true;
       this._snackBar.open('Date Expired', 'Close');
     } else if (d.getTime() - this.date.getTime() < 1296011173) {

@@ -1,6 +1,13 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  Validators,
+  FormArray,
+  FormBuilder,
+} from '@angular/forms';
 import { MainServiceService } from '../main-service.service';
 
 @Component({
@@ -10,8 +17,10 @@ import { MainServiceService } from '../main-service.service';
 })
 export class PurchaseModelComponent implements OnInit {
   constructor(
+    private fb: FormBuilder,
     private mainService: MainServiceService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private _snackBar: MatSnackBar
   ) {
     // console.log(data);
     // this.purchaseForm.patchValue(data);
@@ -33,8 +42,18 @@ export class PurchaseModelComponent implements OnInit {
       to_exp: new FormControl(null, Validators.required),
       bill_total: new FormControl(null, Validators.required),
       net_amount: new FormControl(null, Validators.required),
+      items: new FormArray([]),
     });
-    console.log(this.data);
+    this.data.items.forEach((element) => {
+      // this.purchaseForm.
+      const item = new FormGroup({
+        item_name: new FormControl(element.item_name, Validators.required),
+        bag: new FormControl(element.bag, Validators.required),
+        quantity: new FormControl(element.quantity, Validators.required),
+        rate: new FormControl(element.rate, Validators.required),
+      });
+      (<FormArray>this.purchaseForm.get('items')).push(item);
+    });
     this.mainService
       .getConstants()
       .then((data: { hammali_rate; bhada_rate; tax_rate }) => {
@@ -44,7 +63,12 @@ export class PurchaseModelComponent implements OnInit {
     this.purchaseForm.patchValue(this.data);
   }
   save() {
-    this.mainService.editPurchase(this.purchaseForm.value, this.data._id);
+    console.log(this.purchaseForm.value);
+    this.mainService
+      .editPurchase(this.purchaseForm.value, this.data._id)
+      .then((data) => {
+        this._snackBar.open('Edit Saved', 'Close');
+      });
   }
   calculate() {
     let objOne = this.purchaseForm.value;

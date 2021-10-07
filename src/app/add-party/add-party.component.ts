@@ -34,7 +34,7 @@ export class AddPartyComponent implements OnInit {
     this.Party = this.projectForm.value;
     console.log(this.Party);
     this.mainService.addParty(this.Party).then((data) => {
-      this._snackBar.open('Party Saves', 'Close');
+      this._snackBar.open('Party Saved', 'Close');
     });
   }
   resetForm() {
