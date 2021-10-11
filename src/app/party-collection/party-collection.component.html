@@ -1,5 +1,5 @@
 <div class="firstDiv" [hidden]="isPrinting">
-  <form class="mainForm">
+  <form class="mainForm" [formGroup]="form" (ngSubmit)="resetForm()">
     <!-- UID -->
 
     <div class="row">
@@ -21,6 +21,7 @@
         type="text"
         class="form-control"
         placeholder="Party Name"
+        formControlName="party_name"
         #username
         (input)="partyName(username.value)"
         [matAutocomplete]="auto"
@@ -35,7 +36,13 @@
         </mat-option>
       </mat-autocomplete>
       <span class="input-group-text">OF Rs</span>
-      <input type="text" class="form-control" #amount placeholder="Amount" />
+      <input
+        type="text"
+        class="form-control"
+        #amount
+        placeholder="Amount"
+        formControlName="amount"
+      />
     </div>
     <hr />
     <!-- buttons -->
@@ -50,7 +57,7 @@
         </button>
       </div>
       <div class="col">
-        <button type="button" class="btn btn-primary" (click)="resetForm()">
+        <button type="submit" class="btn btn-primary" (click)="resetForm()">
           New
         </button>
       </div>

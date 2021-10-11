@@ -31,6 +31,10 @@ import { CrateComponent } from './crate/crate.component';
 import { AddPartyComponent } from './add-party/add-party.component';
 import { SellComponent } from './sell/sell.component';
 import { PurchaseComponent } from './purchase/purchase.component';
+import { TroublersComponent } from './troublers/troublers.component';
+import { TodaysSellComponent } from './todays-sell/todays-sell.component';
+import { TodaysVasuliComponent } from './todays-vasuli/todays-vasuli.component';
+import { ItemsComponent } from './items/items.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +53,10 @@ import { PurchaseComponent } from './purchase/purchase.component';
     ErrMsgModuleComponent,
     SaveDialogComponent,
     PurchasePrintComponent,
+    TroublersComponent,
+    TodaysSellComponent,
+    TodaysVasuliComponent,
+    ItemsComponent,
   ],
   imports: [
     BrowserModule,
