@@ -45,10 +45,16 @@
                     type="number"
                     class="form-control"
                     formControlName="bhada"
+                    (input)="constChange('bhada')"
                     id="floatingInput"
                     placeholder=""
                   />
-                  <label for="floatingInput">Bhada</label>
+                  <label for="floatingInput"
+                    >Bhada
+                    <mat-icon [hidden]="!bhadaChanged"
+                      >lightbulb</mat-icon
+                    ></label
+                  >
                 </div>
               </div>
               <div class="col">
@@ -58,9 +64,15 @@
                     id="floatingInput"
                     type="number"
                     formControlName="hammali"
+                    (input)="constChange('hammali')"
                     placeholder=""
                   />
-                  <label for="floatingInput">Hammali</label>
+                  <label for="floatingInput"
+                    >Hammali
+                    <mat-icon [hidden]="!hammaliChanged"
+                      >lightbulb</mat-icon
+                    ></label
+                  >
                 </div>
               </div>
               <div class="col">
@@ -72,7 +84,7 @@
                     formControlName="cash"
                     placeholder=""
                   />
-                  <label for="floatingInput">Cash</label>
+                  <label for="floatingInput">Cash </label>
                 </div>
               </div>
             </div>
