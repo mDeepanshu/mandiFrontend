@@ -19,6 +19,7 @@ import { PurchaseModelComponent } from './purchase-model/purchase-model.componen
 import { ErrMsgModuleComponent } from './err-msg-module/err-msg-module.component';
 import { SaveDialogComponent } from './save-dialog/save-dialog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PurchasePrintComponent } from './purchase-print/purchase-print.component';
 import { PartyCollectionComponent } from './party-collection/party-collection.component';
@@ -70,6 +71,7 @@ import { ItemsComponent } from './items/items.component';
     MatFormFieldModule,
     MatSnackBarModule,
     MatTooltipModule,
+    MatSlideToggleModule,
     MatDatepickerModule,
     MatNativeDateModule,
     HttpClientModule,

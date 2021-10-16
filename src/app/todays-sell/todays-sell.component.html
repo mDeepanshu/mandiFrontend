@@ -1,1 +1,61 @@
-<p>todays-sell works!</p>
+<div class="container-fluid firstDiv">
+  <div class="row">
+    <div class="col">
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="floatingInput"
+          #item_name
+          placeholder="ITEM NAME"
+        />
+        <label for="floatingInput">ITEM NAME</label>
+      </div>
+    </div>
+    <div class="col">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="get_item_Sell(item_name.value)"
+        style="margin-top: 10px"
+      >
+        GET LIST
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div>
+        <table class="table print">
+          <thead>
+            <tr>
+              <th scope="col">AMOUNT</th>
+              <th scope="col">PARTY NAME</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of list; index as i">
+              <td>{{ item.amount }}</td>
+              <td>{{ item.partyName }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-2" style="margin-top: 100px" *ngIf="!isPrinting">
+      <!-- <div class="row">
+          <button type="button" class="btn btn-primary">Create</button>
+        </div> -->
+      <div class="row">
+        <button
+          type="button"
+          class="btn btn-primary"
+          style="margin-top: 50px"
+          (click)="printIt()"
+        >
+          Print
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

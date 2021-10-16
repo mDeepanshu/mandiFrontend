@@ -18,7 +18,7 @@ export class PartyCollectionComponent implements OnInit {
   isPrinting = false;
   dateToShow = Date().toString().substring(0, 15);
   form: FormGroup;
-
+  sendSMS = true;
   ngOnInit() {
     this.form = new FormGroup({
       party_name: new FormControl(null, Validators.required),
@@ -43,7 +43,9 @@ export class PartyCollectionComponent implements OnInit {
     }, 1000);
   }
   //
-
+  sendSMSStatus() {
+    this.sendSMS = !this.sendSMS;
+  }
   onPartySelect(name, id) {
     console.log(name.source.value);
     this.selectedPartyId = id;
@@ -61,6 +63,11 @@ export class PartyCollectionComponent implements OnInit {
         this.remaining = this.remaining - amount;
         this._snackBar.open('Transaction Saved', 'Close');
       });
+    if (this.sendSMS) {
+      this.mainService.sendSMS().then((data) => {
+        console.log('Msg sent', data);
+      });
+    }
   }
   resetForm() {
     // this.purchaseForm.markAsPristine();

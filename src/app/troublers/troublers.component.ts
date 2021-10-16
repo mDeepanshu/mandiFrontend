@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MainServiceService } from '../main-service.service';
 
 @Component({
   selector: 'app-troublers',
@@ -6,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./troublers.component.css'],
 })
 export class TroublersComponent implements OnInit {
-  constructor() {}
+  constructor(private mainService: MainServiceService) {}
   tableArr;
-  ngOnInit(): void {}
+  ngOnInit() {
+    this.mainService.getTroublers().then((data) => {
+      this.tableArr = data;
+    });
+  }
 }

@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ItemsComponent implements OnInit {
   projectForm: FormGroup;
+  public timer;
   items;
   constructor(
     private mainService: MainServiceService,
@@ -24,13 +25,22 @@ export class ItemsComponent implements OnInit {
   }
   onSaveForm() {
     // this.Party = this.projectForm.value;
-    // this.mainService.addParty(this.projectForm.value.itemname).then((data) => {
-    //   this._snackBar.open('Item Saved', 'Close');
-    // });
+    this.mainService
+      .addNewItem(this.projectForm.value.itemname)
+      .then((data) => {
+        this._snackBar.open('Item Saved', 'Close');
+      });
   }
   resetForm() {
-    // this.purchaseForm.markAsPristine();
     this.projectForm.reset();
   }
-  itemName(a) {}
+  async itemName(val) {
+    console.log('val');
+    clearTimeout(this.timer);
+    this.items = [];
+    this.timer = setTimeout(async () => {
+      this.items = await this.mainService.autoCompleteName(val, '');
+      console.log(this.items);
+    }, 350);
+  }
 }
