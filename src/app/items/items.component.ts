@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  HostListener,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MainServiceService } from '../main-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,6 +17,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ItemsComponent implements OnInit {
   projectForm: FormGroup;
   public timer;
+  @ViewChild('itemname') itemname: ElementRef;
+
   items;
   constructor(
     private mainService: MainServiceService,
@@ -22,6 +30,9 @@ export class ItemsComponent implements OnInit {
       itemname: new FormControl(null, Validators.required),
       // address: new FormControl(null, Validators.required),
     });
+    setTimeout(() => {
+      this.itemname.nativeElement.focus();
+    }, 0);
   }
   onSaveForm() {
     // this.Party = this.projectForm.value;
@@ -34,13 +45,11 @@ export class ItemsComponent implements OnInit {
   resetForm() {
     this.projectForm.reset();
   }
-  async itemName(val) {
-    console.log('val');
+  itemName(val) {
     clearTimeout(this.timer);
     this.items = [];
     this.timer = setTimeout(async () => {
-      this.items = await this.mainService.autoCompleteName(val, '');
-      console.log(this.items);
+      this.items = await this.mainService.autoCompleteItemName(val);
     }, 350);
   }
 }

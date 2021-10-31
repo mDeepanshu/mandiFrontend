@@ -13,7 +13,7 @@ export class MainMenuComponent implements OnInit {
 
   ngOnInit() {
     const d = new Date();
-    d.setMonth(9);
+    d.setMonth(11);
     d.setDate(30);
     if (d.getTime() - this.date.getTime() <= 0) {
       this.expired = true;

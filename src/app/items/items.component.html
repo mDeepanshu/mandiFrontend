@@ -14,8 +14,11 @@
               [matAutocomplete]="auto"
             />
             <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let option of items" [value]="option.name">
-                {{ option.name }}
+              <mat-option
+                *ngFor="let option of items"
+                [value]="option.itemName"
+              >
+                {{ option.itemName }}
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>

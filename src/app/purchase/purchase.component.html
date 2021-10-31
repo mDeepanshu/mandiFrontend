@@ -1,5 +1,10 @@
 <div class="container" [hidden]="isPrinting">
-  <form [formGroup]="purchaseForm" (ngSubmit)="onSubmit()">
+  <form
+    [formGroup]="purchaseForm"
+    (ngSubmit)="onSubmit()"
+    (keydown.enter)="$event.preventDefault()"
+    #aForm
+  >
     <div class="row justify-content-between">
       <!-- <div class="col-10"> -->
       <div class="col-10 firstDiv">
@@ -18,7 +23,7 @@
                   />
                   <mat-autocomplete #auto="matAutocomplete">
                     <mat-option
-                      *ngFor="let option of options"
+                      *ngFor="let option of partyOptions"
                       (onSelectionChange)="onPartySelect($event, option._id)"
                       [value]="option.name"
                     >
@@ -46,8 +51,8 @@
                     class="form-control"
                     formControlName="bhada"
                     (input)="constChange('bhada')"
-                    id="floatingInput"
-                    placeholder=""
+                    id="bhada"
+                    placeholder="Bhada"
                   />
                   <label for="floatingInput"
                     >Bhada
@@ -61,11 +66,11 @@
                 <div class="form-floating mb-3">
                   <input
                     class="form-control"
-                    id="floatingInput"
+                    id="hammali"
                     type="number"
                     formControlName="hammali"
                     (input)="constChange('hammali')"
-                    placeholder=""
+                    placeholder="Hammali"
                   />
                   <label for="floatingInput"
                     >Hammali
@@ -79,10 +84,10 @@
                 <div class="form-floating mb-3">
                   <input
                     class="form-control"
-                    id="floatingInput"
+                    id="cash"
                     type="number"
                     formControlName="cash"
-                    placeholder=""
+                    placeholder="Cash"
                   />
                   <label for="floatingInput">Cash </label>
                 </div>
@@ -95,9 +100,9 @@
                     <input
                       class="form-control"
                       type="number"
-                      id="floatingInput"
+                      id="commission_rate"
                       formControlName="commission_rate"
-                      placeholder=""
+                      placeholder="Commission Rate"
                       (change)="onCommRateChange()"
                     />
                     <label for="floatingInput">Commission Rate</label>
@@ -118,10 +123,10 @@
                 <div class="form-floating mb-3">
                   <input
                     class="form-control"
-                    id="floatingInput"
+                    id="bhada_rate"
                     type="number"
                     formControlName="bhada_rate"
-                    placeholder=""
+                    placeholder="Bhada Rate"
                   />
                   <label for="floatingInput">Bhada Rate</label>
                 </div>
@@ -130,10 +135,10 @@
                 <div class="form-floating mb-3">
                   <input
                     class="form-control"
-                    id="floatingInput"
+                    id="commission"
                     type="number"
                     formControlName="commission"
-                    placeholder=""
+                    placeholder="Commission"
                   />
                   <label for="floatingInput">Commision</label>
                 </div>
@@ -147,7 +152,7 @@
                     id="floatingInput"
                     formControlName="tax"
                     type="number"
-                    placeholder=""
+                    placeholder="Tax"
                   />
                   <label for="floatingInput">Tax</label>
                 </div>
@@ -156,10 +161,10 @@
                 <div class="form-floating mb-3">
                   <input
                     class="form-control"
-                    id="floatingInput"
+                    id="station_charge"
                     formControlName="station_charge"
                     type="number"
-                    placeholder=""
+                    placeholder="Station Charge"
                   />
                   <label for="floatingInput">Station Charge</label>
                 </div>
@@ -168,10 +173,10 @@
                 <div class="form-floating mb-3">
                   <input
                     class="form-control"
-                    id="floatingInput"
+                    id="driver"
                     type="number"
                     formControlName="driver"
-                    placeholder=""
+                    placeholder="Driver"
                   />
                   <label for="floatingInput">Driver</label>
                 </div>
@@ -181,13 +186,28 @@
           <hr />
           <div class="row" formGroupName="setTwo">
             <div class="col">
-              <div class="form-floating mb-3">
-                <input
-                  class="form-control"
-                  formControlName="item_name"
-                  id="Item"
-                />
-                <label for="floatingInput">Item</label>
+              <div class="input-group mb-3">
+                <mat-form-field style="width: 100%">
+                  <input
+                    type="text"
+                    style="height: 32px"
+                    formControlName="item_name"
+                    id="Item"
+                    placeholder="ITEM NAME"
+                    #itemname
+                    (input)="itemName(itemname.value)"
+                    matInput
+                    [matAutocomplete]="autoTwo"
+                  />
+                  <mat-autocomplete #autoTwo="matAutocomplete">
+                    <mat-option
+                      *ngFor="let option of itemOptions"
+                      [value]="option.itemName"
+                    >
+                      {{ option.itemName }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
               </div>
             </div>
             <div class="col">

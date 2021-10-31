@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  HostListener,
+} from '@angular/core';
 import { MainServiceService } from '../main-service.service';
 import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -27,12 +33,28 @@ export class CrateComponent implements OnInit {
   };
 
   date = new Date();
+  // @ViewChild('aForm') aForm: ElementRef;
+  @ViewChild('username') username: ElementRef;
+  toNextElement = 0;
   ngOnInit() {
     this.projectForm = new FormGroup({
       name: new FormControl(),
       type: new FormControl(),
     });
+    setTimeout(() => {
+      this.username.nativeElement.focus();
+    }, 0);
   }
+  // @HostListener('document:keydown.enter', ['$event']) onKeydownHandler(
+  //   event: KeyboardEvent
+  // ) {
+  //   this.aForm.nativeElement[this.toNextElement].focus();
+  //   if (this.toNextElement == 13) {
+  //     this.toNextElement = 10;
+  //   } else {
+  //     this.toNextElement++;
+  //   }
+  // }
   partyName(val) {
     clearTimeout(this.timer);
     this.options = [];

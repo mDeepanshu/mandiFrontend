@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  HostListener,
+} from '@angular/core';
 import { MainServiceService } from '../main-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Purchase } from '../models/purchase.model';
@@ -32,7 +38,10 @@ export class PurchaseComponent implements OnInit {
   selectedId;
   isPrinting = false;
   billNumber;
+  toNextElement = 1;
   @ViewChild('table') from: ElementRef;
+  @ViewChild('aForm') aForm: ElementRef;
+  @ViewChild('username') username: ElementRef;
 
   //
   public date =
@@ -42,8 +51,23 @@ export class PurchaseComponent implements OnInit {
     '/' +
     new Date().getFullYear();
   //
-  options;
-
+  partyOptions;
+  itemOptions;
+  idArray = [
+    'bhada',
+    'hammali',
+    'cash',
+    'commission_rate',
+    'bhada_rate',
+    'commission',
+    'Tax',
+    'station_charge',
+    'driver',
+    'Item',
+    'Bag',
+    'Quantity',
+    'Rate',
+  ];
   //
   ngOnInit() {
     this.purchaseForm = new FormGroup({
@@ -86,17 +110,43 @@ export class PurchaseComponent implements OnInit {
         });
       });
     //
+    setTimeout(() => {
+      this.username.nativeElement.focus();
+    }, 0);
+    //
+  }
+  @HostListener('document:keydown.enter', ['$event']) onKeydownHandler(
+    event: KeyboardEvent
+  ) {
+    this.aForm.nativeElement[this.toNextElement].focus();
+    if (this.toNextElement == 13) {
+      this.toNextElement = 10;
+    } else {
+      this.toNextElement++;
+    }
   }
   //
-
+  shiftFocus() {
+    console.log('Lkk');
+  }
   partyName(val) {
     clearTimeout(this.timer);
-    this.options = [];
+    this.partyOptions = [];
     this.timer = setTimeout(() => {
       console.log(val);
       this.mainService.autoCompleteName(val, 'types=1').then((arr) => {
         console.log(arr);
-        this.options = arr;
+        this.partyOptions = arr;
+      });
+    }, 500);
+  }
+  itemName(val) {
+    clearTimeout(this.timer);
+    this.itemOptions = [];
+    this.timer = setTimeout(() => {
+      this.mainService.autoCompleteItemName(val).then((arr) => {
+        console.log('arrarrarr', arr);
+        this.itemOptions = arr;
       });
     }, 500);
   }
@@ -153,20 +203,9 @@ export class PurchaseComponent implements OnInit {
     Object.assign(obj, this.purchaseForm.value.setThree);
     obj.bill_no = Date.now().toString(36);
     console.log(obj);
-    this.mainService.addPurchase(obj).then((data) => {
-      this._snackBar.open('Purchase Saved', 'Close');
-    });
-    //
-    // const printContent = document.getElementById('toP');
-    // const WindowPrt = window.open(
-    //   '',
-    //   '',
-    //   'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0'
-    // );
-    // WindowPrt.document.write(printContent.innerHTML);
-    // WindowPrt.document.close();
-    // WindowPrt.focus();
-    // WindowPrt.print();
+    // this.mainService.addPurchase(obj).then((data) => {
+    //   this._snackBar.open('Purchase Saved', 'Close');
+    // });
     this.printIt();
   }
   onPartySelect(name, id) {
@@ -183,6 +222,16 @@ export class PurchaseComponent implements OnInit {
         },
       });
     });
+  }
+  onItemSelect(name, id) {
+    // this.selectedId = id;
+    // this.mainService.getItem(name.source.value).then((data: Party) => {
+    //   this.purchaseForm.patchValue({
+    //     setOne: {
+    //       commission_rate: data.commission,
+    //     },
+    //   });
+    // });
   }
   removeItem(i) {
     console.log(i);

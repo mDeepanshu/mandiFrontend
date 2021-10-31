@@ -2,14 +2,19 @@
   <div class="firstDiv">
     <div class="row">
       <div class="col-9" style="margin-top: 30px">
-        <form [formGroup]="mainForm" (ngSubmit)="onSubmit()">
+        <form
+          [formGroup]="mainForm"
+          (ngSubmit)="onSubmit()"
+          (keydown.enter)="$event.preventDefault()"
+          #aForm
+        >
           <div class="row">
             <div class="col">
               <div class="form-floating mb-3">
                 <mat-form-field style="width: 100%">
                   <input
                     type="text"
-                    id="floatingInput"
+                    id="username"
                     placeholder="PARTY NAME"
                     formControlName="name"
                     matInput
@@ -33,11 +38,11 @@
             <div class="col">
               <div class="form-floating mb-3">
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
-                  id="floatingInput"
+                  id="curr"
                   formControlName="curr"
-                  placeholder="name@example.com"
+                  placeholder="Current"
                   disabled
                 />
                 <label for="floatingInput">Curr</label>
@@ -50,9 +55,9 @@
                 <input
                   type="text"
                   class="form-control"
-                  id="floatingInput"
+                  id="phone"
                   formControlName="phone"
-                  placeholder="name@example.com"
+                  placeholder="Phone"
                 />
                 <label for="floatingInput">Mobile Number</label>
               </div>
@@ -62,8 +67,8 @@
                 <input
                   type="text"
                   class="form-control"
-                  id="floatingInput"
-                  placeholder="name@example.com"
+                  id="address"
+                  placeholder="Address"
                   formControlName="address"
                 />
                 <label for="floatingInput">Address</label>
@@ -71,30 +76,6 @@
             </div>
           </div>
           <div class="row">
-            <!-- <div class="col">
-              <div class="form-floating mb-3">
-                <input
-                  type="date"
-                  class="form-control"
-                  #from
-                  id="floatingInput"
-                  placeholder="name@example.com"
-                />
-                <label for="floatingInput">From</label>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-floating mb-3">
-                <input
-                  type="date"
-                  class="form-control"
-                  #till
-                  id="floatingInput"
-                  placeholder="name@example.com"
-                />
-                <label for="floatingInput">Till</label>
-              </div>
-            </div> -->
             <mat-form-field class="example-form-field" appearance="fill">
               <mat-label>Date Range</mat-label>
               <mat-date-range-input

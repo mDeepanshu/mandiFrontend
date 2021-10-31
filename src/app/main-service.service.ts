@@ -56,7 +56,24 @@ export class MainServiceService {
         });
     });
   }
-
+  autoCompleteItemName(keyword) {
+    return new Promise((response, reject) => {
+      this.http
+        .get(`${this.url}/item/autocomplete_name?keyword=${keyword}&limit=5`)
+        .subscribe((responseData: ResponseType) => {
+          console.log(responseData.message);
+          let isError = this.checkForErr(
+            responseData.status,
+            responseData.message
+          );
+          if (isError) {
+            reject('http request failed' + responseData.message);
+          } else {
+            response(responseData.message);
+          }
+        });
+    });
+  }
   addPurchase(body) {
     return new Promise((response, reject) => {
       this.http
