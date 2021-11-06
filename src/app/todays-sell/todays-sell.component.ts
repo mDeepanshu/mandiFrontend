@@ -18,15 +18,15 @@ export class TodaysSellComponent implements OnInit {
   isPrinting = false;
   public timer;
   itemOptions;
-  @ViewChild('item_name') item_name: ElementRef;
+  // @ViewChild('itemnameRef', { static: true }) itemnameRef: ElementRef;
 
   ngOnInit() {
-    setTimeout(() => {
-      this.item_name.nativeElement.focus();
-    }, 0);
+    // setTimeout(() => {
+    //   this.itemnameRef.nativeElement.focus();
+    // }, 0);
   }
-  get_item_Sell(item_name) {
-    this.mainService.getTodaysItem(item_name).then((data) => {
+  get_item_Sell(itemname) {
+    this.mainService.getTodaysItem(itemname).then((data) => {
       this.list = data;
     });
   }

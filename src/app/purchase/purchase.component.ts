@@ -125,6 +125,7 @@ export class PurchaseComponent implements OnInit {
       this.toNextElement++;
     }
   }
+
   //
   shiftFocus() {
     console.log('Lkk');

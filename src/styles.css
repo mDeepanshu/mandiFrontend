@@ -26,6 +26,10 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+.heading {
+  margin-top: 20px;
+  font-size: large;
+}
 
 /* Firefox */
 input[type="number"] {

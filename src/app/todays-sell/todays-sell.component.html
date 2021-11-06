@@ -1,3 +1,5 @@
+<div class="heading">TODAYS SELL</div>
+<hr />
 <div class="container-fluid firstDiv">
   <div class="row">
     <div class="col">
@@ -6,11 +8,9 @@
           <input
             type="text"
             style="height: 32px"
-            formControlName="item_name"
-            id="Item"
             placeholder="ITEM NAME"
-            #item_name
-            (input)="itemName(item_name.value)"
+            #itemnameRef
+            (input)="itemName(itemnameRef.value)"
             matInput
             [matAutocomplete]="autoTwo"
           />
@@ -29,7 +29,7 @@
       <button
         type="button"
         class="btn btn-primary"
-        (click)="get_item_Sell(item_name.value)"
+        (click)="get_item_Sell(itemnameRef.value)"
         style="margin-top: 10px"
       >
         GET LIST
