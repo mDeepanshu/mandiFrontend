@@ -63,28 +63,24 @@ export class MainMenuComponent implements OnInit {
   @HostListener('document:keydown.tab', ['$event'])
   onKeyDown(e) {
     e.preventDefault();
-    if (this.onElement == 11) {
-      this.onElement = 0;
+    if (this.onLink == 11) {
       this.onLink = 0;
     } else {
-      this.onElement++;
       this.onLink++;
     }
-    this.router.navigate([`${this.routesArray[this.onElement]}`]);
+    this.router.navigate([`${this.routesArray[this.onLink]}`]);
   }
   //
   @HostListener('document:keydown.shift.tab', ['$event'])
   onShiftTab(e) {
     e.preventDefault();
-    console.log(this.onElement);
-    if (this.onElement == 0) {
-      this.onElement = 11;
+    console.log(this.onLink);
+    if (this.onLink == 0) {
       this.onLink = 11;
     } else {
-      this.onElement--;
       this.onLink--;
     }
-    this.router.navigate([`${this.routesArray[this.onElement--]}`]);
+    this.router.navigate([`${this.routesArray[this.onLink]}`]);
   }
   //
   linkChange(r) {

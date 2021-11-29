@@ -22,6 +22,7 @@ export class CrateComponent implements OnInit {
   options;
   public timer;
   projectForm: FormGroup;
+  selected = 0;
   selectedTab;
   selectedId;
   collectOrLend = 'COLLECT';
@@ -31,10 +32,13 @@ export class CrateComponent implements OnInit {
     type2: -1,
     type3: -1,
   };
-
+  onTabNum = 0;
   date = new Date();
-  // @ViewChild('aForm') aForm: ElementRef;
-  @ViewChild('username') username: ElementRef;
+  @ViewChild('aForm') aForm: ElementRef;
+  @ViewChild('username') username0: ElementRef;
+  @ViewChild('usernameo') username1: ElementRef;
+  @ViewChild('username2') username2: ElementRef;
+  elemArr = ['username0', 'username1', 'username2'];
   toNextElement = 0;
   ngOnInit() {
     this.projectForm = new FormGroup({
@@ -42,19 +46,32 @@ export class CrateComponent implements OnInit {
       type: new FormControl(),
     });
     setTimeout(() => {
-      this.username.nativeElement.focus();
+      this.username0.nativeElement.focus();
     }, 0);
   }
-  // @HostListener('document:keydown.enter', ['$event']) onKeydownHandler(
-  //   event: KeyboardEvent
-  // ) {
-  //   this.aForm.nativeElement[this.toNextElement].focus();
-  //   if (this.toNextElement == 13) {
-  //     this.toNextElement = 10;
-  //   } else {
-  //     this.toNextElement++;
-  //   }
-  // }
+
+  @HostListener('document:keydown.enter', ['$event']) onKeydownHandler(e) {
+    this.aForm.nativeElement[this.toNextElement].focus();
+    if (this.toNextElement == 5) {
+      this.toNextElement = 0;
+    } else {
+      this.toNextElement++;
+    }
+  }
+  @HostListener('document:keydown.control./', ['$event']) ctrlRi(e) {
+    console.log('right arrow');
+    if (this.selected == 2) {
+      this.selected = 0;
+      setTimeout(() => {
+        this.username0.nativeElement.focus();
+      }, 0);
+    } else {
+      this.selected++;
+      setTimeout(() => {
+        this[this.elemArr[this.selected]].nativeElement.focus();
+      }, 0);
+    }
+  }
   partyName(val) {
     clearTimeout(this.timer);
     this.options = [];
@@ -117,4 +134,5 @@ export class CrateComponent implements OnInit {
         }
       );
   }
+  toggleCng() {}
 }

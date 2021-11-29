@@ -36,6 +36,7 @@ import { TroublersComponent } from './troublers/troublers.component';
 import { TodaysSellComponent } from './todays-sell/todays-sell.component';
 import { TodaysVasuliComponent } from './todays-vasuli/todays-vasuli.component';
 import { ItemsComponent } from './items/items.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { ItemsComponent } from './items/items.component';
     MatAutocompleteModule,
     MatDialogModule,
     MatFormFieldModule,
+    MatTabsModule,
     MatSnackBarModule,
     MatTooltipModule,
     MatSlideToggleModule,

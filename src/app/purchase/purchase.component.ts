@@ -125,11 +125,22 @@ export class PurchaseComponent implements OnInit {
       this.toNextElement++;
     }
   }
-
-  //
-  shiftFocus() {
-    console.log('Lkk');
+  @HostListener('document:keydown.control.=', ['$event']) ctrl_cal(e) {
+    e.preventDefault();
+    if (this.purchaseForm.valid) {
+      this.calculate();
+      // console.log('asdflka');
+    }
   }
+  @HostListener('document:keydown.control.]', ['$event']) ctrl_snp(e) {
+    e.preventDefault();
+    this.resetForm();
+  }
+  @HostListener('document:keydown.control.[', ['$event']) ctrl_dnn(e) {
+    e.preventDefault();
+    this.printIt();
+  }
+  //
   partyName(val) {
     clearTimeout(this.timer);
     this.partyOptions = [];
