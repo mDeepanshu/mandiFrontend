@@ -19,6 +19,7 @@
                   <input
                     type="text"
                     placeholder="PARTY NAME"
+                    formControlName="partyName"
                     #username
                     (input)="partyName(username.value)"
                     matInput
@@ -268,7 +269,7 @@
               <tbody>
                 <tr *ngFor="let item of tableArr; index as i">
                   <th scope="row">{{ i + 1 }}</th>
-                  <td>{{ item.item }}</td>
+                  <td>{{ item.item_name }}</td>
                   <td>{{ item.bag }}</td>
                   <td>{{ item.quantity }}</td>
                   <td>{{ item.rate }}</td>
@@ -361,7 +362,7 @@
 
 <!--  -->
 <!--  -->
-<div class="container-fluid" id="toP" [hidden]="!isPrinting">
+<!-- <div class="container-fluid" id="toP" [hidden]="!isPrinting">
   <div class="row">
     <div class="col" style="margin-left: 30mm">
       <h4>PURCHASE BILL</h4>
@@ -436,4 +437,4 @@
       NET AMOUNT:{{ this.purchaseForm.value.setThree.net_amount }}
     </div>
   </div>
-</div>
+</div> -->

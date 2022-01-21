@@ -13,7 +13,8 @@ export class MainServiceService {
   public url: string = 'http://localhost:3000';
 
   constructor(private http: HttpClient, public dialog: MatDialog) {}
-  purchasePrint = new Subject<boolean>();
+  purchasePrint = new Subject<any>();
+  DataToPrint = new Subject<any>();
 
   addParty(body) {
     return new Promise((response, reject) => {
@@ -38,6 +39,9 @@ export class MainServiceService {
       .subscribe((responseData) => {});
   }
   autoCompleteName(keyword, type) {
+    // let result = await this.http.get(
+    //   `${this.url}/party/autocomplete_name?keyword=${keyword}&limit=5&${type}`
+    // );
     return new Promise((response, reject) => {
       this.http
         .get(
@@ -543,24 +547,4 @@ export class MainServiceService {
       return false;
     }
   }
-
-  // async abcd(keyword, type) {
-  //   let data = await this.http.get(
-  //     `${this.url}/party/autocomplete_name?keyword=${keyword}&limit=5&${type}`
-  //   );
-  //   console.log(data);
-  //   // let json = await data.
-  // }
-  // async CompleteName(keyword, type) {
-  //   let val;
-  //   let data = await this.http.get(
-  //     `${this.url}/party/autocomplete_name?keyword=${keyword}&limit=5&${type}`
-  //   );
-
-  //  data.subscribe((result) => (val = result));
-  //   return val;
-  // }
 }
-// 24 functions
-
-//  trying

@@ -10,15 +10,11 @@ export class AppComponent implements OnInit {
   title = 'mandi-fe';
   isPrint = false;
   date = new Date();
+  print = '';
   constructor(public mainService: MainServiceService) {}
   ngOnInit() {
-    this.mainService.purchasePrint.subscribe((message) => {
-      this.isPrint = message;
-      if (message == true) {
-        document.getElementById('mainContent').className = 'col';
-      } else {
-        document.getElementById('mainContent').className = 'col-10';
-      }
+    this.mainService.purchasePrint.subscribe((data) => {
+      this.print = data;
     });
   }
 }

@@ -1,6 +1,6 @@
 <div class="heading">VYAPARI VASULI</div>
 <hr />
-<div class="firstDiv" [hidden]="isPrinting">
+<div class="firstDiv">
   <form class="mainForm" [formGroup]="form" (ngSubmit)="resetForm()">
     <!-- UID -->
 
@@ -86,21 +86,4 @@
       </div>
     </div>
   </form>
-</div>
-
-<div class="container-fluid" [hidden]="!isPrinting">
-  <div class="row">
-    <div class="col" style="margin-left: 30mm">
-      <h4>RECIEPT</h4>
-    </div>
-  </div>
-  <hr />
-  <div class="row">
-    <div class="col">DATE : {{ dateToShow }}</div>
-  </div>
-  <hr />
-  <div class="row">
-    <div class="col">PARTY NAME : {{ username.value }}</div>
-    <div class="col">AMOUNT : {{ amount.value }}</div>
-  </div>
 </div>

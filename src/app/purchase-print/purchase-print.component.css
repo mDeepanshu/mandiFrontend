@@ -1,0 +1,77 @@
+.date {
+  position: fixed;
+  left: 10.5cm;
+  top: 5.3cm;
+}
+.name {
+  position: fixed;
+  left: 2.3cm;
+  top: 6cm;
+}
+
+.kaccha {
+  position: fixed;
+  top: 17cm;
+  left: 11.2cm;
+}
+.total {
+  position: fixed;
+  top: 17.7cm;
+  left: 2.7cm;
+}
+.kharcha {
+  position: fixed;
+  top: 17.7cm;
+  left: 11.2cm;
+}
+.pakkiBikri {
+  position: fixed;
+  top: 18.4cm;
+  left: 11.2cm;
+}
+
+.mandiKharch {
+  position: fixed;
+  top: 8.6cm;
+  left: 2.7cm;
+}
+.hammali {
+  position: fixed;
+  top: 9.4cm;
+  left: 2.7cm;
+}
+.napaTax {
+  position: fixed;
+  top: 10.9cm;
+  left: 2.7cm;
+}
+.bhada {
+  position: fixed;
+  top: 11.6cm;
+  left: 2.7cm;
+}
+.driver {
+  position: fixed;
+  top: 12.4cm;
+  left: 2.7cm;
+}
+.cash {
+  position: fixed;
+  top: 13.2cm;
+  left: 2.7cm;
+}
+.colOne {
+  position: fixed;
+  top: 8.4cm;
+  left: 4.4cm;
+}
+.colTwo {
+  position: fixed;
+  top: 8.4cm;
+  left: 9.9cm;
+}
+.colThree {
+  position: fixed;
+  top: 8.4cm;
+  left: 11.1cm;
+}

@@ -37,6 +37,9 @@ import { TodaysSellComponent } from './todays-sell/todays-sell.component';
 import { TodaysVasuliComponent } from './todays-vasuli/todays-vasuli.component';
 import { ItemsComponent } from './items/items.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { CollectionReceiptPrintComponent } from './collection-receipt-print/collection-receipt-print.component';
+import { TodaySellPrintComponent } from './today-sell-print/today-sell-print.component';
+import { TodayCollectionPrintComponent } from './today-collection-print/today-collection-print.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +62,9 @@ import { MatTabsModule } from '@angular/material/tabs';
     TodaysSellComponent,
     TodaysVasuliComponent,
     ItemsComponent,
+    CollectionReceiptPrintComponent,
+    TodaySellPrintComponent,
+    TodayCollectionPrintComponent,
   ],
   imports: [
     BrowserModule,

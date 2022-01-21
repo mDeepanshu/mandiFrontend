@@ -38,3 +38,35 @@ input[type="number"] {
 html {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+app-purchase-print {
+  display: none;
+}
+app-collection-receipt-print {
+  display: none;
+}
+app-today-sell-print {
+  display: none;
+}
+app-today-collection-print {
+  display: none;
+}
+@media print {
+  app-purchase-print {
+    display: block;
+  }
+  .main {
+    display: none;
+  }
+  app-ledger {
+    display: block;
+  }
+  app-collection-receipt-print {
+    display: block;
+  }
+  app-today-collection-print {
+    display: block;
+  }
+  app-today-sell-print {
+    display: block;
+  }
+}

@@ -71,19 +71,12 @@ export class PartyCollectionComponent implements OnInit {
   }
   resetForm() {
     // this.purchaseForm.markAsPristine();
-    console.log(this.form.value);
-
     this.form.reset();
   }
   printIt() {
-    this.mainService.purchasePrint.next(true);
-    this.isPrinting = true;
+    this.mainService.purchasePrint.next('partyCollection');
     setTimeout(() => {
       window.print();
-    }, 0);
-    setTimeout(() => {
-      this.mainService.purchasePrint.next(false);
-      this.isPrinting = false;
     }, 0);
   }
 }

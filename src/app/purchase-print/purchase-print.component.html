@@ -1,13 +1,66 @@
-<p>HAJI ELAHI BAKHUS & SON,S HOSHANGABAD</p>
-<p>Mobile:- ALIM-9827211258 AMIN-9827213151 ABID-9826306406</p>
-<hr />
-- BILL NO:- 1 DATE:-22/07/2021 BHADA:- 0 HAMMALI:- 0 CASH:- 0 PARTY:- TAX:- 0
-ST.CHRE:- 0 DRI.:- 0 COMM. 0
-<hr />
-- ITEM QUANT. RATE AMOUNT
-<hr />
-- TOTAL EXPE.:- 0 BILL AMT. 0.00 NET PAYABLE:- 0
-<hr />
-- FOR PROPERITER PHAJI ELAHI BAKHUS & SON,S HOSHANGABAD
-<hr />
--
+<div class="container-fluid">
+  <div class="row">
+    <div class="row">
+      <div class="col date">{{ date }}</div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p class="name">{{ partyName }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p class="mandiKharch">{{ colOne.commission }}</p>
+      <p class="hammali">{{ colOne.hammali }}</p>
+      <p class="napaTax">{{ colOne.tax }}</p>
+      <p class="bhada">{{ colOne.bhada }}</p>
+      <p class="driver">{{ colOne.driver }}</p>
+      <p class="cash">{{ colOne.cash }}</p>
+    </div>
+    <div class="col colOne">
+      <div class="row" *ngFor="let option of tableArr">
+        {{ option.item_name }}
+      </div>
+    </div>
+    <div class="col colTwo">
+      <div class="row" *ngFor="let option of tableArr">
+        {{ option.rate }}
+      </div>
+    </div>
+    <div class="col colThree">
+      <div class="row" *ngFor="let option of tableArr">
+        {{ option.rate * option.quantity }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col kaccha">
+      <p class="kaccha">{{ colTwo.bill_total }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col total">
+      <p class="total">{{ colTwo.to_exp }}</p>
+    </div>
+    <div class="col kharcha">
+      <p class="kharcha">{{ colTwo.to_exp }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col pakkiBikri">
+      <p class="pakkiBikri">{{ colTwo.net_amount }}</p>
+    </div>
+  </div>
+</div>
+<!-- <div class="container">
+  <p class="date">{{ date }}</p>
+  <p class="name">{{ partyName }}</p>
+  <div class="row">
+    <div class="col"></div>
+  </div>
+  <p class="kaccha">1000/-</p>
+  <p class="total">1000/-</p>
+  <p class="kharcha">1000/-</p>
+  <p class="pakkiBikri">1000/-</p>
+</div> -->

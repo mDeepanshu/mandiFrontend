@@ -26,12 +26,13 @@
         </table>
       </div>
     </div>
-    <div class="col-2" style="margin-top: 100px" *ngIf="!isPrinting">
+    <div class="col-2" style="margin-top: 100px">
       <!-- <div class="row">
         <button type="button" class="btn btn-primary">Create</button>
       </div> -->
       <div class="row">
         <button
+          *ngIf="!isPrinting"
           type="button"
           class="btn btn-primary"
           style="margin-top: 50px"

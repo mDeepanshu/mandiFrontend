@@ -8,20 +8,15 @@ import { MainServiceService } from '../main-service.service';
 })
 export class TodaysVasuliComponent implements OnInit {
   tableArr;
-  isPrinting = false;
 
   constructor(private mainService: MainServiceService) {}
 
   ngOnInit(): void {}
   printIt() {
-    this.mainService.purchasePrint.next(true);
-    this.isPrinting = true;
+    this.mainService.DataToPrint.next(this.tableArr);
+    this.mainService.purchasePrint.next('todayVasuli');
     setTimeout(() => {
       window.print();
-    }, 0);
-    setTimeout(() => {
-      this.mainService.purchasePrint.next(false);
-      this.isPrinting = false;
     }, 0);
   }
 }

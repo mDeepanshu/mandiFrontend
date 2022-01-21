@@ -71,6 +71,7 @@ export class PurchaseComponent implements OnInit {
   //
   ngOnInit() {
     this.purchaseForm = new FormGroup({
+      partyName: new FormControl(null),
       setOne: new FormGroup({
         bhada: new FormControl(0, Validators.required),
         hammali: new FormControl(0, Validators.required),
@@ -289,14 +290,14 @@ export class PurchaseComponent implements OnInit {
     this.makeChan(amount - toMinus);
   }
   printIt() {
-    this.mainService.purchasePrint.next(true);
-    this.isPrinting = true;
+    // this.isPrinting = true;
+    this.mainService.DataToPrint.next({
+      arr: this.tableArr,
+      obj: this.purchaseForm.value,
+    });
+    this.mainService.purchasePrint.next('purchasePrint');
     setTimeout(() => {
       window.print();
-    }, 0);
-    setTimeout(() => {
-      this.mainService.purchasePrint.next(false);
-      this.isPrinting = false;
     }, 0);
   }
   makeChan(amount) {

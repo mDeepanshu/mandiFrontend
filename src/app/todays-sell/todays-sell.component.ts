@@ -18,12 +18,12 @@ export class TodaysSellComponent implements OnInit {
   isPrinting = false;
   public timer;
   itemOptions;
-  // @ViewChild('itemnameRef', { static: true }) itemnameRef: ElementRef;
+  @ViewChild('itemnameRef', { static: true }) itemnameRef: ElementRef;
 
   ngOnInit() {
-    // setTimeout(() => {
-    //   this.itemnameRef.nativeElement.focus();
-    // }, 0);
+    setTimeout(() => {
+      this.itemnameRef.nativeElement.focus();
+    }, 0);
   }
   get_item_Sell(itemname) {
     this.mainService.getTodaysItem(itemname).then((data) => {
@@ -38,14 +38,10 @@ export class TodaysSellComponent implements OnInit {
     }, 500);
   }
   printIt() {
-    this.mainService.purchasePrint.next(true);
-    this.isPrinting = true;
+    this.mainService.DataToPrint.next(this.list);
+    this.mainService.purchasePrint.next('todaysSell');
     setTimeout(() => {
       window.print();
-    }, 0);
-    setTimeout(() => {
-      this.mainService.purchasePrint.next(false);
-      this.isPrinting = false;
     }, 0);
   }
 }
