@@ -18,9 +18,19 @@
       <p class="driver">{{ colOne.driver }}</p>
       <p class="cash">{{ colOne.cash }}</p>
     </div>
-    <div class="col colOne">
+    <div class="col colOneOne">
+      <div class="row" *ngFor="let option of tableArr">
+        {{ option.bag }}
+      </div>
+    </div>
+    <div class="col colOneTwo">
       <div class="row" *ngFor="let option of tableArr">
         {{ option.item_name }}
+      </div>
+    </div>
+    <div class="col colOneThree">
+      <div class="row" *ngFor="let option of tableArr">
+        {{ option.quantity }}
       </div>
     </div>
     <div class="col colTwo">

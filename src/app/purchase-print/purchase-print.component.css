@@ -60,10 +60,20 @@
   top: 13.2cm;
   left: 2.7cm;
 }
-.colOne {
+.colOneOne {
+  position: fixed;
+  top: 8.3cm;
+  left: 4.4cm;
+}
+.colOneTwo {
   position: fixed;
   top: 8.4cm;
-  left: 4.4cm;
+  left: 5.4cm;
+}
+.colOneThree {
+  position: fixed;
+  top: 8.4cm;
+  left: 7.4cm;
 }
 .colTwo {
   position: fixed;

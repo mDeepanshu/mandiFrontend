@@ -15,7 +15,9 @@ export class MainServiceService {
   constructor(private http: HttpClient, public dialog: MatDialog) {}
   purchasePrint = new Subject<any>();
   DataToPrint = new Subject<any>();
-
+  temp;
+  public tempArr;
+  public tempObj;
   addParty(body) {
     return new Promise((response, reject) => {
       this.http

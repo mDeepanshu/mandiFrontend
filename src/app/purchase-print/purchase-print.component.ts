@@ -29,12 +29,18 @@ export class PurchasePrintComponent implements OnInit {
     net_amount: '',
   };
   ngOnInit() {
-    this.mainService.DataToPrint.subscribe((data) => {
-      console.log(data);
-      this.tableArr = data.arr;
-      this.colOne = data.obj.setOne;
-      this.colTwo = data.obj.setThree;
-      this.partyName = data.obj.partyName;
-    });
+    console.log(this.mainService.tempArr, this.mainService.tempObj);
+
+    this.tableArr = this.mainService.tempArr;
+    this.colOne = this.mainService.tempObj.setOne;
+    this.colTwo = this.mainService.tempObj.setThree;
+    this.partyName = this.mainService.tempObj.partyName;
+    // this.mainService.DataToPrint.subscribe((data) => {
+    //   console.log('dataDATA', data);
+    //   this.tableArr = data.arr;
+    //   this.colOne = data.obj.setOne;
+    //   this.colTwo = data.obj.setThree;
+    //   this.partyName = data.obj.partyName;
+    // });
   }
 }

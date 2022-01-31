@@ -291,10 +291,13 @@ export class PurchaseComponent implements OnInit {
   }
   printIt() {
     // this.isPrinting = true;
-    this.mainService.DataToPrint.next({
-      arr: this.tableArr,
-      obj: this.purchaseForm.value,
-    });
+    this.mainService.temp = 'AA';
+    this.mainService.tempArr = this.tableArr;
+    this.mainService.tempObj = this.purchaseForm.value;
+    // this.mainService.DataToPrint.next({
+    //   arr: this.tableArr,
+    //   obj: this.purchaseForm.value,
+    // });
     this.mainService.purchasePrint.next('purchasePrint');
     setTimeout(() => {
       window.print();
