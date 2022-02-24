@@ -38,7 +38,7 @@ export class PurchaseComponent implements OnInit {
   selectedId;
   isPrinting = false;
   billNumber;
-  toNextElement = 1;
+  toNextElement = 0;
   @ViewChild('table') from: ElementRef;
   @ViewChild('aForm') aForm: ElementRef;
   @ViewChild('username') username: ElementRef;
@@ -60,7 +60,7 @@ export class PurchaseComponent implements OnInit {
     'commission_rate',
     'bhada_rate',
     'commission',
-    'Tax',
+    'tax',
     'station_charge',
     'driver',
     'Item',
@@ -119,9 +119,9 @@ export class PurchaseComponent implements OnInit {
   @HostListener('document:keydown.enter', ['$event']) onKeydownHandler(
     event: KeyboardEvent
   ) {
-    this.aForm.nativeElement[this.toNextElement].focus();
-    if (this.toNextElement == 13) {
-      this.toNextElement = 10;
+    this.aForm.nativeElement[this.idArray[this.toNextElement]].focus();
+    if (this.toNextElement == 12) {
+      this.toNextElement = 9;
     } else {
       this.toNextElement++;
     }
