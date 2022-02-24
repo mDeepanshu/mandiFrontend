@@ -19,6 +19,7 @@ import { PurchaseModelComponent } from './purchase-model/purchase-model.componen
 import { ErrMsgModuleComponent } from './err-msg-module/err-msg-module.component';
 import { SaveDialogComponent } from './save-dialog/save-dialog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PurchasePrintComponent } from './purchase-print/purchase-print.component';
 import { PartyCollectionComponent } from './party-collection/party-collection.component';
@@ -31,6 +32,14 @@ import { CrateComponent } from './crate/crate.component';
 import { AddPartyComponent } from './add-party/add-party.component';
 import { SellComponent } from './sell/sell.component';
 import { PurchaseComponent } from './purchase/purchase.component';
+import { TroublersComponent } from './troublers/troublers.component';
+import { TodaysSellComponent } from './todays-sell/todays-sell.component';
+import { TodaysVasuliComponent } from './todays-vasuli/todays-vasuli.component';
+import { ItemsComponent } from './items/items.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { CollectionReceiptPrintComponent } from './collection-receipt-print/collection-receipt-print.component';
+import { TodaySellPrintComponent } from './today-sell-print/today-sell-print.component';
+import { TodayCollectionPrintComponent } from './today-collection-print/today-collection-print.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +58,13 @@ import { PurchaseComponent } from './purchase/purchase.component';
     ErrMsgModuleComponent,
     SaveDialogComponent,
     PurchasePrintComponent,
+    TroublersComponent,
+    TodaysSellComponent,
+    TodaysVasuliComponent,
+    ItemsComponent,
+    CollectionReceiptPrintComponent,
+    TodaySellPrintComponent,
+    TodayCollectionPrintComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,8 +76,10 @@ import { PurchaseComponent } from './purchase/purchase.component';
     MatAutocompleteModule,
     MatDialogModule,
     MatFormFieldModule,
+    MatTabsModule,
     MatSnackBarModule,
     MatTooltipModule,
+    MatSlideToggleModule,
     MatDatepickerModule,
     MatNativeDateModule,
     HttpClientModule,

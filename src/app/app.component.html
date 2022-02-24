@@ -1,6 +1,6 @@
 <!-- <app-login></app-login> -->
 <!--  -->
-<div class="container-fluid">
+<div class="container-fluid main">
   <div class="row justify-content-between">
     <div class="col-1" *ngIf="!isPrint">
       <app-main-menu></app-main-menu>
@@ -10,3 +10,12 @@
     </div>
   </div>
 </div>
+<app-purchase-print *ngIf="print == 'purchasePrint'"></app-purchase-print>
+<app-ledger *ngIf="print == 'ledger'"></app-ledger>
+<app-collection-receipt-print
+  *ngIf="print == 'partyCollection'"
+></app-collection-receipt-print>
+<app-today-sell-print *ngIf="print == 'todaysSell'"></app-today-sell-print>
+<app-today-collection-print
+  *ngIf="print == 'todayVasuli'"
+></app-today-collection-print>

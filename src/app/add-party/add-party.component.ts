@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ElementRef,
+  HostListener,
+  OnInit,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MainServiceService } from '../main-service.service';
 import { Party } from '../models/party.model';
@@ -15,6 +21,21 @@ export class AddPartyComponent implements OnInit {
   options;
   public timer;
   radioValue = [1, 2, 3, 4];
+  toNextElement = 0;
+  @ViewChild('aForm') aForm: ElementRef;
+  @ViewChild('inlineRadio1') inlineRadio1: ElementRef;
+
+  idArray = [
+    'inlineRadio1',
+    'inlineRadio2',
+    'inlineRadio3',
+    'inlineRadio4',
+    'username',
+    'address',
+    'commission',
+    'phone',
+    'starting',
+  ];
   constructor(
     private mainService: MainServiceService,
     private _snackBar: MatSnackBar
@@ -27,8 +48,24 @@ export class AddPartyComponent implements OnInit {
       commission: new FormControl(null, Validators.required),
       phone: new FormControl(null, Validators.required),
       starting: new FormControl(null, Validators.required),
-      type: new FormControl(0, Validators.required),
+      type: new FormControl(1, Validators.required),
     });
+    //
+    setTimeout(() => {
+      this.inlineRadio1.nativeElement.focus();
+    }, 0);
+  }
+  @HostListener('document:keydown.enter', ['$event']) onKeydownHandler(
+    event: KeyboardEvent
+  ) {
+    this.aForm.nativeElement[this.toNextElement].focus();
+    if (this.toNextElement < 4) {
+      this.toNextElement = 4;
+    } else if (this.toNextElement == 9) {
+      this.toNextElement = 0;
+    } else {
+      this.toNextElement++;
+    }
   }
   onSaveForm() {
     this.Party = this.projectForm.value;

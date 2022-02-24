@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MainServiceService } from '../main-service.service';
 import { Party } from '../models/party.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-party-collection',
@@ -16,7 +17,14 @@ export class PartyCollectionComponent implements OnInit {
   public date = new Date();
   isPrinting = false;
   dateToShow = Date().toString().substring(0, 15);
-  ngOnInit() {}
+  form: FormGroup;
+  sendSMS = true;
+  ngOnInit() {
+    this.form = new FormGroup({
+      party_name: new FormControl(null, Validators.required),
+      amount: new FormControl(null, Validators.required),
+    });
+  }
   public timer;
   options;
   remaining;
@@ -35,7 +43,9 @@ export class PartyCollectionComponent implements OnInit {
     }, 1000);
   }
   //
-
+  sendSMSStatus() {
+    this.sendSMS = !this.sendSMS;
+  }
   onPartySelect(name, id) {
     console.log(name.source.value);
     this.selectedPartyId = id;
@@ -50,22 +60,23 @@ export class PartyCollectionComponent implements OnInit {
     this.mainService
       .addVasuli(this.selectedPartyId, amount, this.date)
       .then((data) => {
+        this.remaining = this.remaining - amount;
         this._snackBar.open('Transaction Saved', 'Close');
       });
+    if (this.sendSMS) {
+      this.mainService.sendSMS().then((data) => {
+        console.log('Msg sent', data);
+      });
+    }
   }
   resetForm() {
     // this.purchaseForm.markAsPristine();
-    // this.purchaseForm.reset();
+    this.form.reset();
   }
   printIt() {
-    this.mainService.purchasePrint.next(true);
-    this.isPrinting = true;
+    this.mainService.purchasePrint.next('partyCollection');
     setTimeout(() => {
       window.print();
-    }, 0);
-    setTimeout(() => {
-      this.mainService.purchasePrint.next(false);
-      this.isPrinting = false;
     }, 0);
   }
 }

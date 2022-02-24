@@ -23,14 +23,11 @@ export class LedgerComponent implements OnInit {
     });
   }
   printIt() {
-    this.mainService.purchasePrint.next(true);
-    this.isPrinting = true;
+    this.mainService.purchasePrint.next('ledger');
+    this.mainService.DataToPrint.next(this.tableArr);
     setTimeout(() => {
       window.print();
-    }, 0);
-    setTimeout(() => {
-      this.mainService.purchasePrint.next(false);
-      this.isPrinting = false;
+      this.mainService.purchasePrint.next('');
     }, 0);
   }
 }

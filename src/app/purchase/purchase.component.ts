@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  HostListener,
+} from '@angular/core';
 import { MainServiceService } from '../main-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Purchase } from '../models/purchase.model';
@@ -23,10 +29,19 @@ export class PurchaseComponent implements OnInit {
   public hammaliRate;
   public timer;
   public commRateChange = true;
+  public bhadaChanged = false;
+  public hammaliChanged = false;
+  public bhadaCalculated;
+  public hammaliCalculated;
+  preHammali;
+  preBhada;
   selectedId;
   isPrinting = false;
   billNumber;
+  toNextElement = 0;
   @ViewChild('table') from: ElementRef;
+  @ViewChild('aForm') aForm: ElementRef;
+  @ViewChild('username') username: ElementRef;
 
   //
   public date =
@@ -36,11 +51,27 @@ export class PurchaseComponent implements OnInit {
     '/' +
     new Date().getFullYear();
   //
-  options;
-
+  partyOptions;
+  itemOptions;
+  idArray = [
+    'bhada',
+    'hammali',
+    'cash',
+    'commission_rate',
+    'bhada_rate',
+    'commission',
+    'tax',
+    'station_charge',
+    'driver',
+    'Item',
+    'Bag',
+    'Quantity',
+    'Rate',
+  ];
   //
   ngOnInit() {
     this.purchaseForm = new FormGroup({
+      partyName: new FormControl(null),
       setOne: new FormGroup({
         bhada: new FormControl(0, Validators.required),
         hammali: new FormControl(0, Validators.required),
@@ -80,17 +111,55 @@ export class PurchaseComponent implements OnInit {
         });
       });
     //
+    setTimeout(() => {
+      this.username.nativeElement.focus();
+    }, 0);
+    //
+  }
+  @HostListener('document:keydown.enter', ['$event']) onKeydownHandler(
+    event: KeyboardEvent
+  ) {
+    this.aForm.nativeElement[this.idArray[this.toNextElement]].focus();
+    if (this.toNextElement == 12) {
+      this.toNextElement = 9;
+    } else {
+      this.toNextElement++;
+    }
+  }
+  @HostListener('document:keydown.control.=', ['$event']) ctrl_cal(e) {
+    e.preventDefault();
+    if (this.purchaseForm.valid) {
+      this.calculate();
+      // console.log('asdflka');
+    }
+  }
+  @HostListener('document:keydown.control.]', ['$event']) ctrl_snp(e) {
+    e.preventDefault();
+    this.resetForm();
+  }
+  @HostListener('document:keydown.control.[', ['$event']) ctrl_dnn(e) {
+    e.preventDefault();
+    this.printIt();
   }
   //
-
   partyName(val) {
     clearTimeout(this.timer);
-    this.options = [];
+    this.partyOptions = [];
     this.timer = setTimeout(() => {
       console.log(val);
       this.mainService.autoCompleteName(val, 'types=1').then((arr) => {
         console.log(arr);
-        this.options = arr;
+        this.partyOptions = arr;
+      });
+    }, 500);
+  }
+  itemName(val) {
+    clearTimeout(this.timer);
+    this.itemOptions = [];
+    this.timer = setTimeout(() => {
+      this.mainService.autoCompleteItemName(val).then((arr) => {
+        console.log('arrarrarr', arr);
+        this.itemOptions = arr;
       });
     }, 500);
   }
@@ -106,20 +175,22 @@ export class PurchaseComponent implements OnInit {
       totalBag = Number(totalBag) + Number(element.bag);
     });
     console.log(objOne.commission_rate, billTotal);
+    this.hammaliCalculated = Math.round(totalBag * this.hammaliRate);
+    this.bhadaCalculated = Math.round(totalBag * objOne.bhada_rate);
     this.purchaseForm.patchValue({
       setOne: {
-        hammali: Math.round(totalBag * this.hammaliRate),
-        bhada: Math.round(totalBag * objOne.bhada_rate),
+        hammali: this.hammaliCalculated,
+        bhada: this.bhadaCalculated,
         tax: Math.round(totalBag * this.taxRate),
         commission: Math.round((objOne.commission_rate / 100) * billTotal),
       },
     });
     let total_exp =
-      Math.round(totalBag * objOne.bhada_rate) +
+      this.bhadaCalculated +
       Math.round((objOne.commission_rate / 100) * billTotal) +
       objOne.driver +
       objOne.station_charge +
-      Math.round(totalBag * this.hammaliRate) +
+      this.hammaliCalculated +
       Math.round(totalBag * this.taxRate) +
       objOne.cash;
     this.purchaseForm.patchValue({
@@ -145,20 +216,9 @@ export class PurchaseComponent implements OnInit {
     Object.assign(obj, this.purchaseForm.value.setThree);
     obj.bill_no = Date.now().toString(36);
     console.log(obj);
-    this.mainService.addPurchase(obj).then((data) => {
-      this._snackBar.open('Purchase Saved', 'Close');
-    });
-    //
-    // const printContent = document.getElementById('toP');
-    // const WindowPrt = window.open(
-    //   '',
-    //   '',
-    //   'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0'
-    // );
-    // WindowPrt.document.write(printContent.innerHTML);
-    // WindowPrt.document.close();
-    // WindowPrt.focus();
-    // WindowPrt.print();
+    // this.mainService.addPurchase(obj).then((data) => {
+    //   this._snackBar.open('Purchase Saved', 'Close');
+    // });
     this.printIt();
   }
   onPartySelect(name, id) {
@@ -175,6 +235,16 @@ export class PurchaseComponent implements OnInit {
         },
       });
     });
+  }
+  onItemSelect(name, id) {
+    // this.selectedId = id;
+    // this.mainService.getItem(name.source.value).then((data: Party) => {
+    //   this.purchaseForm.patchValue({
+    //     setOne: {
+    //       commission_rate: data.commission,
+    //     },
+    //   });
+    // });
   }
   removeItem(i) {
     console.log(i);
@@ -194,16 +264,55 @@ export class PurchaseComponent implements OnInit {
       console.log(this.purchaseForm.value.setOne.commission_rate);
     }
   }
+  constChange(r) {
+    let amount;
+    let toMinus;
+    if (r == 'hammali') {
+      amount = this.purchaseForm.value.setOne.hammali;
+      toMinus = this.preHammali;
+      this.preHammali = amount;
+      if (amount === this.hammaliCalculated) {
+        this.hammaliChanged = false;
+      } else {
+        this.hammaliChanged = true;
+      }
+    }
+    if (r == 'bhada') {
+      amount = this.purchaseForm.value.setOne.bhada;
+      toMinus = this.preBhada;
+      this.preBhada = amount;
+      if (amount === this.bhadaCalculated) {
+        this.bhadaChanged = false;
+      } else {
+        this.bhadaChanged = true;
+      }
+    }
+    this.makeChan(amount - toMinus);
+  }
   printIt() {
-    this.mainService.purchasePrint.next(true);
-    this.isPrinting = true;
+    // this.isPrinting = true;
+    this.mainService.temp = 'AA';
+    this.mainService.tempArr = this.tableArr;
+    this.mainService.tempObj = this.purchaseForm.value;
+    // this.mainService.DataToPrint.next({
+    //   arr: this.tableArr,
+    //   obj: this.purchaseForm.value,
+    // });
+    this.mainService.purchasePrint.next('purchasePrint');
     setTimeout(() => {
       window.print();
     }, 0);
-    setTimeout(() => {
-      this.mainService.purchasePrint.next(false);
-      this.isPrinting = false;
-    }, 0);
+  }
+  makeChan(amount) {
+    let rep = this.purchaseForm.value.setThree;
+    console.log(amount, rep);
+    this.purchaseForm.patchValue({
+      setThree: {
+        bill_total: rep.bill_total + amount,
+        to_exp: rep.to_exp + amount,
+        net_amount: rep.net_amount + amount,
+      },
+    });
   }
   //
   //

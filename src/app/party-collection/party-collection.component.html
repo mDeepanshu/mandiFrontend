@@ -1,5 +1,7 @@
-<div class="firstDiv" [hidden]="isPrinting">
-  <form class="mainForm">
+<div class="heading">VYAPARI VASULI</div>
+<hr />
+<div class="firstDiv">
+  <form class="mainForm" [formGroup]="form" (ngSubmit)="resetForm()">
     <!-- UID -->
 
     <div class="row">
@@ -21,6 +23,7 @@
         type="text"
         class="form-control"
         placeholder="Party Name"
+        formControlName="party_name"
         #username
         (input)="partyName(username.value)"
         [matAutocomplete]="auto"
@@ -35,7 +38,13 @@
         </mat-option>
       </mat-autocomplete>
       <span class="input-group-text">OF Rs</span>
-      <input type="text" class="form-control" #amount placeholder="Amount" />
+      <input
+        type="text"
+        class="form-control"
+        #amount
+        placeholder="Amount"
+        formControlName="amount"
+      />
     </div>
     <hr />
     <!-- buttons -->
@@ -50,7 +59,7 @@
         </button>
       </div>
       <div class="col">
-        <button type="button" class="btn btn-primary" (click)="resetForm()">
+        <button type="submit" class="btn btn-primary" (click)="resetForm()">
           New
         </button>
       </div>
@@ -62,25 +71,19 @@
     </div>
     <!-- Remaining -->
     <div class="row" style="margin-top: 30px">
-      <h3>Remaining {{ remaining }}</h3>
-      <h3></h3>
+      <div class="col">
+        <h3>Remaining {{ remaining }}</h3>
+        <h3></h3>
+      </div>
+      <div class="col" style="margin-top: 6px">
+        <mat-slide-toggle
+          [(ngModel)]="sendSMS"
+          [ngModelOptions]="{ standalone: true }"
+          (click)="sendSMSStatus()"
+        >
+          <h5>Send SMS</h5></mat-slide-toggle
+        >
+      </div>
     </div>
   </form>
-</div>
-
-<div class="container-fluid" [hidden]="!isPrinting">
-  <div class="row">
-    <div class="col" style="margin-left: 30mm">
-      <h4>RECIEPT</h4>
-    </div>
-  </div>
-  <hr />
-  <div class="row">
-    <div class="col">DATE : {{ dateToShow }}</div>
-  </div>
-  <hr />
-  <div class="row">
-    <div class="col">PARTY NAME : {{ username.value }}</div>
-    <div class="col">AMOUNT : {{ amount.value }}</div>
-  </div>
 </div>

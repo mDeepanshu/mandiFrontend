@@ -1,19 +1,39 @@
+<div class="heading">SELL</div>
+<hr />
 <div class="firstDiv">
   <div class="row">
     <div class="col-10 mainForm">
-      <form [formGroup]="sellForm" (ngSubmit)="addNew()">
+      <form
+        [formGroup]="sellForm"
+        (keydown.enter)="$event.preventDefault()"
+        #aForm
+        (ngSubmit)="addNew()"
+      >
         <div class="row" style="margin-bottom: 15px">
           <div class="col-5">
             <div class="col-md">
-              <div class="form-floating">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="floatingInputGrid"
-                  formControlName="item_name"
-                  placeholder="ITEM NAME"
-                />
-                <label for="floatingInputGrid">ITEM NAME</label>
+              <div class="input-group mb-3">
+                <mat-form-field style="width: 100%">
+                  <input
+                    type="text"
+                    style="height: 32px"
+                    formControlName="item_name"
+                    id="Item"
+                    placeholder="ITEM NAME"
+                    #itemname
+                    (input)="itemName(itemname.value)"
+                    matInput
+                    [matAutocomplete]="autoTwo"
+                  />
+                  <mat-autocomplete #autoTwo="matAutocomplete">
+                    <mat-option
+                      *ngFor="let option of itemOptions"
+                      [value]="option.itemName"
+                    >
+                      {{ option.itemName }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
               </div>
             </div>
           </div>
@@ -33,6 +53,7 @@
                       placeholder="PARTY NAME"
                       #username
                       formControlName="name"
+                      id="partyName"
                       (input)="partyName(username.value)"
                       matInput
                       [matAutocomplete]="auto"
@@ -53,9 +74,9 @@
               <div class="col-md">
                 <div class="form-floating">
                   <input
-                    type="email"
+                    type="number"
                     class="form-control"
-                    id="floatingInputGrid"
+                    id="amount"
                     formControlName="amount"
                     placeholder="Amount"
                   />

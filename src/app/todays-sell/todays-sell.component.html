@@ -1,0 +1,74 @@
+<div class="heading">TODAYS SELL</div>
+<hr />
+<div class="container-fluid firstDiv">
+  <div class="row">
+    <div class="col">
+      <div class="input-group mb-3">
+        <mat-form-field style="width: 100%">
+          <input
+            type="text"
+            style="height: 32px"
+            placeholder="ITEM NAME"
+            #itemnameRef
+            (input)="itemName(itemnameRef.value)"
+            matInput
+            [matAutocomplete]="autoTwo"
+          />
+          <mat-autocomplete #autoTwo="matAutocomplete">
+            <mat-option
+              *ngFor="let option of itemOptions"
+              [value]="option.itemName"
+            >
+              {{ option.itemName }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="get_item_Sell(itemnameRef.value)"
+        style="margin-top: 10px"
+      >
+        GET LIST
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div>
+        <table class="table print">
+          <thead>
+            <tr>
+              <th scope="col">AMOUNT</th>
+              <th scope="col">PARTY NAME</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of list; index as i">
+              <td>{{ item.amount }}</td>
+              <td>{{ item.partyName }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-2" style="margin-top: 100px" *ngIf="!isPrinting">
+      <!-- <div class="row">
+          <button type="button" class="btn btn-primary">Create</button>
+        </div> -->
+      <div class="row">
+        <button
+          type="button"
+          class="btn btn-primary"
+          style="margin-top: 50px"
+          (click)="printIt()"
+        >
+          Print
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

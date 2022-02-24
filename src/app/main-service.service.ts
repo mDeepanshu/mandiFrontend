@@ -13,8 +13,11 @@ export class MainServiceService {
   public url: string = 'http://localhost:3000';
 
   constructor(private http: HttpClient, public dialog: MatDialog) {}
-  purchasePrint = new Subject<boolean>();
-
+  purchasePrint = new Subject<any>();
+  DataToPrint = new Subject<any>();
+  temp;
+  public tempArr;
+  public tempObj;
   addParty(body) {
     return new Promise((response, reject) => {
       this.http
@@ -38,6 +41,9 @@ export class MainServiceService {
       .subscribe((responseData) => {});
   }
   autoCompleteName(keyword, type) {
+    // let result = await this.http.get(
+    //   `${this.url}/party/autocomplete_name?keyword=${keyword}&limit=5&${type}`
+    // );
     return new Promise((response, reject) => {
       this.http
         .get(
@@ -56,7 +62,24 @@ export class MainServiceService {
         });
     });
   }
-
+  autoCompleteItemName(keyword) {
+    return new Promise((response, reject) => {
+      this.http
+        .get(`${this.url}/item/autocomplete_name?keyword=${keyword}&limit=5`)
+        .subscribe((responseData: ResponseType) => {
+          console.log(responseData.message);
+          let isError = this.checkForErr(
+            responseData.status,
+            responseData.message
+          );
+          if (isError) {
+            reject('http request failed' + responseData.message);
+          } else {
+            response(responseData.message);
+          }
+        });
+    });
+  }
   addPurchase(body) {
     return new Promise((response, reject) => {
       this.http
@@ -429,8 +452,6 @@ export class MainServiceService {
     });
   }
   getCrateTransaction(Id, d, m, y) {
-    console.log(d, m, y);
-    console.log(Id);
     return new Promise((response, reject) => {
       this.http
         .get(
@@ -449,7 +470,78 @@ export class MainServiceService {
         });
     });
   }
+  addNewItem(itemName) {
+    return new Promise((response, reject) => {
+      this.http
+        .post(`${this.url}/item/add_new`, { itemName: itemName })
+        .subscribe((responseData: ResponseType) => {
+          let isError = this.checkForErr(
+            responseData.status,
+            responseData.message
+          );
+          if (isError) {
+            reject('http request failed' + responseData.message);
+          } else {
+            response(responseData.message);
+          }
+        });
+    });
+  }
+  sendSMS() {
+    return new Promise((response, reject) => {
+      this.http
+        .get(`${this.url}/transaction/send_sms`)
+        .subscribe((responseData: ResponseType) => {
+          let isError = this.checkForErr(
+            responseData.status,
+            responseData.message
+          );
+          if (isError) {
+            reject('http request failed' + responseData.message);
+          } else {
+            response(responseData.message);
+          }
+        });
+    });
+  }
+  getTodaysItem(item_name) {
+    return new Promise((response, reject) => {
+      this.http
+        .get(`${this.url}/item/sell_of_item_today?item_name=${item_name}`)
+        .subscribe((responseData: ResponseType) => {
+          let isError = this.checkForErr(
+            responseData.status,
+            responseData.message
+          );
+          if (isError) {
+            reject('http request failed' + responseData.message);
+          } else {
+            response(responseData.message);
+          }
+        });
+    });
+  }
+  getTroublers() {
+    return new Promise((response, reject) => {
+      this.http
+        .get(`${this.url}/party/troubler_list`)
+        .subscribe((responseData: ResponseType) => {
+          console.log(responseData);
+          // let isError = this.checkForErr(
+          //   responseData.status,
+          //   responseData.message
+          // );
+          // if (isError) {
+          //   reject('http request failed' + responseData.message);
+          // } else {
+          response(responseData);
+          // }
+        });
+    });
+  }
   checkForErr(statusCode, message) {
+    console.log(statusCode, message);
+
     if (statusCode != 200) {
       this.dialog.open(ErrMsgModuleComponent, { data: message });
       return true;
@@ -457,23 +549,4 @@ export class MainServiceService {
       return false;
     }
   }
-  // async abcd(keyword, type) {
-  //   let data = await this.http.get(
-  //     `${this.url}/party/autocomplete_name?keyword=${keyword}&limit=5&${type}`
-  //   );
-  //   console.log(data);
-  //   // let json = await data.
-  // }
-  // async CompleteName(keyword, type) {
-  //   let val;
-  //   let data = await this.http.get(
-  //     `${this.url}/party/autocomplete_name?keyword=${keyword}&limit=5&${type}`
-  //   );
-
-  //  data.subscribe((result) => (val = result));
-  //   return val;
-  // }
 }
-// 24 functions
-
-//  trying

@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  HostListener,
+} from '@angular/core';
 import { MainServiceService } from '../main-service.service';
 import { Party } from '../models/party.model';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -15,6 +21,7 @@ export class ViewPartyComponent implements OnInit {
     private _snackBar: MatSnackBar
   ) {}
   selectedPartyId;
+  toNextElement = 2;
 
   ngOnInit() {
     this.mainForm = new FormGroup({
@@ -25,13 +32,31 @@ export class ViewPartyComponent implements OnInit {
       start: new FormControl(),
       end: new FormControl(),
     });
+    //
+    setTimeout(() => {
+      this.username.nativeElement.focus();
+    }, 0);
   }
 
   public tableArr;
   options;
   public timer;
   mainForm: FormGroup;
-
+  idArray = ['username', 'phone', 'address'];
+  @ViewChild('aForm') aForm: ElementRef;
+  @ViewChild('username') username: ElementRef;
+  @HostListener('document:keydown.enter', ['$event']) onKeydownHandler(
+    event: KeyboardEvent
+  ) {
+    this.aForm.nativeElement[this.toNextElement].focus();
+    if (this.toNextElement == 3) {
+      this.toNextElement = 0;
+    } else if (this.toNextElement == 0) {
+      this.toNextElement += 2;
+    } else {
+      this.toNextElement++;
+    }
+  }
   print() {
     const printContent = document.getElementById('toP');
     const WindowPrt = window.open(

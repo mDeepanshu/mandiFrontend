@@ -1,0 +1,54 @@
+<div class="heading">ITEMS</div>
+<hr />
+<div class="firstDiv">
+  <form class="mainForm" [formGroup]="projectForm" (ngSubmit)="onSaveForm()">
+    <div class="inputs">
+      <div class="input-group input-group-sm mb-3">
+        <div class="input-group mb-3">
+          <mat-form-field style="width: 100%">
+            <input
+              type="text"
+              placeholder="ITEM NAME"
+              #itemname
+              (input)="itemName(itemname.value)"
+              formControlName="itemname"
+              matInput
+              [matAutocomplete]="auto"
+            />
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option
+                *ngFor="let option of items"
+                [value]="option.itemName"
+              >
+                {{ option.itemName }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- <div class="input-group input-group-sm mb-3">
+        <span class="input-group-text" id="inputGroup-sizing-sm">Address</span>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="address"
+          aria-label="Sizing example input"
+          aria-describedby="inputGroup-sizing-sm"
+        />
+      </div> -->
+    </div>
+    <!-- buttons -->
+    <button type="button" (click)="resetForm()" class="btn btn-primary">
+      New
+    </button>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      style="margin-left: 3cm"
+      [disabled]="!projectForm.valid"
+    >
+      Save
+    </button>
+  </form>
+</div>

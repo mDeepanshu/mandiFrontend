@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  HostListener,
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MainServiceService } from '../main-service.service';
 import { Party } from '../models/party.model';
@@ -21,8 +27,13 @@ export class SellComponent implements OnInit {
   public timer;
   public options: string[] = [];
   selectedId;
+  itemOptions;
+  toNextElement = 1;
   @ViewChild('table') from: ElementRef;
+  @ViewChild('itemname') itemname: ElementRef;
+  @ViewChild('aForm') aForm: ElementRef;
 
+  idArary = ['Item', 'partyName', 'amount'];
   public date =
     new Date().getDate() +
     '/' +
@@ -36,7 +47,22 @@ export class SellComponent implements OnInit {
       amount: new FormControl(null),
       name: new FormControl(null),
     });
+    setTimeout(() => {
+      this.itemname.nativeElement.focus();
+    }, 0);
   }
+
+  @HostListener('document:keydown.enter', ['$event']) onKeydownHandler(
+    event: KeyboardEvent
+  ) {
+    this.aForm.nativeElement[this.toNextElement].focus();
+    if (this.toNextElement == 2) {
+      this.toNextElement = 0;
+    } else {
+      this.toNextElement++;
+    }
+  }
+
   addNew() {
     console.log(this.sellForm.value);
     this.tableArr.push({
@@ -48,9 +74,10 @@ export class SellComponent implements OnInit {
 
   itemName(val) {
     clearTimeout(this.timer);
-    this.timer = setTimeout(() => {
-      console.log(val);
-    }, 1000);
+    this.itemOptions = [];
+    this.timer = setTimeout(async () => {
+      this.itemOptions = await this.mainService.autoCompleteItemName(val);
+    }, 500);
   }
   //
 

@@ -11,6 +11,11 @@ import { CrateComponent } from './crate/crate.component';
 import { AddPartyComponent } from './add-party/add-party.component';
 import { SellComponent } from './sell/sell.component';
 import { PurchaseComponent } from './purchase/purchase.component';
+import { TroublersComponent } from './troublers/troublers.component';
+import { TodaysSellComponent } from './todays-sell/todays-sell.component';
+import { TodaysVasuliComponent } from './todays-vasuli/todays-vasuli.component';
+import { ItemsComponent } from './items/items.component';
+import { PurchasePrintComponent } from './purchase-print/purchase-print.component';
 //
 const routes: Routes = [
   { path: '', component: PurchaseComponent },
@@ -23,6 +28,11 @@ const routes: Routes = [
   { path: 'crate-component', component: CrateComponent },
   { path: 'addParty-component', component: AddPartyComponent },
   { path: 'sell-component', component: SellComponent },
+  { path: 'TroublersComponent', component: TroublersComponent },
+  { path: 'TodaysSellComponent', component: TodaysSellComponent },
+  { path: 'TodaysVasuliComponent', component: TodaysVasuliComponent },
+  { path: 'ItemsComponent', component: ItemsComponent },
+  { path: 'PurchasePrintComponent', component: PurchasePrintComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

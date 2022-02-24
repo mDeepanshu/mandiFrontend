@@ -1,3 +1,5 @@
+<div class="heading">LEDGER</div>
+<hr />
 <div class="container-fluid firstDiv">
   <div class="row">
     <div class="col">
@@ -5,17 +7,15 @@
         <table class="table print">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Back</th>
+              <th scope="col">Name Vyapari</th>
+              <th scope="col">Back Balanc.</th>
               <th scope="col"></th>
-              <th scope="col">Today</th>
+              <th scope="col">Today`s Sale</th>
               <th scope="col">Total</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of tableArr; index as i">
-              <th scope="row">{{ i + 1 }}</th>
               <td>{{ item.name }}</td>
               <td>{{ item.back }}</td>
               <td>{{ item.items }}</td>
@@ -26,12 +26,13 @@
         </table>
       </div>
     </div>
-    <div class="col-2" style="margin-top: 100px" *ngIf="!isPrinting">
-      <div class="row">
+    <div class="col-2" style="margin-top: 100px">
+      <!-- <div class="row">
         <button type="button" class="btn btn-primary">Create</button>
-      </div>
+      </div> -->
       <div class="row">
         <button
+          *ngIf="!isPrinting"
           type="button"
           class="btn btn-primary"
           style="margin-top: 50px"
