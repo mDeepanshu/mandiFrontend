@@ -20,6 +20,7 @@
                     type="text"
                     placeholder="PARTY NAME"
                     formControlName="partyName"
+                    (focus)="focusChange(0)"
                     #username
                     (input)="partyName(username.value)"
                     matInput
@@ -39,7 +40,6 @@
             </div>
           </div>
           <!-- 11 input group -->
-          <hr />
           <div formGroupName="setOne">
             <div class="row">
               <div class="col">
@@ -54,6 +54,7 @@
                     type="number"
                     class="form-control"
                     formControlName="bhada"
+                    (focus)="focusChange(1)"
                     (input)="constChange('bhada')"
                     id="bhada"
                     placeholder="Bhada"
@@ -73,6 +74,7 @@
                     id="hammali"
                     type="number"
                     formControlName="hammali"
+                    (focus)="focusChange(2)"
                     (input)="constChange('hammali')"
                     placeholder="Hammali"
                   />
@@ -91,6 +93,7 @@
                     id="cash"
                     type="number"
                     formControlName="cash"
+                    (focus)="focusChange(3)"
                     placeholder="Cash"
                   />
                   <label for="floatingInput">Cash </label>
@@ -106,10 +109,11 @@
                       type="number"
                       id="commission_rate"
                       formControlName="commission_rate"
+                      (focus)="focusChange(4)"
                       placeholder="Commission Rate"
                       (change)="onCommRateChange()"
                     />
-                    <label for="floatingInput">Commission Rate</label>
+                    <label for="floatingInput">Comm.Rate</label>
                   </div>
                   <div class="input-group-prepend">
                     <div
@@ -130,6 +134,7 @@
                     id="bhada_rate"
                     type="number"
                     formControlName="bhada_rate"
+                    (focus)="focusChange(5)"
                     placeholder="Bhada Rate"
                   />
                   <label for="floatingInput">Bhada Rate</label>
@@ -142,19 +147,19 @@
                     id="commission"
                     type="number"
                     formControlName="commission"
+                    (focus)="focusChange(6)"
                     placeholder="Commission"
                   />
                   <label for="floatingInput">Commision</label>
                 </div>
               </div>
-            </div>
-            <div class="row">
               <div class="col">
                 <div class="form-floating mb-3">
                   <input
                     class="form-control"
                     id="tax"
                     formControlName="tax"
+                    (focus)="focusChange(7)"
                     type="number"
                     placeholder="Tax"
                   />
@@ -167,10 +172,11 @@
                     class="form-control"
                     id="station_charge"
                     formControlName="station_charge"
+                    (focus)="focusChange(8)"
                     type="number"
                     placeholder="Station Charge"
                   />
-                  <label for="floatingInput">Station Charge</label>
+                  <label for="floatingInput">St.Charge</label>
                 </div>
               </div>
               <div class="col">
@@ -180,6 +186,7 @@
                     id="driver"
                     type="number"
                     formControlName="driver"
+                    (focus)="focusChange(9)"
                     placeholder="Driver"
                   />
                   <label for="floatingInput">Driver</label>
@@ -196,6 +203,7 @@
                     type="text"
                     style="height: 32px"
                     formControlName="item_name"
+                    (focus)="focusChange(10)"
                     id="Item"
                     placeholder="ITEM NAME"
                     #itemname
@@ -220,6 +228,7 @@
                   class="form-control"
                   type="number"
                   formControlName="bag"
+                  (focus)="focusChange(11)"
                   id="Bag"
                 />
                 <label for="floatingInput">Bag</label>
@@ -230,6 +239,7 @@
                 <input
                   class="form-control"
                   formControlName="quantity"
+                  (focus)="focusChange(12)"
                   id="Quantity"
                 />
                 <label for="floatingInput" type="number">Quantity</label>
@@ -241,16 +251,17 @@
                   class="form-control"
                   type="number"
                   formControlName="rate"
+                  (focus)="focusChange(13)"
                   id="Rate"
                 />
                 <label for="floatingInput">Rate</label>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <button type="button" (click)="addNew()" class="btn btn-warning">
-              Add
-            </button>
+            <div class="col">
+              <button type="button" (click)="addNew()" class="btn btn-warning">
+                Add
+              </button>
+            </div>
           </div>
           <hr />
           <div class="row">

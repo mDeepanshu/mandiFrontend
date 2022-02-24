@@ -38,7 +38,7 @@ export class PurchaseComponent implements OnInit {
   selectedId;
   isPrinting = false;
   billNumber;
-  toNextElement = 0;
+  toNextElement = -1;
   @ViewChild('table') from: ElementRef;
   @ViewChild('aForm') aForm: ElementRef;
   @ViewChild('username') username: ElementRef;
@@ -120,10 +120,11 @@ export class PurchaseComponent implements OnInit {
     event: KeyboardEvent
   ) {
     this.aForm.nativeElement[this.idArray[this.toNextElement]].focus();
-    if (this.toNextElement == 12) {
+    if (this.toNextElement == 13) {
       this.toNextElement = 9;
+      // this.addNew();
     } else {
-      this.toNextElement++;
+      // this.toNextElement++;
     }
   }
   @HostListener('document:keydown.control.=', ['$event']) ctrl_cal(e) {
@@ -152,6 +153,9 @@ export class PurchaseComponent implements OnInit {
         this.partyOptions = arr;
       });
     }, 500);
+  }
+  focusChange(ind) {
+    this.toNextElement = ind;
   }
   itemName(val) {
     clearTimeout(this.timer);
