@@ -120,5 +120,8 @@
       }
     }
   },
-  "defaultProject": "mandi-fe"
+  "defaultProject": "mandi-fe",
+  "cli": {
+    "analytics": false
+  }
 }
